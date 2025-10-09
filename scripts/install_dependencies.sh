@@ -11,12 +11,20 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# Instalar dependências básicas
-echo "📦 Verificando e instalando dependências (git, curl)..."
-sudo apt-get update -y
-sudo apt-get install -y git zsh curl tree screenfetch build-essential ca-certificates
-sudo locale-gen pt_BR.UTF-8 
-sudo update-locale LANG=pt_BR.UTF-8 LC_ALL=pt_BR.UTF-8
+echo "📦 Verificando e instalando dependências..."
+
+if [[ "$(uname)" == "Linux" ]]; then
+    echo "🐧 Detectado sistema Linux (Ubuntu/Debian)."
+    sudo apt-get update -y
+    sudo apt-get install -y git zsh curl tree screenfetch build-essential ca-certificates locales
+    
+    echo "🌐 Configurando locale para pt_BR.UTF-8..."
+    sudo locale-gen pt_BR.UTF-8 
+    sudo update-locale LANG=pt_BR.UTF-8 LC_ALL=pt_BR.UTF-8
+else
+    echo "❌ Sistema operacional não suportado: $(uname)"
+    exit 1
+fi
 
 # Instalar Oh My Zsh (se não estiver instalado)
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
@@ -65,7 +73,7 @@ fi
 if [ ! -d "$HOME/.dotfiles" ]; then
     echo "📂 Clonando o repositório .dotfiles..."
     git clone https://github.com/paulofachini/.dotfiles.git "$HOME/.dotfiles"
-    chmod +x "$HOME/.dotfiles/restore.sh"
+    chmod +x "$HOME/.dotfiles/scripts/restore.sh"
 else
     echo "📂 Atualizando o repositório .dotfiles..."
     cd "$HOME/.dotfiles"
@@ -75,6 +83,6 @@ fi
 
 # Executar o script de restauração para criar os symlinks
 echo "🚀 Executando o script restore.sh..."
-"$HOME/.dotfiles/restore.sh"
+"$HOME/.dotfiles/scripts/restore.sh"
 
 echo "🎉 Instalação concluída! Reinicie o terminal para ver as mudanças."

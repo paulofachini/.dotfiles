@@ -4,9 +4,10 @@
 # Autor: Paulo Luiz Fachini
 # =====================================================================================
 
+BACKUP_DIR="$HOME/.dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
 DOTFILES_DIR="$HOME/.dotfiles"
 ZSH_DIR="$DOTFILES_DIR/zsh"
-BACKUP_DIR="$HOME/.dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
+CONFIG_FILE="$DOTFILES_DIR/symlinks.conf"
 
 # Função para criar symlinks e fazer backup de arquivos existentes
 create_symlink() {
@@ -28,8 +29,18 @@ create_symlink() {
 
 echo "📦 Instalando .dotfiles no $HOME..."
 
-create_symlink "$ZSH_DIR/.zshrc" "$HOME/.zshrc"
-create_symlink "$ZSH_DIR/.p10k.zsh" "$HOME/.p10k.zsh"
+if [ ! -f "$CONFIG_FILE" ]; then
+    echo "❌ Arquivo de configuração de symlinks não encontrado em $CONFIG_FILE"
+    exit 1
+fi
+
+# Ler o arquivo de configuração e criar os links
+while read -r source_path target_path; do
+    # Ignorar linhas em branco ou comentários
+    [[ -z "$source_path" || "$source_path" == \#* ]] && continue
+
+    create_symlink "$DOTFILES_DIR/$source_path" "$HOME/$target_path"
+done < "$CONFIG_FILE"
 
 # Criar cache do Powerlevel10k
 mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}"

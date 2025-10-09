@@ -48,6 +48,6 @@ source "$DOTFILES_DIR/functions.zsh"
 # =============================================================================
 # 7️⃣ Carrega configurações locais, se existirem (não versionado)
 # =============================================================================
-if [[ -f "$DOTFILES_DIR/.zshrc.local" ]]; then
-  source "$DOTFILES_DIR/.zshrc.local"
+if [[ -f "$HOME/.zshrc.local" ]]; then
+  source "$HOME/.zshrc.local"
 fi

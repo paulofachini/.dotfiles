@@ -13,7 +13,7 @@ dotfiles-update() {
 
     # Restaurar symlinks e configurações
     echo "🔄 Aplicando as configurações com restore.sh..."
-    ~/.dotfiles/restore.sh
+    ~/.dotfiles/scripts/restore.sh
 
     # Recarregar o Zsh
     echo "⚡ Recarregando ~/.zshrc..."
