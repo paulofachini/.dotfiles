@@ -30,7 +30,7 @@ Antes de começar, garanta que você tenha:
 Para configurar um novo ambiente, cole o comando abaixo no seu terminal Ubuntu no WSL. Ele cuidará de tudo para você.
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulofachini/.dotfiles/main/scripts/install_dependencies.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulofachini/.dotfiles/main/scripts/install.sh)"
 ```
 
 O script de instalação fará o seguinte:
@@ -129,7 +129,7 @@ Para garantir que os scripts de instalação funcionem corretamente em um ambien
 ```text
 .dotfiles/
 ├── scripts
-│   ├── install_dependencies.sh  → Script principal de instalação.
+│   ├── install.sh               → Script principal de instalação.
 │   └── restore.sh               → Script para restaurar e criar os symlinks no diretório `$HOME`.
 ├── zsh
 │   ├── .p10k.zsh                → Configuração do tema Powerlevel10k.

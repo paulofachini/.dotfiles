@@ -4,7 +4,7 @@
 # Autor: Paulo Luiz Fachini
 # =====================================================================================
 
-BACKUP_DIR="$HOME/.dotfiles_backup_$(date +%Y%m%d_%H%M%S)"
+BACKUP_DIR="$HOME/.backup_dotfiles_$(date +%Y%m%d_%H%M%S)"
 DOTFILES_DIR="$HOME/.dotfiles"
 ZSH_DIR="$DOTFILES_DIR/zsh"
 CONFIG_FILE="$DOTFILES_DIR/symlinks.conf"

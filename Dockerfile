@@ -21,4 +21,4 @@ USER tester
 WORKDIR /home/tester
 
 # Comando para executar o script de instalação quando o container iniciar
-CMD ["/bin/bash", "-c", "chmod +x .dotfiles/scripts/install_dependencies.sh && .dotfiles/scripts/install_dependencies.sh && /bin/zsh"]
+CMD ["/bin/bash", "-c", "chmod +x .dotfiles/scripts/install.sh && .dotfiles/scripts/install.sh && /bin/zsh"]
