@@ -1,0 +1,18 @@
+[user]
+	email = paulofachini@gmail.com
+	name = Paulo Luiz Fachini
+[init]
+	defaultBranch = main
+[core]
+	editor = code --wait
+[column]
+	ui = auto
+[alias]
+  s = !git status -s
+	ac = !git add . && git commit -m
+  aca = !git add . && git commit --amend --no-edit
+	amend = !git commit --amend --no-edit
+	ls = !git log --pretty=format:'%C(blue)%h%C(red)%d %C(white)%s %C(cyan)[%cn] %C(green)%cr'
+  lg = !git log --all --decorate --oneline --graph
+  rmb = !git fetch --prune && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -d
+	update = !git fetch origin && git merge origin/main
