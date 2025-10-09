@@ -40,6 +40,7 @@ fi
 source "$DOTFILES_DIR/plugins.zsh"
 
 # =============================================================================
-# 6️⃣ Aliases e helpers
+# 6️⃣ Aliases, helpers e funções
 # =============================================================================
 source "$DOTFILES_DIR/aliases.zsh"
+source "$DOTFILES_DIR/functions.zsh"

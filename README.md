@@ -1,20 +1,20 @@
-# .dotfiles
-
-[![Status](https://img.shields.io/badge/status-active-brightgreen)](https://github.com/paulofachini/.dotfiles) [![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE) [![Zsh](https://img.shields.io/badge/Zsh-5.9-blueviolet)](https://www.zsh.org/) [![Node.js](https://img.shields.io/badge/Node.js-18-green)](https://nodejs.org/) [![Python](https://img.shields.io/badge/Python-3.12-blue)](https://www.python.org/) [![Docker](https://img.shields.io/badge/Docker-24.0.5-blue)](https://www.docker.com/) [![Git](https://img.shields.io/badge/Git-2.42-red)](https://git-scm.com/)
+# Repositório `.dotfiles`
 
 **Este repositório contém meus arquivos de configuração do `zsh` para o ambiente de desenvolvimento `WSL/Ubuntu`, organizados de forma modular, portátil e versionável.**
 
-## Principais Características
+## Características
 
 - Oh My Zsh com o tema Powerlevel10k.
 - Plugins externos adicionais: `zsh-autosuggestions` e `zsh-syntax-highlighting`.
-- Variáveis de ambiente e PATH configurados (Node, Python e Go).
-- Aliases e helpers para Docker, Git e NPM.
-- Histórico e opções avançadas do Zsh.
+- Variáveis de ambiente e `PATH` configurados (Node, Python e Go).
+- Aliases, helpers e funções personalizadas.
+- Histórico e opções avançadas do `.zsh`.
 
 ---
 
-## Pré-requisitos
+## Como usar este repositório
+
+### Pré-requisitos
 
 - [Windows Subsystem for Linux (WSL)](https://learn.microsoft.com/pt-br/windows/wsl/install) com Ubuntu.
 - [Windows Terminal](https://github.com/microsoft/terminal).
@@ -28,11 +28,26 @@
   sudo locale-gen pt_BR.UTF-8 && sudo update-locale LANG=pt_BR.UTF-8 LC_ALL=pt_BR.UTF-8
   ```
 
-## Instalação
+### Estrutura do projeto
+
+```text
+~/.dotfiles/
+├── restore.sh        → Script para restaurar e criar os symlinks no diretório $HOME
+└── zsh
+    ├── .p10k.zsh     → Configuração Powerlevel10k
+    ├── .zshrc        → Carrega todos os módulos
+    ├── aliases.zsh   → Aliases para Git, Docker, Node/NPM
+    ├── functions.zsh → Funções customizadas
+    ├── languages.zsh → Node/NVM, Python/pyenv, Go
+    ├── path.zsh      → Variáveis de ambiente e PATH
+    ├── plugins.zsh   → Oh My Zsh + plugins externos
+    ├── setup.zsh     → Configurações iniciais do Powerlevel10k, histórico e autocompletion
+    └── theme.zsh     → Powerlevel10k e configuração do `~/.p10k.zsh`
+```
 
 ---
 
-## Restauração do Ambiente
+### Instalando as Configurações do `.dotfiles`
 
 Execute o script abaixo para restaurar seu ambiente de desenvolvimento completo,
 criando symlinks e aplicando suas configurações do Zsh, Oh My Zsh e Powerlevel10k.
@@ -51,34 +66,49 @@ chmod +x ~/.dotfiles/restore.sh
 source ~/.zshrc
 ```
 
----
-
-## Estrutura do Repositório
-
-```text
-~/.dotfiles/
-├── restore.sh        → Script para restaurar e criar os symlinks no diretório $HOME
-└── zsh
-    ├── .p10k.zsh     → Configuração Powerlevel10k
-    ├── .zshrc        → Carrega todos os módulos
-    ├── aliases.zsh   → Aliases para Git, Docker, Node/NPM
-    ├── languages.zsh → Node/NVM, Python/pyenv, Go
-    ├── path.zsh      → Variáveis de ambiente e PATH
-    ├── plugins.zsh   → Oh My Zsh + plugins externos
-    ├── setup.zsh     → Configurações iniciais do Powerlevel10k, histórico e autocompletion
-    └── theme.zsh     → Powerlevel10k e configuração do `~/.p10k.zsh`
-```
-
----
-
-## Detalhes da Instalação
-
 O script `restore.sh` fará o seguinte:
 
 - Remoção de arquivos `.zshrc` e `.p10k.zsh` antigos ou symlinks existentes.
 - Cria symlinks para os arquivos do `.dotfiles`.
 - Garantia do Instant Prompt do Powerlevel10k no topo.
 - Preparação do cache necessário para autocomplete e Powerlevel10k.
+
+---
+
+### Atualizando as Configurações do `.dotfiles`
+
+Quando houver novas alterações no repositório remoto, siga estes passos para atualizar o seu ambiente:
+
+#### Alternativa automática
+
+Execute o comando `dotupdate` para atualizar e aplicar as mudanças automaticamente:
+
+```bash
+dotupdate
+```
+
+O comando `dotupdate` fará o seguinte:
+
+- Faz pull do repositório remoto.
+- Executa o script `restore.sh`.
+- Recarrega e aplica as configurações do Zsh automaticamente.
+
+#### Alternativa manual
+
+```bash
+# Entrar no diretório do .dotfiles
+cd ~/.dotfiles
+
+# Buscar alterações do repositório remoto e aplicar
+git fetch origin
+git pull origin main --rebase
+
+# Aplicar as configurações (symlinks, plugins, variáveis, etc.)
+~/.dotfiles/restore.sh
+
+# Recarregar o Zsh para aplicar alterações
+source ~/.zshrc
+```
 
 ---
 
