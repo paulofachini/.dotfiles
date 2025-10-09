@@ -44,3 +44,10 @@ source "$DOTFILES_DIR/plugins.zsh"
 # =============================================================================
 source "$DOTFILES_DIR/aliases.zsh"
 source "$DOTFILES_DIR/functions.zsh"
+
+# =============================================================================
+# 7️⃣ Carrega configurações locais, se existirem (não versionado)
+# =============================================================================
+if [[ -f "$DOTFILES_DIR/.zshrc.local" ]]; then
+  source "$DOTFILES_DIR/.zshrc.local"
+fi
