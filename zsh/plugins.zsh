@@ -20,9 +20,9 @@ source $ZSH/oh-my-zsh.sh
 # 💡 Plugins externos (carregados manualmente)
 # Ordem é importante: autosuggestions → syntax-highlighting
 # =====================================================================================
-[ -f "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && \
-  source "$HOME/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh"
+[ -f "$ZSH_CUSTOM_PLUGINS/zsh-autosuggestions/zsh-autosuggestions.zsh" ] && \
+  source "$ZSH_CUSTOM_PLUGINS/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
-[ -f "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && \
-  source "$HOME/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+[ -f "$ZSH_CUSTOM_PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" ] && \
+  source "$ZSH_CUSTOM_PLUGINS/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
   
