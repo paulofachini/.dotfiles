@@ -20,6 +20,7 @@ dotfiles-update() {
     echo "⚡ Recarregando ~/.zshrc..."
     source ~/.zshrc
 
+    cd $HOME
     echo "✅ Atualização concluída!"
 }
 
