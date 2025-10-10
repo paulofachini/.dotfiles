@@ -3,9 +3,14 @@
 # =====================================================================================
 alias ll="ls -lh"
 alias la="ls -lha"
+alias c="clear"
 alias ..="cd .."
 alias ...="cd ../.."
-alias c="clear"
+alias ....="cd ../../.."
+alias ~="cd ~"
+alias -- -="cd -"
+alias reload='source ~/.zshrc'
+alias projects="cd ~/projects"
 
 # =====================================================================================
 # 🐳 Docker Helpers
@@ -23,6 +28,7 @@ alias npmt="npm test"
 # =====================================================================================
 # 🔧 Git Helpers
 # =====================================================================================
+alias g="git"
 alias gs="git status"
 alias gp="git pull"
 alias gl="git log --oneline --graph --decorate"
