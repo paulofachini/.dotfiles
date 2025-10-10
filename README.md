@@ -1,8 +1,10 @@
-# 🧰 Repositório `dotfiles`
+# 🧰 Repositório de `dotfiles`
 
 **Este repositório contém meus arquivos de configuração (dotfiles) para o ambiente de desenvolvimento `WSL/Ubuntu`, utilizando `zsh`, `Oh My Zsh` e `Powerlevel10k`.**
 
 O objetivo é ter um ambiente produtivo, bonito e facilmente replicável com um único comando.
+
+![Windows Terminal](images/windows-terminal.png)
 
 ## ✨ Características
 
