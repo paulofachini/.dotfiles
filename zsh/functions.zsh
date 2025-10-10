@@ -1,4 +1,19 @@
 # =====================================================================================
+# ⚡ functions.zsh - Funções avançadas para automação
+#
+# Coleção de funções poderosas para tarefas comuns:
+# - Gerenciamento de projetos e desenvolvimento
+# - Utilitários de rede e conectividade
+# - Ferramentas de produtividade e automação
+# - Funções interativas com validação de entrada
+#
+# Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
+# Data: Outubro 2025
+# Versão: 1.3.0
+# Licença: MIT
+# =====================================================================================
+
+# =====================================================================================
 # 🔄 Função para atualizar os dotfiles
 # Uso: dotupdate
 # Exemplo: dotupdate (atualiza o repositório dos dotfiles)

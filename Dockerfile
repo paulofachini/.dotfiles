@@ -1,3 +1,20 @@
+# =====================================================================================
+# 🐳 Dockerfile - Ambiente de teste isolado para dotfiles
+#
+# Container Docker para testar os dotfiles em ambiente isolado:
+# - Base: Ubuntu latest
+# - Dependências: git, curl, bash, locales
+# - Usado pelos scripts de teste para validação
+#
+# Uso: docker build -t dotfiles-test .
+#      docker run --rm dotfiles-test ./scripts/test.sh
+#
+# Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
+# Data: Outubro 2025
+# Versão: 1.0.0
+# Licença: MIT
+# =====================================================================================
+
 # Use a imagem base do Ubuntu
 FROM ubuntu:latest
 

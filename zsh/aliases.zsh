@@ -1,4 +1,20 @@
 # =====================================================================================
+# 🧰 aliases.zsh - Aliases personalizados para produtividade
+#
+# Conjunto otimizado de aliases para ferramentas de desenvolvimento:
+# - Navegação inteligente de arquivos e diretórios
+# - Git básico (aliases avançados estão no .gitconfig)
+# - Docker e containerização
+# - Node.js/NPM para desenvolvimento web
+# - Utilitários de rede, texto e sistema
+#
+# Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
+# Data: Outubro 2025
+# Versão: 1.2.0
+# Licença: MIT
+# =====================================================================================
+
+# =====================================================================================
 # 🧰 Aliases personalizados
 # =====================================================================================
 alias ll="ls -lh"

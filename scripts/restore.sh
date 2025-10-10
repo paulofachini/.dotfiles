@@ -1,7 +1,19 @@
 #!/bin/bash
 # =====================================================================================
-# Script de instalação do dotfiles no $HOME
-# Autor: Paulo Luiz Fachini
+# 🔄 restore.sh - Script de restauração dos symlinks dos dotfiles
+#
+# Cria e restaura os links simbólicos das configurações personalizadas:
+# - Backup automático das configurações existentes
+# - Criação de symlinks baseada no symlinks.conf
+# - Restauração do Zsh com novas configurações
+# - Relatório detalhado das operações realizadas
+#
+# Uso: ./restore.sh (chamado automaticamente pelo install.sh e dotupdate)
+# Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
+# Data: Outubro 2025
+# Versão: 1.1.0
+# Licença: MIT
+# Dependências: zsh
 # =====================================================================================
 
 BACKUP_DIR="$HOME/.backup_dotfiles_$(date +%Y%m%d_%H%M%S)"

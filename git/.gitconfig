@@ -1,3 +1,18 @@
+# =====================================================================================
+# 🐙 .gitconfig - Configurações globais do Git
+#
+# Configurações otimizadas para desenvolvimento:
+# - Usuário: Paulo Luiz Fachini
+# - Editor: VS Code
+# - Branch padrão: main
+# - Aliases avançados para produtividade
+#
+# Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
+# Data: Outubro 2025
+# Versão: 1.1.0
+# Licença: MIT
+# =====================================================================================
+
 [user]
 	email = paulofachini@gmail.com
 	name = Paulo Luiz Fachini

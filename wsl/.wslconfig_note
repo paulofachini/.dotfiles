@@ -1,3 +1,20 @@
+# =====================================================================================
+# 💻 .wslconfig_note - Configuração WSL2 para notebook
+#
+# Configurações otimizadas para desenvolvimento em notebook:
+# - Memória: 3GB (balanceado para mobilidade)
+# - Processadores: 2 cores
+# - Swap: 1GB adicional
+# - Swappiness: 10% (menos troca para SSD)
+#
+# Uso: Copie para %USERPROFILE%\.wslconfig
+#
+# Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
+# Data: Outubro 2025
+# Versão: 1.0.0
+# Licença: MIT
+# =====================================================================================
+
 [wsl2]
 memory=3GB
 processors=2

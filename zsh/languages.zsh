@@ -1,3 +1,19 @@
+# =====================================================================================
+# 🛠️ languages.zsh - Configurações de linguagens de programação
+#
+# Configurações otimizadas para ambientes de desenvolvimento:
+# - Node.js/NVM: Gerenciamento de versões do Node.js
+# - Python: Configuração de virtualenv e pip
+# - Go: Variáveis de ambiente e GOPATH
+#
+# Dependências: nvm, pyenv, go
+#
+# Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
+# Data: Outubro 2025
+# Versão: 1.1.0
+# Licença: MIT
+# =====================================================================================
+
 # ======================================================================
 # 🟩 NVM (Node Version Manager)
 # ======================================================================

@@ -1,3 +1,20 @@
+# =====================================================================================
+# 🖥️ .wslconfig_desktop - Configuração WSL2 para desktop
+#
+# Configurações otimizadas para desenvolvimento em desktop:
+# - Memória: 10GB (alta para VMs e containers)
+# - Processadores: 6 cores
+# - Rede: modo espelhado para melhor conectividade
+# - Reivindicação automática de memória: gradual
+#
+# Uso: Copie para %USERPROFILE%\.wslconfig
+#
+# Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
+# Data: Outubro 2025
+# Versão: 1.0.0
+# Licença: MIT
+# =====================================================================================
+
 [wsl2]
 memory=10GB
 processors=6

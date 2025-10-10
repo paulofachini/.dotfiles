@@ -1,7 +1,19 @@
 #!/bin/bash
 # =====================================================================================
-# Script de teste para validar a instalação dos dotfiles no Docker
-# Verifica symlinks, carregamento do Zsh e presença de plugins
+# 🧪 test.sh - Script de validação automatizada dos dotfiles
+#
+# Executa testes completos para validar a instalação dos dotfiles:
+# - Verificação de symlinks criados corretamente
+# - Teste de carregamento do Zsh sem erros
+# - Validação da presença de plugins instalados
+# - Relatórios detalhados de sucesso/falha
+#
+# Uso: ./test.sh (executado automaticamente pelo Docker)
+# Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
+# Data: Outubro 2025
+# Versão: 1.0.0
+# Licença: MIT
+# Dependências: zsh, git
 # =====================================================================================
 
 set -e

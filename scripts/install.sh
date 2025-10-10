@@ -1,7 +1,21 @@
 #!/bin/bash
 # =====================================================================================
-# Script de Setup do Ambiente de Desenvolvimento
-# Instala dependências e configura os dotfiles.
+# 📦 install.sh - Script de instalação automatizada dos dotfiles
+#
+# Instala e configura automaticamente o ambiente de desenvolvimento completo:
+# - Dependências essenciais (git, zsh, curl, build-essential)
+# - Configuração de locale para pt_BR.UTF-8
+# - Oh My Zsh + Powerlevel10k theme
+# - Plugins: zsh-autosuggestions e zsh-syntax-highlighting
+# - Symlinks para configurações personalizadas
+# - Detecção de ambiente Docker para comportamento adequado
+#
+# Uso: ./install.sh ou bash -c "$(curl -fsSL URL)"
+# Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
+# Data: Outubro 2025
+# Versão: 2.1.0
+# Licença: MIT
+# Dependências: curl, git, sudo
 # =====================================================================================
 
 set -e # Encerra o script se um comando falhar

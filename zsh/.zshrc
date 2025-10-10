@@ -1,5 +1,28 @@
 # =====================================================================================
-# 🔃 Carrega os módulos do dotfiles
+# 🔃 .zshrc - Configuração principal do Zsh
+#
+# Arquivo principal de configuração do Zsh que orquestra o carregamento modular:
+# - Setup básico: instant prompt, opções de shell, histórico
+# - Variáveis de ambiente e PATH otimizado
+# - Tema Powerlevel10k com configuração personalizada
+# - Plugins essenciais do Oh My Zsh
+# - Linguagens de programação (Node.js, Python, Go)
+# - Aliases e funções personalizadas
+#
+# Ordem crítica de carregamento:
+# 1. Setup (instant prompt + opções)
+# 2. PATH e variáveis de ambiente
+# 3. Tema (Powerlevel10k)
+# 4. Plugins
+# 5. Linguagens
+# 6. Aliases e funções
+#
+# Dependências: Oh My Zsh, Powerlevel10k, plugins instalados
+#
+# Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
+# Data: Outubro 2025
+# Versão: 1.2.0
+# Licença: MIT
 # =====================================================================================
 DOTFILES_ZSH_DIR="$HOME/.dotfiles/zsh"
 
