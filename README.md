@@ -23,9 +23,15 @@ O objetivo é ter um ambiente produtivo, bonito e facilmente replicável com um 
 
 Antes de começar, garanta que você tenha:
 
-- **Windows Subsystem for Linux (WSL)**: [Guia de Instalação](https://learn.microsoft.com/pt-br/windows/wsl/install).
-- **Windows Terminal**: Recomendado para a melhor experiência, [Guia de Instalação](https://github.com/microsoft/terminal).
+- **Windows Terminal**: Recomendado para a melhor experiência, acesse [Guia de Instalação](https://github.com/microsoft/terminal).
+  Ou execute o comando abaixo no PowerShell ou Prompt de Comando:
+
+  ```shell
+  winget install --id Microsoft.WindowsTerminal -e
+  ```
+
 - **Fonte Nerd Font**: Instale a fonte **[MesloLGS NF](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#meslo-nerd-font-patched-for-powerlevel10k)** e **configure-a como padrão** no seu Windows Terminal.
+- **Windows Subsystem for Linux (WSL)**: [Guia de Instalação](https://learn.microsoft.com/pt-br/windows/wsl/install).
 
 ### ⚡️ Instalação com Um Comando
 
