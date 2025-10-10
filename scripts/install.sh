@@ -16,7 +16,7 @@ echo "📦 Verificando e instalando dependências..."
 if [[ "$(uname)" == "Linux" ]]; then
     echo "🐧 Detectado sistema Linux (Ubuntu/Debian)."
     sudo apt-get update -y
-    sudo apt-get install -y git zsh curl tree screenfetch build-essential ca-certificates locales
+    sudo apt-get install -y git zsh curl wget unzip tree screenfetch build-essential ca-certificates locales
     
     echo "🌐 Configurando locale para pt_BR.UTF-8..."
     sudo locale-gen pt_BR.UTF-8 
