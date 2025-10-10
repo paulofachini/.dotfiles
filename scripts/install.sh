@@ -70,19 +70,20 @@ else
 fi
 
 # Clonar o repositório .dotfiles ou atualizar se já existir
-if [ ! -d "$HOME/.dotfiles" ]; then
-    echo "📂 Clonando o repositório .dotfiles..."
-    git clone https://github.com/paulofachini/.dotfiles.git "$HOME/.dotfiles"
-    chmod +x "$HOME/.dotfiles/scripts/restore.sh"
+DOTFILES_DIR="$HOME/.dotfiles"
+if [ ! -d "$DOTFILES_DIR" ]; then
+    echo "📂 Clonando o repositório dotfiles..."
+    git clone https://github.com/paulofachini/dotfiles.git "$DOTFILES_DIR"
+    chmod +x "$DOTFILES_DIR/scripts/restore.sh"
 else
-    echo "📂 Atualizando o repositório .dotfiles..."
-    cd "$HOME/.dotfiles"
+    echo "📂 Atualizando o repositório dotfiles..."
+    cd "$DOTFILES_DIR"
     git fetch origin
     git pull origin main --rebase
 fi
 
 # Executar o script de restauração para criar os symlinks
 echo "🚀 Executando o script restore.sh..."
-"$HOME/.dotfiles/scripts/restore.sh"
+"$DOTFILES_DIR/scripts/restore.sh"
 
 echo "🎉 Instalação concluída! Reinicie o terminal para ver as mudanças."

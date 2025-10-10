@@ -1,4 +1,4 @@
-# 🧰 Repositório `.dotfiles`
+# 🧰 Repositório `dotfiles`
 
 **Este repositório contém meus arquivos de configuração (dotfiles) para o ambiente de desenvolvimento `WSL/Ubuntu`, utilizando `zsh`, `Oh My Zsh` e `Powerlevel10k`.**
 
@@ -30,7 +30,7 @@ Antes de começar, garanta que você tenha:
 Para configurar um novo ambiente, cole o comando abaixo no seu terminal Ubuntu no WSL. Ele cuidará de tudo para você.
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulofachini/.dotfiles/main/scripts/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulofachini/dotfiles/main/scripts/install.sh)"
 ```
 
 O script de instalação fará o seguinte:
@@ -60,12 +60,12 @@ Este comando (um alias para a função `dotfiles-update`) irá automaticamente b
 
 ## 🛠️ Personalização
 
-A estrutura modular facilita a personalização. Você pode editar os seguintes arquivos dentro de `~/.dotfiles/zsh/`:
+A estrutura modular facilita a personalização. Você pode editar os seguintes arquivos:
 
-- **`aliases.zsh`**: Adicione seus próprios atalhos de linha de comando.
-- **`functions.zsh`**: Crie funções de shell mais complexas.
-- **`path.zsh`**: Modifique o `$PATH` e outras variáveis de ambiente.
-- **`languages.zsh`**: Configure as ferramentas para suas linguagens de programação.
+- **`zsh/aliases.zsh`**: Adicione seus próprios atalhos de linha de comando.
+- **`zsh/functions.zsh`**: Crie funções de shell mais complexas.
+- **`zsh/path.zsh`**: Modifique o `$PATH` e outras variáveis de ambiente.
+- **`zsh/languages.zsh`**: Configure as ferramentas para suas linguagens de programação.
 - **`.zshrc.local`**: Crie este arquivo no seu `$HOME` para adicionar configurações **privadas** que não devem ir para o repositório (como chaves de API). Ele já está no `.gitignore`.
 - **`symlinks.conf`**: Arquivo de manifesto que define quais arquivos do repositório devem ser linkados para o seu `$HOME`.
 
@@ -127,7 +127,7 @@ Para garantir que os scripts de instalação funcionem corretamente em um ambien
 ## 📂 Estrutura do Projeto
 
 ```text
-.dotfiles/
+dotfiles/
 ├── scripts
 │   ├── install.sh               → Script principal de instalação.
 │   └── restore.sh               → Script para restaurar e criar os symlinks no diretório `$HOME`.

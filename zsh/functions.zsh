@@ -1,11 +1,12 @@
 # =====================================================================================
-# 🔄 Função para atualizar o .dotfiles
+# 🔄 Função para atualizar os dotfiles
 # =====================================================================================
 dotfiles-update() {
-    echo "📦 Atualizando o repositório .dotfiles..."
-    
+    echo "📦 Atualizando o repositório dos dotfiles..."
+        
     # Entrar no diretório do dotfiles
-    cd "$HOME/.dotfiles" || { echo "❌ Diretório ~/.dotfiles não encontrado"; return 1; }
+    DOTFILES_DIR="$HOME/.dotfiles"
+    cd "$DOTFILES_DIR" || { echo "❌ Diretório ~/.dotfiles não encontrado"; return 1; }
 
     # Buscar alterações do remoto e aplicar
     git fetch origin
@@ -13,7 +14,7 @@ dotfiles-update() {
 
     # Restaurar symlinks e configurações
     echo "🔄 Aplicando as configurações com restore.sh..."
-    ~/.dotfiles/scripts/restore.sh
+    "$DOTFILES_DIR/scripts/restore.sh"
 
     # Recarregar o Zsh
     echo "⚡ Recarregando ~/.zshrc..."

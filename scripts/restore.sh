@@ -1,6 +1,6 @@
 #!/bin/bash
 # =====================================================================================
-# Script de instalação do .dotfiles no $HOME
+# Script de instalação do dotfiles no $HOME
 # Autor: Paulo Luiz Fachini
 # =====================================================================================
 
@@ -27,7 +27,7 @@ create_symlink() {
     echo "🔗 Symlink criado: $target_file -> $source_file"
 }
 
-echo "📦 Instalando .dotfiles no $HOME..."
+echo "📦 Instalando os dotfiles no $HOME..."
 
 if [ ! -f "$CONFIG_FILE" ]; then
     echo "❌ Arquivo de configuração de symlinks não encontrado em $CONFIG_FILE"
@@ -45,5 +45,5 @@ done < "$CONFIG_FILE"
 # Criar cache do Powerlevel10k
 mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}"
 
-echo "✅ .dotfiles instalado com sucesso!"
+echo "✅ dotfiles instalado com sucesso!"
 echo "Abra um novo terminal ou rode 'source ~/.zshrc' para aplicar as alterações."
