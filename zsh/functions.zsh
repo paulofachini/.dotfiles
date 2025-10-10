@@ -13,7 +13,7 @@ dotfiles-update() {
     git pull origin main --rebase
 
     # Restaurar symlinks e configurações
-    echo "🔄 Aplicando as configurações com restore.sh..."
+    echo "🔄 Aplicando as configurações com script de restauração restore.sh..."
     "$DOTFILES_DIR/scripts/restore.sh"
 
     # Recarregar o Zsh

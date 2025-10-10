@@ -46,4 +46,3 @@ done < "$CONFIG_FILE"
 mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}"
 
 echo "✅ dotfiles instalado com sucesso!"
-echo "Abra um novo terminal ou rode 'source ~/.zshrc' para aplicar as alterações."

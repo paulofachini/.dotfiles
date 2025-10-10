@@ -83,7 +83,7 @@ else
 fi
 
 # Executar o script de restauração para criar os symlinks
-echo "🚀 Executando o script restore.sh..."
+echo "🚀 Executando o script de restauração restore.sh..."
 "$DOTFILES_DIR/scripts/restore.sh"
 
 echo "🎉 Instalação concluída! Reinicie o terminal para ver as mudanças."
