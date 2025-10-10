@@ -13,6 +13,14 @@ alias reload='source ~/.zshrc'
 alias projects="cd ~/projects"
 
 # =====================================================================================
+# 🔧 Git Helpers (Básicos - os avançados estão no .gitconfig)
+# =====================================================================================
+alias g="git"
+alias gs="git status"
+alias gp="git pull"
+alias gl="git log --oneline --graph --decorate"
+
+# =====================================================================================
 # 🐳 Docker Helpers
 # =====================================================================================
 alias dps="docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'"
@@ -26,22 +34,14 @@ alias npmr="npm run"
 alias npmt="npm test"
 
 # =====================================================================================
-# 🔧 Git Helpers
+# 🌐 Network & Web Helpers
 # =====================================================================================
-alias g="git"
-alias gs="git status"
-alias gp="git pull"
-alias gl="git log --oneline --graph --decorate"
-alias gc="git commit -m"
-alias ga="git add ."
-alias gb="git branch"
-alias gco="git checkout"
-alias gcm="git checkout main"
+alias myip="curl -s https://api.ipify.org"
+alias myipl="curl -s https://ipinfo.io/json"
 
 # =====================================================================================
-# Others Helpers
+# 📝 Date & time
 # =====================================================================================
-
-# Get External IP / Internet Speed Test
-alias myip="curl https://ipinfo.io/json"
-alias speedtest="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -"
+alias now="date +'%Y-%m-%d %H:%M:%S'"
+alias today="date +'%Y-%m-%d'"
+alias week="date +'%V'"

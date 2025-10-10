@@ -18,7 +18,12 @@
 	branch = less
 [alias]
 	aliases = ! git config --list | awk '/alias/{ print $1 }' | perl -pe 's/alias\\.//g' | perl -pe 's/=.+//g'
+	a = !git add
+	c = !git commit -m
+	co = !git checkout
+	cm = !git checkout main
   s = !git status -s
+	st = !git status
 	ac = !git add . && git commit -m
 	ca = !git commit --amend --no-edit
 	amend = !git add . && git commit --amend --no-edit
@@ -29,3 +34,9 @@
   hist = !git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	rmb = !git fetch --prune && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -d
 	update = !git fetch origin && git merge origin/main
+	b = !git branch
+	ba = !git branch -a
+	bd = !git branch -d
+	bD = !git branch -D
+	bm = !git branch --merged
+	bnm = !git branch --no-merged
