@@ -37,8 +37,7 @@ fi
 # Definir Zsh como shell padrão (se não for)
 if [ "$SHELL" != "/usr/bin/zsh" ]; then
     echo "셸 Definindo Zsh como shell padrão..."
-    chsh -s "$(which zsh)"
-    echo "✅ Zsh definido como padrão. Por favor, faça logout e login para aplicar."
+    sudo chsh -s "$(which zsh)" "$USER" || echo "⚠️ Não foi possível definir Zsh como padrão (pode ser necessário em ambientes não-Docker)."
 fi
 
 # Instalar plugins externos do Zsh
@@ -78,8 +77,13 @@ if [ ! -d "$DOTFILES_DIR" ]; then
 else
     echo "📂 Atualizando o repositório dotfiles..."
     cd "$DOTFILES_DIR"
-    git fetch origin
-    git pull origin main --rebase
+    # Pular atualização se estiver em container (evita conflitos com arquivos copiados)
+    if [ -z "$DOCKER_CONTAINER" ]; then
+        git fetch origin
+        git pull origin main --rebase
+    else
+        echo "⚠️ Pulando atualização do repositório (ambiente container)."
+    fi
 fi
 
 # Executar o script de restauração para criar os symlinks

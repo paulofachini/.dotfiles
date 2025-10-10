@@ -114,7 +114,13 @@ p10k configure
 
 ## 🧪 Testando com Docker
 
-Para garantir que os scripts de instalação funcionem corretamente em um ambiente limpo e isolado, você pode usar o `Dockerfile` incluído no projeto.
+Para garantir que os scripts de instalação funcionem corretamente em um ambiente limpo e isolado, você pode usar o `Dockerfile` incluído no projeto. O sistema executa automaticamente a instalação completa e valida se tudo está funcionando.
+
+**O que é validado:**
+
+- ✅ **Links simbólicos**: Verifica se todos os dotfiles estão corretamente linkados para o diretório `$HOME`
+- ✅ **Carregamento do Zsh**: Testa se o shell Zsh consegue carregar todas as configurações sem erros
+- ✅ **Plugins instalados**: Confirma que os plugins `zsh-autosuggestions` e `zsh-syntax-highlighting` estão presentes
 
 - **Construa a imagem Docker:**
   Na raiz do projeto, execute o comando para criar a imagem de teste.
@@ -123,8 +129,15 @@ Para garantir que os scripts de instalação funcionem corretamente em um ambien
   docker build -t dotfiles-test .
   ```
 
-- **Execute o container de teste:**
-  Este comando iniciará um container a partir da imagem, executará o script de instalação e, ao final, abrirá um shell `zsh` para você verificar se tudo foi configurado corretamente.
+- **Execute os testes automatizados:**
+  Este comando sobrescreve o CMD padrão e executa apenas a instalação e validação automatizada, saindo após os testes:
+
+  ```bash
+  docker run --rm dotfiles-test /bin/bash -c "chmod +x .dotfiles/scripts/install.sh .dotfiles/scripts/test.sh && .dotfiles/scripts/install.sh && .dotfiles/scripts/test.sh"
+  ```
+
+- **Teste interativo (opcional):**
+  Este comando usa o CMD padrão do container, que executa instalação, testes E abre um shell Zsh interativo para exploração manual:
 
   ```bash
   docker run -it --rm dotfiles-test
