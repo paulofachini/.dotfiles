@@ -31,3 +31,11 @@ alias ga="git add ."
 alias gb="git branch"
 alias gco="git checkout"
 alias gcm="git checkout main"
+
+# =====================================================================================
+# Others Helpers
+# =====================================================================================
+
+# Get External IP / Internet Speed Test
+alias myip="curl https://ipinfo.io/json"
+alias speedtest="curl -s https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py | python -"
