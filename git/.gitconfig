@@ -7,12 +7,25 @@
 	editor = code --wait
 [column]
 	ui = auto
+[branch]
+	sort = -committerdate
+[diff]
+	algorithm = histogram
+[fetch]
+	prune = true
+[pager]
+	log = less
+	branch = less
 [alias]
+	aliases = ! git config --list | awk '/alias/{ print $1 }' | perl -pe 's/alias\\.//g' | perl -pe 's/=.+//g'
   s = !git status -s
 	ac = !git add . && git commit -m
-  aca = !git add . && git commit --amend --no-edit
-	amend = !git commit --amend --no-edit
+	ca = !git commit --amend --no-edit
+	amend = !git add . && git commit --amend --no-edit
+	fp = !git push --force-with-lease
+	fpm = !git push --force-with-lease origin main
 	ls = !git log --pretty=format:'%C(blue)%h%C(red)%d %C(white)%s %C(cyan)[%cn] %C(green)%cr'
   lg = !git log --all --decorate --oneline --graph
-  rmb = !git fetch --prune && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -d
+  hist = !git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+	rmb = !git fetch --prune && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -d
 	update = !git fetch origin && git merge origin/main

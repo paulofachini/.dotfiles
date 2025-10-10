@@ -1,0 +1,5 @@
+[wsl2]
+memory=3GB
+processors=2
+swap=1GB
+kernelCommandLine="sysctl.vm.swappiness=10"
