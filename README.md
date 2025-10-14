@@ -1,10 +1,10 @@
+![dotfiles](images/banner-dotfiles.png)
+
 # 🧰 Repositório de `dotfiles`
 
 **Este repositório contém meus arquivos de configuração (dotfiles) para o ambiente de desenvolvimento `WSL/Ubuntu`, utilizando `zsh`, `Oh My Zsh` e `Powerlevel10k`.**
 
 O objetivo é ter um ambiente produtivo, bonito e facilmente replicável com um único comando.
-
-![Windows Terminal](images/windows-terminal.png)
 
 ## ✨ Características
 
@@ -149,9 +149,16 @@ Para garantir que os scripts de instalação funcionem corretamente em um ambien
 
 ```text
 dotfiles/
+├── git/
+│   └── .gitconfig               → Configurações do Git (ex: nome de usuário, e-mail, aliases).
 ├── scripts
+│   ├── banner.sh                → Exibe uma mensagem de boas-vindas personalizada.
 │   ├── install.sh               → Script principal de instalação.
-│   └── restore.sh               → Script para restaurar e criar os symlinks no diretório `$HOME`.
+│   ├── restore.sh               → Script para restaurar e criar os symlinks no diretório `$HOME`.
+│   └── test.sh                  → Testes automatizados para validar a instalação.
+├── wsl/
+│   ├── .wslconfig_desktop       → Configurações do WSL do Desktop (ex: distribuição padrão, recursos).
+│   └── .wslconfig_note          → Configurações do WSL do Notebook (ex: distribuição padrão, recursos).
 ├── zsh
 │   ├── .p10k.zsh                → Configuração do tema Powerlevel10k.
 │   ├── .zshrc                   → Ponto de entrada que carrega todos os outros módulos.
@@ -162,11 +169,17 @@ dotfiles/
 │   ├── plugins.zsh              → Oh My Zsh + plugins externos.
 │   ├── setup.zsh                → Configurações do Powerlevel10k, histórico e autocompletion.
 │   └── theme.zsh                → Defini e carrega o tema Powerlevel10k.
+├── Dockerfile                   → Dockerfile criado para realizar os testes automatizados.
 ├── symlinks.conf                → Define os symlinks a serem criados.
-├── .gitignore                   → Ignora arquivos desnecessários
 ├── LICENSE                      → Licença do projeto
 └── README.md                    → Este arquivo
 ```
+
+## 🖼️ Imagens
+
+![Windows Terminal](images/windows-terminal.png)
+
+![dotupdate](images/dotupdate-dotfiles.png)
 
 ## ©️ Licença
 
