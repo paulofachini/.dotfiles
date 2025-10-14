@@ -15,7 +15,7 @@
 # Data: Outubro 2025
 # Versão: 2.1.0
 # Licença: MIT
-# Dependências: curl, git, sudo
+# Dependências: bash, zsh, curl, git, sudo
 # =====================================================================================
 
 set -e # Encerra o script se um comando falhar
@@ -105,3 +105,6 @@ echo "🚀 Executando o script de restauração restore.sh..."
 "$DOTFILES_DIR/scripts/restore.sh"
 
 echo "🎉 Instalação concluída! Reinicie o terminal para ver as mudanças."
+
+# Banner de boas-vindas
+"$DOTFILES_DIR/scripts/banner.sh"

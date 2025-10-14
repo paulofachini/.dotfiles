@@ -1,71 +1,116 @@
 #!/usr/bin/env bash
-# ============================================================================================
-# 
-#      _     _    __ _ _        
-#   __| |___| |_ / _(_) |___ ___
-#  / _` / _ \  _|  _| | / -_|_-<
-#  \__,_\___/\__|_| |_|_\___/__/
-#  
-#       __     __  ____ __      
-#   ___/ /__  / /_/ _(_) /__ ___
-#  / _  / _ \/ __/ _/ / / -_|_-<
-#  \_,_/\___/\__/_//_/_/\__/___/
-# 
-#       _       _    __ _ _           
-#      | |     | |  / _(_) |          
-#    __| | ___ | |_| |_ _| | ___  ___ 
-#   / _` |/ _ \| __|  _| | |/ _ \/ __|
-#  | (_| | (_) | |_| | | | |  __/\__ \
-#   \__,_|\___/ \__|_| |_|_|\___||___/
+# =====================================================================================
+# 🌈 banner.sh - Banner de boas-vindas exibido ao final da execução da instalação
 #
-#         __      __  _____ __         
-#    ____/ /___  / /_/ __(_) /__  _____
-#   / __  / __ \/ __/ /_/ / / _ \/ ___/
-#  / /_/ / /_/ / /_/ __/ / /  __(__  ) 
-#  \__,_/\____/\__/_/ /_/_/\___/____/  
+# Exibe um banner ASCII colorido e mensagens de boas-vindas após a instalação dos dotfiles:
+# - Gradiente arco-íris em texto e arte ASCII
+# - Mensagens úteis sobre configuração do ambiente
+# - Links para repositório, GitHub e site
 #
-#
-#        ░██               ░██        ░████ ░██░██                       
-#        ░██               ░██       ░██       ░██                       
-#  ░████████  ░███████  ░████████ ░████████ ░██░██  ░███████   ░███████  
-# ░██    ░██ ░██    ░██    ░██       ░██    ░██░██ ░██    ░██ ░██        
-# ░██    ░██ ░██    ░██    ░██       ░██    ░██░██ ░█████████  ░███████  
-# ░██   ░███ ░██    ░██    ░██       ░██    ░██░██ ░██               ░██ 
-#  ░█████░██  ░███████      ░████    ░██    ░██░██  ░███████   ░███████  
-#
-# =================================================================================================================
+# Uso: ./banner.sh (chamado automaticamente pelo install.sh ou manualmente)
+# Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
+# Data: Outubro 2025
+# Versão: 1.0.0
+# Licença: MIT
+# Dependências: bash, zsh
+# =====================================================================================
 
-RED='\033[38;5;196m'
-ORANGE='\033[38;5;202m'
-YELLOW='\033[38;5;226m'
-GREEN='\033[38;5;46m'
-BLUE='\033[38;5;51m'
-VIOLET='\033[38;5;93m'
-MAGENTA='\033[38;5;201m'
-CYAN='\033[38;5;51m'
+# Cores utilizadas
 RESET='\033[0m'
 BOLD='\033[1m'
+VERDE='\033[38;2;0;255;0m'
+AMARELO='\033[38;2;255;255;0m'
+AZUL='\033[38;2;29;85;166m'
+
+
+# Função auxiliar para aplicar gradiente arco-íris em um texto
+apply_rainbow_gradient() {
+  local text="$1"
+  local length=${#text}
+  local i
+  
+  # Cores do arco-íris em RGB
+  local -a rainbow_rgb=(
+    "255 0 0"       # Vermelho
+    "255 127 0"     # Laranja
+    "255 255 0"     # Amarelo
+    "0 255 0"       # Verde
+    "0 0 255"       # Azul
+    "75 0 130"      # Índigo/Violeta
+    "148 0 211"     # Violeta/Roxo
+  )
+  
+  local num_colors=${#rainbow_rgb[@]}
+  
+  for (( i=0; i<length; i++ )); do
+    local color_pos_scaled=$((i * (num_colors - 1) * 100 / (length - 1)))
+    local color_index=$((color_pos_scaled / 100))
+    local next_index=$((color_index + 1))
+    
+    if [[ $next_index -ge $num_colors ]]; then
+      next_index=$((num_colors - 1))
+    fi
+    
+    read -r r1 g1 b1 <<< "${rainbow_rgb[$color_index]}"
+    read -r r2 g2 b2 <<< "${rainbow_rgb[$next_index]}"
+    
+    local ratio=$((color_pos_scaled - color_index * 100))
+    local r=$(((r1 * (100 - ratio) + r2 * ratio) / 100))
+    local g=$(((g1 * (100 - ratio) + g2 * ratio) / 100))
+    local b=$(((b1 * (100 - ratio) + b2 * ratio) / 100))
+    
+    printf "\033[38;2;%d;%d;%dm%s" "$r" "$g" "$b" "${text:$i:1}"
+  done
+  printf "${RESET}"
+}
+
+# Quebra linha N vezes
+br() {
+  local count="${1:-1}"
+  for (( i=0; i<count; i++ )); do
+    printf "\n"
+  done
+}
+
+# Imprime texto com gradiente arco-íris
+printfrg() {
+  local text="$1"
+  apply_rainbow_gradient "$text"
+}
+
+print_rainbow_gradient_ascii() {
+  local -n ascii_lines=$1
+  for line in "${ascii_lines[@]}"; do
+    apply_rainbow_gradient "$line"
+    printf "\n"
+  done
+}
+
+ascii_art=(
+"                                                                         "
+"        ░██               ░██        ░████ ░██░██                        "
+"        ░██               ░██       ░██       ░██                        "
+"        ░██               ░██       ░██       ░██                        "
+"  ░████████  ░███████  ░████████ ░████████ ░██░██  ░███████   ░███████   "
+" ░██    ░██ ░██    ░██    ░██       ░██    ░██░██ ░██    ░██ ░██         "
+" ░██    ░██ ░██    ░██    ░██       ░██    ░██░██ ░█████████  ░███████   "
+" ░██   ░███ ░██    ░██    ░██       ░██    ░██░██ ░██               ░██  "
+"  ░█████░██  ░███████      ░████    ░██    ░██░██  ░███████   ░███████   "
+"                                                                         "
+)
 
 print_text() {
-  DOTFILE="${RED}d${ORANGE}o${YELLOW}t${GREEN}f${BLUE}i${VIOLET}l${RED}e${RESET}"
-  printf "${GREEN}...is now configured!${RESET}\n\n"
-  printf "Before you code, take a look at your ${YELLOW}.zshrc${RESET} to tune aliases, plugins and environment.\n\n"
-  printf "• Repo: ${CYAN}https://github.com/paulofachini/${DOTFILE}${RESET}\n"
-  printf "• Blog: ${CYAN}https://paulofachini.dev.br${RESET}\n"
-  printf "• Follow: ${CYAN}https://github.com/paulofachini${RESET}\n\n"
-  printf "✨ ${GREEN}Enjoy your terminal!${RESET}\n\n"
+  br
+  printf "${BOLD}${VERDE}...está configurado e pronto para uso!${RESET}"; br 2
+  printf "Antes de começar a programar, dê uma olhada no seu ${AMARELO}.zshrc${RESET}"; br
+  printf "para ajustar aliases, caminhos, plugins e variáveis de ambiente."; br 2
+  printf "${BOLD}Links úteis:${RESET}"; br
+  printf "  • 📚 Repositório: ${AZUL}https://github.com/paulofachini/dotfiles${RESET}"; br
+  printf "  • 🐙 GitHub: ${AZUL}https://github.com/paulofachini${RESET}"; br
+  printf "  • 💻 Site: ${AZUL}https://paulofachini.dev.br${RESET}"; br 2
+  printfrg "🌈✨ Aproveite o seu terminal!"
+  br 2
 }
 
-print_dotfiles() {
-  printf "\n"
-  printf "${RED}      _     ${ORANGE}     ${YELLOW} _    ${GREEN}  __  ${BLUE} _   _ ${VIOLET}       ${MAGENTA}      \n"
-  printf "${RED}     | |    ${ORANGE}     ${YELLOW}| |   ${GREEN} / _| ${BLUE}(_) | |${VIOLET}       ${MAGENTA}      \n"
-  printf "${RED}   __| |   _${ORANGE}__   ${YELLOW}| |_  ${GREEN}| |_  ${BLUE} _| | |${VIOLET}  ___  ${MAGENTA} ___  \n"
-  printf "${RED}  / _  |  / ${ORANGE}_ \  ${YELLOW}| __| ${GREEN}|  _| ${BLUE}| | | |${VIOLET} / _ \ ${MAGENTA}/ __| \n"
-  printf "${RED} | (_| | | (${ORANGE}_) | ${YELLOW}| |_  ${GREEN}| |   ${BLUE}| | | |${VIOLET}|  __/ ${MAGENTA}\__ \ \n"
-  printf "${RED}  \____|  \_${ORANGE}__/  ${YELLOW}\___| ${GREEN}|_|   ${BLUE}|_| |_|${VIOLET} \___| ${MAGENTA}|___/ \n"
-  printf "\n"
-}
-
-print_dotfiles
+print_rainbow_gradient_ascii ascii_art
 print_text

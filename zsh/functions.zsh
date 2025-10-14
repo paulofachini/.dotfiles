@@ -39,6 +39,9 @@ dotupdate() {
 
     cd $HOME
     echo "✅ Atualização concluída!"
+
+    # Banner de boas-vindas
+    "$DOTFILES_DIR/scripts/banner.sh"
 }
 
 # =====================================================================================
