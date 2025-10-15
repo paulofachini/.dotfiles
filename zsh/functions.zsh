@@ -20,14 +20,15 @@
 # =====================================================================================
 dotupdate() {
     echo "📦 Atualizando o repositório dos dotfiles..."
-        
+    
     # Entrar no diretório do dotfiles
     DOTFILES_DIR="$HOME/.dotfiles"
     cd "$DOTFILES_DIR" || { echo "❌ Diretório ~/.dotfiles não encontrado"; return 1; }
 
     # Buscar alterações do remoto e aplicar
     git fetch origin
-    git pull origin main --rebase
+    git reset --hard origin/main
+    git pull origin main
 
     # Restaurar symlinks e configurações
     echo "🔄 Aplicando as configurações com script de restauração restore.sh..."
@@ -42,6 +43,30 @@ dotupdate() {
 
     # Banner de boas-vindas
     "$DOTFILES_DIR/scripts/banner.sh"
+}
+
+# =====================================================================================
+# 🎨 Função para alterar o tema do PoPowerlevel10k
+# Uso: 
+# Exemplo: 
+# =====================================================================================
+themeupdate() {
+    echo "🎨 Atualizando o tema do Powerlevel10k..."
+    
+    # Entrar no diretório do dotfiles
+    DOTFILES_DIR="$HOME/.dotfiles"
+    cd "$DOTFILES_DIR" || { echo "❌ Diretório ~/.dotfiles não encontrado"; return 1; }
+
+    # Seleciona o tema do Powerlevel10k
+    source "$DOTFILES_DIR/scripts/select-theme.sh"
+    show_theme_selection
+
+    # Recarregar o Zsh
+    echo "⚡ Recarregando ~/.zshrc..."
+    source ~/.zshrc
+
+    cd $HOME
+    echo "✅ Tema do Powerlevel10k atualizado com sucesso!"
 }
 
 # =====================================================================================

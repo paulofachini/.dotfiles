@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 # =====================================================================================
 # 🌈 banner.sh - Banner de boas-vindas exibido ao final da execução da instalação
 #

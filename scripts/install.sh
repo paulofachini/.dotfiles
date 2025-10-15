@@ -100,6 +100,10 @@ else
     fi
 fi
 
+# Seleciona o tema do Powerlevel10k
+source "$DOTFILES_DIR/scripts/select-theme.sh"
+show_theme_selection
+
 # Executar o script de restauração para criar os symlinks
 echo "🚀 Executando o script de restauração restore.sh..."
 "$DOTFILES_DIR/scripts/restore.sh"
