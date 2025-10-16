@@ -5,7 +5,7 @@
 # Permite ao usuário escolher um dos temas visuais para o prompt do Zsh:
 # - Clean (padrão): visual limpo e minimalista
 # - Darkest: visual escuro
-# - Rainbow: visual colorido em arco-íris
+# - Rainbow: visual colorido
 #
 # O tema selecionado é copiado para zsh/.p10k.zsh, sobrescrevendo o anterior.
 # Uso: ./select-theme.sh (chamado automaticamente pelo install.sh ou manualmente)
@@ -57,16 +57,13 @@ set_theme() {
 # Método que exibe a mensagem para o usuário escolher o tema
 show_theme_selection() {
   br
-  printf "___________________________________________________________________________________________________"; br 2
   printf "${BOLD}Selecione um dos temas de sua preferência:${RESET}"; br
   printf "  [1] - ${BOLD}${CLEAN}${RESET}: visual limpo e minimalista"; br
   printf "  [2] - ${BOLD}${DARKEST}${RESET}: visual escuro"; br
-  printf "  [3] - ${BOLD}${RAINBOW}${RESET}: visual colorido em arco-íris"; br 2
+  printf "  [3] - ${BOLD}${RAINBOW}${RESET}: visual colorido"; br 2
   printf "Digite o número do tema desejado [1-3] ou pressione [Enter] para selecionar o tema padrão:${RESET} "
   read -r THEME_CHOICE
   set_theme "$THEME_CHOICE"
-  br
-  printf "___________________________________________________________________________________________________"
   br 2
 }
 
@@ -78,9 +75,4 @@ br() {
   done
 }
 
-# Execução principal
-if [[ -n "$1" ]]; then
-  set_theme "$1"
-else
-  show_theme_selection
-fi
+show_theme_selection

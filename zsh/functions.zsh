@@ -58,15 +58,14 @@ themeupdate() {
     cd "$DOTFILES_DIR" || { echo "❌ Diretório ~/.dotfiles não encontrado"; return 1; }
 
     # Seleciona o tema do Powerlevel10k
-    source "$DOTFILES_DIR/scripts/select-theme.sh"
-    show_theme_selection
+    "$DOTFILES_DIR/scripts/select-theme.sh"
 
     # Recarregar o Zsh
     echo "⚡ Recarregando ~/.zshrc..."
     source ~/.zshrc
 
     cd $HOME
-    echo "✅ Tema do Powerlevel10k atualizado com sucesso!"
+    echo "🎨 Tema do Powerlevel10k atualizado com sucesso!"
 }
 
 # =====================================================================================

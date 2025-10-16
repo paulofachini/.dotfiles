@@ -101,14 +101,10 @@ else
 fi
 
 # Seleciona o tema do Powerlevel10k
-source "$DOTFILES_DIR/scripts/select-theme.sh"
-show_theme_selection
+"$DOTFILES_DIR/scripts/select-theme.sh"
 
 # Executar o script de restauração para criar os symlinks
-echo "🚀 Executando o script de restauração restore.sh..."
 "$DOTFILES_DIR/scripts/restore.sh"
 
-echo "🎉 Instalação concluída! Reinicie o terminal para ver as mudanças."
-
-# Banner de boas-vindas
+# Banner de boas-vindas e instalação concluída!
 "$DOTFILES_DIR/scripts/banner.sh"

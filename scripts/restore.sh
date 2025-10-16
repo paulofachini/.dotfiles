@@ -39,6 +39,7 @@ create_symlink() {
     echo "🔗 Symlink criado: $target_file -> $source_file"
 }
 
+echo "🚀 Executando o script de restauração restore.sh..."
 echo "📦 Instalando os dotfiles no $HOME..."
 
 if [ ! -f "$CONFIG_FILE" ]; then
