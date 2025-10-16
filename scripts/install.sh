@@ -25,28 +25,28 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-echo "📦 Verificando e instalando dependências..."
+printf "📦 Verificando e instalando dependências..."
 
 if [[ "$(uname)" == "Linux" ]]; then
-    echo "🐧 Detectado sistema Linux (Ubuntu/Debian)."
+    printf "🐧 Detectado sistema Linux (Ubuntu/Debian)."
     sudo apt-get update -y
     sudo apt-get install -y git zsh curl wget unzip tree screenfetch build-essential ca-certificates locales
 
     sudo locale-gen pt_BR.UTF-8 
     sudo update-locale LANG=pt_BR.UTF-8 LC_ALL=pt_BR.UTF-8
-    echo "🌐 Locale para pt_BR.UTF-8 configurado."
+    printf "🌐 Locale para pt_BR.UTF-8 configurado."
 else
-    echo "❌ Sistema operacional não suportado: $(uname)"
+    printf "❌ Sistema operacional não suportado: $(uname)"
     exit 1
 fi
 
 # Instalar Oh My Zsh (se não estiver instalado)
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    echo "🎨 Instalando Oh My Zsh..."
+    printf "🎨 Instalando Oh My Zsh..."
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-    echo "✅ Oh My Zsh instalado com sucesso."
+    printf "✅ Oh My Zsh instalado com sucesso."
 else
-    echo "✅ Oh My Zsh já está instalado."
+    printf "✅ Oh My Zsh já está instalado."
 fi
 
 # Definir Zsh como shell padrão (se não for)
@@ -55,12 +55,12 @@ fi
 mensagem_zsh="셸 Zsh definido como shell padrão."
 if [ "$SHELL" != "/usr/bin/zsh" ]; then
     if sudo chsh -s "$(which zsh)" "$USER"; then
-        echo "$mensagem_zsh"
+        printf "$mensagem_zsh"
     else
-        echo "⚠️ Não foi possível definir Zsh como padrão."
+        printf "⚠️ Não foi possível definir Zsh como padrão."
     fi
 else
-    echo "$mensagem_zsh"
+    printf "$mensagem_zsh"
 fi
 
 # Instalar plugins externos do Zsh
@@ -70,49 +70,49 @@ THEMES_DIR="$ZSH_CUSTOM/themes"
 
 # zsh-autosuggestions
 if [ ! -d "$PLUGINS_DIR/zsh-autosuggestions" ]; then
-    echo "🧩 Instalando o plugin zsh-autosuggestions..."
+    printf "🧩 Instalando o plugin zsh-autosuggestions..."
     git clone https://github.com/zsh-users/zsh-autosuggestions "$PLUGINS_DIR/zsh-autosuggestions"
-    echo "✅ zsh-autosuggestions instalado com sucesso."
+    printf "✅ zsh-autosuggestions instalado com sucesso."
 else
-    echo "✅ zsh-autosuggestions já está instalado."
+    printf "✅ zsh-autosuggestions já está instalado."
 fi
 
 # zsh-syntax-highlighting
 if [ ! -d "$PLUGINS_DIR/zsh-syntax-highlighting" ]; then
-    echo "🧩 Instalando o plugin zsh-syntax-highlighting..."
+    printf "🧩 Instalando o plugin zsh-syntax-highlighting..."
     git clone https://github.com/zsh-users/zsh-syntax-highlighting "$PLUGINS_DIR/zsh-syntax-highlighting"
-    echo "✅ zsh-syntax-highlighting instalado com sucesso."
+    printf "✅ zsh-syntax-highlighting instalado com sucesso."
 else
-    echo "✅ zsh-syntax-highlighting já está instalado."
+    printf "✅ zsh-syntax-highlighting já está instalado."
 fi
 
 # Instalar tema Powerlevel10k
 if [ ! -d "$THEMES_DIR/powerlevel10k" ]; then
-    echo "🎨 Instalando tema Powerlevel10k..."
+    printf "🎨 Instalando tema Powerlevel10k..."
     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git "$THEMES_DIR/powerlevel10k"
-    echo "✅ Powerlevel10k instalado com sucesso."
+    printf "✅ Powerlevel10k instalado com sucesso."
 else
-    echo "✅ Powerlevel10k já está instalado."
+    printf "✅ Powerlevel10k já está instalado."
 fi
 
 # Clonar o repositório .dotfiles ou atualizar se já existir
 DOTFILES_DIR="$HOME/.dotfiles"
 
 if [ ! -d "$DOTFILES_DIR" ]; then
-    echo "📂 Clonando o repositório `.dotfiles`..."
+    printf "📂 Clonando o repositório `.dotfiles`..."
     git clone https://github.com/paulofachini/dotfiles.git "$DOTFILES_DIR"
-    echo "✅ Repositório `.dotfiles` clonado com sucesso."
+    printf "✅ Repositório `.dotfiles` clonado com sucesso."
 else
-    echo "📂 Atualizando o repositório `.dotfiles`..."
+    printf "📂 Atualizando o repositório `.dotfiles`..."
     cd "$DOTFILES_DIR"
     # Pular atualização se estiver em container (evita conflitos com arquivos copiados)
     if [ -z "$DOCKER_CONTAINER" ]; then
         git fetch origin
         git reset --hard origin/main
         git clean -fdx
-        echo "✅ Repositório `.dotfiles` atualizado com sucesso."
+        printf "✅ Repositório `.dotfiles` atualizado com sucesso."
     else
-        echo "⚠️ Pulando atualização do repositório (ambiente container)."
+        printf "⚠️ Pulando atualização do repositório (ambiente container)."
     fi
 fi
 
@@ -130,6 +130,6 @@ chmod +x "$DOTFILES_DIR/scripts/"*.sh
 
 # Verifica se o arquivo .p10k.zsh foi criado corretamente
 if [ ! -f "$DOTFILES_DIR/zsh/.p10k.zsh" ]; then
-    echo "⚠️ Arquivo .p10k.zsh não encontrado, restaurando arquivo padrão."
+    printf "⚠️ Arquivo .p10k.zsh não encontrado, restaurando arquivo padrão."
     cp "$DOTFILES_DIR/zsh/.p10k-clean.zsh" "$DOTFILES_DIR/zsh/.p10k.zsh"
 fi

@@ -32,11 +32,16 @@ alias dotfiles_reload='source ~/.zshrc'
 # Dependências: N/A
 # =====================================================================================
 dothelp() {
-    printf "${BOLD}🆘 Ajuda dotfiles - Comandos disponíveis:${RESET}"; br
-    printf "  • ${VERDE}dotfiles_help${RESET}: Mostra esta ajuda"; br
-    printf "  • ${VERDE}dotfiles_update${RESET}: Atualiza os dotfiles"; br
-    printf "  • ${VERDE}dotfiles_theme${RESET}: Altera o tema do Powerlevel10k"; br
-    printf "  • ${VERDE}dotfiles_reload${RESET}: Recarrega o Zsh ou use ${AMARELO}source ~/.zshrc${RESET}"; br
+    VERDE='\033[38;2;0;255;0m'
+    AMARELO='\033[38;2;255;255;0m'
+    BOLD='\033[1m'
+    RESET='\033[0m'
+    printf "\n"
+    printf "${BOLD}🆘 Ajuda dotfiles - Comandos disponíveis:${RESET}\n"
+    printf "  • ${VERDE}dotfiles_help${RESET}: Mostra esta ajuda\n"
+    printf "  • ${VERDE}dotfiles_update${RESET}: Atualiza os dotfiles\n"
+    printf "  • ${VERDE}dotfiles_theme${RESET}: Altera o tema do Powerlevel10k\n"
+    printf "  • ${VERDE}dotfiles_reload${RESET}: Recarrega o Zsh ou use ${AMARELO}source ~/.zshrc${RESET}\n\n"
 }
 
 # =====================================================================================
