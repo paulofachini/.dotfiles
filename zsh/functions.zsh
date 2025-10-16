@@ -18,8 +18,8 @@ DOTFILES_DIR="$HOME/.dotfiles"
 # =====================================================================================
 # 🧰 Aliases personalizados
 # =====================================================================================
-alias "dotfiles update"="dotupdate"
-alias "dotfiles theme"="themeupdate"
+alias dotfiles_update="dotupdate"
+alias dotfiles_theme="themeupdate"
 
 # =====================================================================================
 # 🔄 Função para atualizar os dotfiles
