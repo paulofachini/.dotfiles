@@ -60,11 +60,11 @@ show_theme_selection() {
   printf "${BOLD}Selecione um dos temas de sua preferência:${RESET}"; br
   printf "  [1] - ${BOLD}${CLEAN}${RESET}: visual limpo e minimalista"; br
   printf "  [2] - ${BOLD}${DARKEST}${RESET}: visual escuro"; br
-  printf "  [3] - ${BOLD}${RAINBOW}${RESET}: visual colorido"; br 2
+  printf "  [3] - ${BOLD}${RAINBOW}${RESET}: visual colorido"; br
   printf "Digite o número do tema desejado [1-3] ou pressione [Enter] para selecionar o tema padrão:${RESET} "
   read -r THEME_CHOICE
   set_theme "$THEME_CHOICE"
-  br 2
+  br
 }
 
 # Quebra linha N vezes

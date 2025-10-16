@@ -16,9 +16,23 @@
 DOTFILES_DIR="$HOME/.dotfiles"
 
 # =====================================================================================
+# 🧰 Aliases personalizados
+# =====================================================================================
+alias "dotfiles update"="dotupdate"
+alias "dotfiles theme"="themeupdate"
+
+# =====================================================================================
 # 🔄 Função para atualizar os dotfiles
 # Uso: dotupdate
+# Alias: dotfiles update
 # Exemplo: dotupdate (atualiza o repositório dos dotfiles)
+# Descrição: Atualiza o repositório dos dotfiles, aplica as alterações
+# e restaura as configurações personalizadas.
+# Esta função também atualiza o tema do Powerlevel10k e executa o script de
+# restauração restore.sh.
+# Ela é útil para manter o ambiente de desenvolvimento sempre atualizado com as últimas
+# configurações e temas.
+# Dependências: select-theme.sh, restore.sh, banner.sh
 # =====================================================================================
 dotupdate() {
     echo "📦 Atualizando o repositório dos dotfiles..."
@@ -44,9 +58,13 @@ dotupdate() {
 }
 
 # =====================================================================================
-# 🎨 Função para alterar o tema do PoPowerlevel10k
-# Uso: 
-# Exemplo: 
+# 🎨 Função para alterar o tema do Powerlevel10k
+# Uso: themeupdate
+# Alias: dotfiles theme
+# Exemplo: themeupdate (atualiza o tema do Powerlevel10k)
+# Descrição: Permite ao usuário escolher um novo tema para o Powerlevel10k
+# e aplica as alterações.
+# Dependências: select-theme.sh
 # =====================================================================================
 themeupdate() {
     echo "🎨 Atualizando o tema do Powerlevel10k..."

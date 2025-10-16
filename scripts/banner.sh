@@ -110,6 +110,9 @@ print_text() {
   printf "  • 💻 Site: ${AZUL}https://paulofachini.dev.br${RESET}"; br 2
   printfrg "🌈✨ Aproveite o seu terminal!"
   br 2
+  printf "${BOLD}Comandos disponíveis:${RESET}"; br
+  printf "  • ${AMARELO}dotfiles update${RESET}: Atualiza os dotfiles"; br
+  printf "  • ${AMARELO}dotfiles theme${RESET}: Altera o tema do Powerlevel10k"; br 2
 }
 
 print_rainbow_gradient_ascii ascii_art
