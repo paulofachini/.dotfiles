@@ -155,12 +155,15 @@ dotfiles/
 │   ├── banner.sh                → Exibe uma mensagem de boas-vindas personalizada.
 │   ├── install.sh               → Script principal de instalação.
 │   ├── restore.sh               → Script para restaurar e criar os symlinks no diretório `$HOME`.
+│   ├── select-theme.sh          → Script para selecionar o tema do Powerlevel10k.
 │   └── test.sh                  → Testes automatizados para validar a instalação.
 ├── wsl/
 │   ├── .wslconfig_desktop       → Configurações do WSL do Desktop (ex: distribuição padrão, recursos).
 │   └── .wslconfig_note          → Configurações do WSL do Notebook (ex: distribuição padrão, recursos).
 ├── zsh
-│   ├── .p10k.zsh                → Configuração do tema Powerlevel10k.
+│   ├── .p10k-clean.zsh          → Configuração do tema Powerlevel10k (visual limpo).    # Usado pelo `select-theme.sh` para criar o arquivo `.p10k.zsh`
+│   ├── .p10k-darkest.zsh        → Configuração do tema Powerlevel10k (visual escuro).   # Usado pelo `select-theme.sh` para criar o arquivo `.p10k.zsh`
+│   ├── .p10k-rainbow.zsh        → Configuração do tema Powerlevel10k (visual colorido). # Usado pelo `select-theme.sh` para criar o arquivo `.p10k.zsh`
 │   ├── .zshrc                   → Ponto de entrada que carrega todos os outros módulos.
 │   ├── aliases.zsh              → Aliases para Git, Docker, Node/NPM.
 │   ├── functions.zsh            → Funções customizadas (como `dotupdate`).

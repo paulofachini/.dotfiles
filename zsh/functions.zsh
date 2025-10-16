@@ -34,10 +34,6 @@ dotupdate() {
     echo "🔄 Aplicando as configurações com script de restauração restore.sh..."
     "$DOTFILES_DIR/scripts/restore.sh"
 
-    # Recarregar o Zsh
-    echo "⚡ Recarregando ~/.zshrc..."
-    source ~/.zshrc
-
     cd $HOME
     echo "✅ Atualização concluída!"
 

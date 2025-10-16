@@ -108,3 +108,9 @@ fi
 
 # Banner de boas-vindas e instalação concluída!
 "$DOTFILES_DIR/scripts/banner.sh"
+
+# Verifica se o arquivo .p10k.zsh foi criado corretamente
+if [ ! -f "$DOTFILES_DIR/zsh/.p10k.zsh" ]; then
+    echo "⚠️ Arquivo .p10k.zsh não encontrado. Iniciando configuração do Powerlevel10k..."
+    p10k configure
+fi
