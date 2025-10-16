@@ -58,8 +58,4 @@ done < "$CONFIG_FILE"
 # Criar cache do Powerlevel10k
 mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}"
 
-# Recarregar o Zsh
-echo "⚡ Recarregando ~/.zshrc..."
-exec zsh
-
 echo "✅ dotfiles instalado com sucesso!"

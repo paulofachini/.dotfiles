@@ -84,21 +84,27 @@ fi
 
 # Clonar o repositório .dotfiles ou atualizar se já existir
 DOTFILES_DIR="$HOME/.dotfiles"
+
 if [ ! -d "$DOTFILES_DIR" ]; then
     echo "📂 Clonando o repositório dotfiles..."
     git clone https://github.com/paulofachini/dotfiles.git "$DOTFILES_DIR"
-    chmod +x "$DOTFILES_DIR/scripts/restore.sh"
 else
     echo "📂 Atualizando o repositório dotfiles..."
     cd "$DOTFILES_DIR"
     # Pular atualização se estiver em container (evita conflitos com arquivos copiados)
     if [ -z "$DOCKER_CONTAINER" ]; then
         git fetch origin
-        git pull origin main --rebase
+        git reset --hard origin/main
+        git clean -fdx
     else
         echo "⚠️ Pulando atualização do repositório (ambiente container)."
     fi
 fi
+
+# Definir permissões de execução para os scripts
+chmod +x "$DOTFILES_DIR/scripts/select-theme.sh"
+chmod +x "$DOTFILES_DIR/scripts/restore.sh"
+chmod +x "$DOTFILES_DIR/scripts/banner.sh"
 
 # Seleciona o tema do Powerlevel10k
 "$DOTFILES_DIR/scripts/select-theme.sh"

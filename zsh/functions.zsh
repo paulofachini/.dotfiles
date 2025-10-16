@@ -13,6 +13,8 @@
 # Licença: MIT
 # =====================================================================================
 
+DOTFILES_DIR="$HOME/.dotfiles"
+
 # =====================================================================================
 # 🔄 Função para atualizar os dotfiles
 # Uso: dotupdate
@@ -22,18 +24,16 @@ dotupdate() {
     echo "📦 Atualizando o repositório dos dotfiles..."
     
     # Entrar no diretório do dotfiles
-    DOTFILES_DIR="$HOME/.dotfiles"
-    cd "$DOTFILES_DIR" || { echo "❌ Diretório ~/.dotfiles não encontrado"; return 1; }
+    cd "$DOTFILES_DIR" || { echo "❌ Diretório $DOTFILES_DIR não encontrado"; return 1; }
 
     # Buscar alterações do remoto e aplicar
     git fetch origin
     git reset --hard origin/main
     git clean -fdx
-    git pull origin main
     cd $HOME
 
     themeupdate
-    
+
     # Restaurar symlinks e configurações
     echo "🔄 Aplicando as configurações com script de restauração restore.sh..."
     "$DOTFILES_DIR/scripts/restore.sh"
@@ -52,15 +52,10 @@ themeupdate() {
     echo "🎨 Atualizando o tema do Powerlevel10k..."
     
     # Entrar no diretório do dotfiles
-    DOTFILES_DIR="$HOME/.dotfiles"
-    cd "$DOTFILES_DIR" || { echo "❌ Diretório ~/.dotfiles não encontrado"; return 1; }
+    cd "$DOTFILES_DIR" || { echo "❌ Diretório $DOTFILES_DIR não encontrado"; return 1; }
 
     # Seleciona o tema do Powerlevel10k
     "$DOTFILES_DIR/scripts/select-theme.sh"
-
-    # Recarregar o Zsh
-    echo "⚡ Recarregando ~/.zshrc..."
-    source ~/.zshrc
 
     cd $HOME
     echo "🎨 Tema do Powerlevel10k atualizado com sucesso!"
