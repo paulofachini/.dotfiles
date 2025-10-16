@@ -103,16 +103,13 @@ print_text() {
   br
   printf "${BOLD}${VERDE}...está configurado e pronto para uso!${RESET}"; br 2
   printf "Antes de começar a programar, dê uma olhada no seu ${AMARELO}.zshrc${RESET}"; br
-  printf "para ajustar aliases, caminhos, plugins e variáveis de ambiente."; br 2
+  printf "para ajustar aliases, caminhos, plugins e variáveis de ambiente"; br
+  printf "para obter ajuda execute: ${VERDE}dotfiles_help${RESET}"; br 2
   printf "${BOLD}Links úteis:${RESET}"; br
   printf "  • 📚 Repositório: ${AZUL}https://github.com/paulofachini/dotfiles${RESET}"; br
   printf "  • 🐙 GitHub: ${AZUL}https://github.com/paulofachini${RESET}"; br
   printf "  • 💻 Site: ${AZUL}https://paulofachini.dev.br${RESET}"; br 2
-  printfrg "🌈✨ Aproveite o seu terminal!"
-  br 2
-  printf "${BOLD}Comandos disponíveis:${RESET}"; br
-  printf "  • ${AMARELO}dotfiles_update${RESET}: Atualiza os dotfiles"; br
-  printf "  • ${AMARELO}dotfiles_theme${RESET}: Altera o tema do Powerlevel10k"; br 2
+  printfrg "🌈✨ Aproveite o seu terminal!"; br 2
 }
 
 print_rainbow_gradient_ascii ascii_art

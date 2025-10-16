@@ -25,7 +25,6 @@ alias ...="cd ../.."
 alias ....="cd ../../.."
 alias ~="cd ~"
 alias -- -="cd -"
-alias reload='source ~/.zshrc'
 alias projects="cd ~/projects"
 
 # =====================================================================================

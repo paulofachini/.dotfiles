@@ -16,10 +16,28 @@
 DOTFILES_DIR="$HOME/.dotfiles"
 
 # =====================================================================================
-# 🧰 Aliases personalizados
+# 🧰 Aliases
 # =====================================================================================
+alias dotfiles_help="dothelp"
 alias dotfiles_update="dotupdate"
 alias dotfiles_theme="themeupdate"
+alias dotfiles_reload='source ~/.zshrc'
+
+# =====================================================================================
+# 🆘 Função para exibir ajuda dos dotfiles
+# Uso: dothelp
+# Alias: dotfiles_help
+# Exemplo: dotfiles_help (exibe a ajuda dos dotfiles)
+# Descrição: Mostra uma lista de comandos disponíveis para gerenciar os dotfiles.
+# Dependências: N/A
+# =====================================================================================
+dothelp() {
+    printf "${BOLD}🆘 Ajuda dotfiles - Comandos disponíveis:${RESET}"; br
+    printf "  • ${VERDE}dotfiles_help${RESET}: Mostra esta ajuda"; br
+    printf "  • ${VERDE}dotfiles_update${RESET}: Atualiza os dotfiles"; br
+    printf "  • ${VERDE}dotfiles_theme${RESET}: Altera o tema do Powerlevel10k"; br
+    printf "  • ${VERDE}dotfiles_reload${RESET}: Recarrega o Zsh ou use ${AMARELO}source ~/.zshrc${RESET}"; br
+}
 
 # =====================================================================================
 # 🔄 Função para atualizar os dotfiles
