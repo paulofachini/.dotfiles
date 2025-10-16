@@ -28,14 +28,16 @@ dotupdate() {
     # Buscar alterações do remoto e aplicar
     git fetch origin
     git reset --hard origin/main
+    git clean -fdx
     git pull origin main
+    cd $HOME
 
+    themeupdate
+    
     # Restaurar symlinks e configurações
     echo "🔄 Aplicando as configurações com script de restauração restore.sh..."
     "$DOTFILES_DIR/scripts/restore.sh"
-
-    cd $HOME
-    echo "✅ Atualização concluída!"
+    echo "🎉 Dotfiles atualizados com sucesso!"
 
     # Banner de boas-vindas
     "$DOTFILES_DIR/scripts/banner.sh"
