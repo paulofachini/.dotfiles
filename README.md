@@ -9,11 +9,14 @@ O objetivo é ter um ambiente produtivo, bonito e facilmente replicável com um 
 ## ✨ Características
 
 - **Instalação Automatizada**: Um único comando para configurar todo o ambiente.
-- **Tema Powerlevel10k**: Altamente customizável e com excelente performance.
+- **Tema Powerlevel10k**: Altamente customizável, com seleção interativa de temas e excelente performance.
 - **Plugins Essenciais**: `zsh-autosuggestions` e `zsh-syntax-highlighting` instalados automaticamente.
 - **Estrutura Modular**: Configurações separadas para `aliases`, `funções`, `path` e `linguagens`.
 - **Atualizações Fáceis**: Comando `dotfiles_update` para sincronizar suas configurações com o repositório.
 - **Configurações Locais**: Suporte para um arquivo `.zshrc.local` para suas configurações privadas e não versionadas.
+- **Comandos Principais**: Funções como `dotfiles_help`, `dotfiles_update`, `dotfiles_theme` e `dotfiles_reload` para facilitar manutenção e personalização.
+- **Testes Automatizados via Docker**: Validação do ambiente em container para garantir funcionamento em ambiente limpo.
+- **Compatibilidade Total**: Otimizado para WSL/Ubuntu e Windows Terminal.
 
 ---
 
@@ -38,7 +41,7 @@ Antes de começar, garanta que você tenha:
 Para configurar um novo ambiente, cole o comando abaixo no seu terminal Ubuntu no WSL. Ele cuidará de tudo para você.
 
 ```bash
-bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulofachini/dotfiles/main/scripts/install.sh)"
+bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulofachini/.dotfiles/main/scripts/install.sh)"
 ```
 
 O script de instalação fará o seguinte:
@@ -54,19 +57,63 @@ Ao final, **reinicie seu terminal** para que todas as mudanças tenham efeito.
 
 ---
 
+## 🖥️ Comandos Principais
+
+Após a instalação, você pode utilizar comandos práticos para gerenciar e personalizar seu ambiente:
+
+| Comando           | O que faz                                                                                    | Exemplo de uso    |
+| ----------------- | -------------------------------------------------------------------------------------------- | ----------------- |
+| `dotfiles_help`   | Exibe uma lista de comandos úteis e ajuda dos `.dotfiles`.                                   | `dotfiles_help`   |
+| `dotfiles_update` | Atualiza o repositório dos `.dotfiles`, aplica as últimas configurações e restaura symlinks. | `dotfiles_update` |
+| `dotfiles_theme`  | Abre o seletor interativo de tema Powerlevel10k para personalizar o visual do terminal.      | `dotfiles_theme`  |
+| `dotfiles_reload` | Recarrega o Zsh aplicando imediatamente as alterações feitas nos arquivos de configuração.   | `dotfiles_reload` |
+
+Esses comandos estão disponíveis automaticamente após a instalação e facilitam a manutenção e personalização do seu ambiente.
+
+---
+
 ## 🔄 Atualizando as Configurações
 
 Para manter suas configurações atualizadas com as últimas mudanças do repositório, basta executar o comando:
 
-```bash
+```shell
 dotfiles_update
 ```
 
-Este comando (um alias para a função `dotfiles-update`) irá automaticamente baixar as novidades, recriar os symlinks e recarregar seu shell.
+Este comando (um alias para a função `dotupdate()`) irá automaticamente baixar as novidades, recriar os symlinks e recarregar seu shell.
 
 ---
 
-## 🛠️ Personalização
+## 🎨 Personalização de Temas
+
+### 🖌️ Selecionando um dos Temas pré-definidos
+
+Para escolher um dos temas pré-definidos do `.dotfiles`, execute o seguinte comando:
+
+```shell
+dotfiles_theme
+```
+
+Este comando abrirá um seletor interativo onde você poderá escolher entre os temas disponíveis:
+
+- **🧼 Clean**: Visual limpo e minimalista.
+- **🌑 Darkest**: Tema escuro.
+- **🌈 Rainbow**: Tema colorido.
+
+Após selecionar o tema, o script irá gerar o arquivo `.p10k.zsh` necessário com as configurações correspondentes.
+
+### ✏️ Criando o seu próprio tema com o Powerlevel10k
+
+Caso você não queira nenhum dos temas disponíveis, você pode criar o seu próprio tema.
+Para isso utilize o comando do próprio Powerlevel10k, executando no terminal:
+
+```shell
+p10k configure
+```
+
+---
+
+## 🛠️ Personalização das Configurações
 
 A estrutura modular facilita a personalização. Você pode editar os seguintes arquivos:
 
@@ -74,14 +121,23 @@ A estrutura modular facilita a personalização. Você pode editar os seguintes 
 - **`zsh/functions.zsh`**: Crie funções de shell mais complexas.
 - **`zsh/path.zsh`**: Modifique o `$PATH` e outras variáveis de ambiente.
 - **`zsh/languages.zsh`**: Configure as ferramentas para suas linguagens de programação.
-- **`.zshrc.local`**: Crie este arquivo no seu `$HOME` para adicionar configurações **privadas** que não devem ir para o repositório (como chaves de API). Ele já está no `.gitignore`.
+- **`.zshrc.local`**: Crie este arquivo no seu `$HOME` para adicionar configurações **privadas** que não devem ir para o repositório (como chaves de API).
 - **`symlinks.conf`**: Arquivo de manifesto que define quais arquivos do repositório devem ser linkados para o seu `$HOME`.
 
 ### 🔗 Gerenciando Links Simbólicos com `symlinks.conf`
 
-**Formato:**
-Cada linha no arquivo representa um link simbólico e segue o formato:
-`caminho/do/arquivo/no/repo nome_do_arquivo_no_home`
+**Formato do arquivo:**
+
+Cada linha representa um link simbólico e segue o formato:
+
+```text
+# Formato: <arquivo_no_repo> <destino_no_home>
+zsh/.zshrc      .zshrc
+zsh/.p10k.zsh   .p10k.zsh
+git/.gitconfig  .gitconfig
+```
+
+Você pode adicionar outros arquivos seguindo esse padrão. Comentários (linhas iniciadas com `#`) são permitidos.
 
 **Exemplo Prático: Adicionando seu `.gitconfig`**
 
@@ -96,18 +152,16 @@ Cada linha no arquivo representa um link simbólico e segue o formato:
 
 3. **Execute a atualização**:
 
-   ```bash
+   ```shell
    dotfiles_update
    ```
 
    O script irá criar automaticamente o link simbólico de `~/.gitconfig` para `~/.dotfiles/git/.gitconfig`.
 
-### 🎨 Reconfigurando o tema Powerlevel10k
+4. **Execute o comando para recarregar as configurações**:
 
-Para reconfigurar a aparência do tema Powerlevel10k, execute:
-
-```bash
-p10k configure
+```shell
+dotfiles_reload
 ```
 
 ---
@@ -125,21 +179,21 @@ Para garantir que os scripts de instalação funcionem corretamente em um ambien
 - **Construa a imagem Docker:**
   Na raiz do projeto, execute o comando para criar a imagem de teste.
 
-  ```bash
+  ```shell
   docker build -t dotfiles-test .
   ```
 
 - **Execute os testes automatizados:**
   Este comando sobrescreve o CMD padrão e executa apenas a instalação e validação automatizada, saindo após os testes:
 
-  ```bash
+  ```shell
   docker run --rm dotfiles-test /bin/bash -c "chmod +x .dotfiles/scripts/install.sh .dotfiles/scripts/test.sh && .dotfiles/scripts/install.sh && .dotfiles/scripts/test.sh"
   ```
 
 - **Teste interativo (opcional):**
   Este comando usa o CMD padrão do container, que executa instalação, testes E abre um shell Zsh interativo para exploração manual:
 
-  ```bash
+  ```shell
   docker run -it --rm dotfiles-test
   ```
 
