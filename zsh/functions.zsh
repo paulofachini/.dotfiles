@@ -24,11 +24,11 @@ alias dotfiles_theme="themeupdate"
 alias dotfiles_reload='source ~/.zshrc'
 
 # =====================================================================================
-# 🆘 Função para exibir ajuda dos dotfiles
+# ℹ️ Função para exibir ajuda dos .dotfiles
 # Uso: dothelp
 # Alias: dotfiles_help
-# Exemplo: dotfiles_help (exibe a ajuda dos dotfiles)
-# Descrição: Mostra uma lista de comandos disponíveis para gerenciar os dotfiles.
+# Exemplo: dotfiles_help (exibe a ajuda dos .dotfiles)
+# Descrição: Mostra uma lista de comandos disponíveis para gerenciar os .dotfiles.
 # Dependências: N/A
 # =====================================================================================
 dothelp() {
@@ -36,20 +36,22 @@ dothelp() {
     AMARELO='\033[38;2;255;255;0m'
     BOLD='\033[1m'
     RESET='\033[0m'
+    
     printf "\n"
-    printf "${BOLD}🆘 Ajuda dotfiles - Comandos disponíveis:${RESET}\n"
+    printf "${BOLD}ℹ️ Ajuda .dotfiles\n\n"
+    printf "${BOLD}Comandos disponíveis:${RESET}\n"
     printf "  • ${VERDE}dotfiles_help${RESET}: Mostra esta ajuda\n"
     printf "  • ${VERDE}dotfiles_update${RESET}: Atualiza os dotfiles\n"
     printf "  • ${VERDE}dotfiles_theme${RESET}: Altera o tema do Powerlevel10k\n"
-    printf "  • ${VERDE}dotfiles_reload${RESET}: Recarrega o Zsh ou use ${AMARELO}source ~/.zshrc${RESET}\n\n"
+    printf "  • ${VERDE}dotfiles_reload${RESET}: Recarrega o Zsh (${AMARELO}source ~/.zshrc${RESET})\n\n"
 }
 
 # =====================================================================================
-# 🔄 Função para atualizar os dotfiles
+# 🔄 Função para atualizar os .dotfiles
 # Uso: dotupdate
-# Alias: dotfiles update
-# Exemplo: dotupdate (atualiza o repositório dos dotfiles)
-# Descrição: Atualiza o repositório dos dotfiles, aplica as alterações
+# Alias: dotfiles_update
+# Exemplo: dotupdate (atualiza o repositório dos .dotfiles)
+# Descrição: Atualiza o repositório dos .dotfiles, aplica as alterações
 # e restaura as configurações personalizadas.
 # Esta função também atualiza o tema do Powerlevel10k e executa o script de
 # restauração restore.sh.
@@ -58,9 +60,9 @@ dothelp() {
 # Dependências: select-theme.sh, restore.sh, banner.sh
 # =====================================================================================
 dotupdate() {
-    echo "📦 Atualizando o repositório dos dotfiles..."
+    echo "📦 Atualizando o repositório dos .dotfiles..."
     
-    # Entrar no diretório do dotfiles
+    # Entrar no diretório do .dotfiles
     cd "$DOTFILES_DIR" || { echo "❌ Diretório $DOTFILES_DIR não encontrado"; return 1; }
 
     # Buscar alterações do remoto e aplicar
@@ -74,7 +76,7 @@ dotupdate() {
     # Restaurar symlinks e configurações
     echo "🔄 Aplicando as configurações com script de restauração restore.sh..."
     "$DOTFILES_DIR/scripts/restore.sh"
-    echo "🎉 Dotfiles atualizados com sucesso!"
+    echo "🎉 .dotfiles atualizados com sucesso!"
 
     # Banner de boas-vindas
     "$DOTFILES_DIR/scripts/banner.sh"
@@ -83,7 +85,7 @@ dotupdate() {
 # =====================================================================================
 # 🎨 Função para alterar o tema do Powerlevel10k
 # Uso: themeupdate
-# Alias: dotfiles theme
+# Alias: dotfiles_theme
 # Exemplo: themeupdate (atualiza o tema do Powerlevel10k)
 # Descrição: Permite ao usuário escolher um novo tema para o Powerlevel10k
 # e aplica as alterações.
@@ -92,7 +94,7 @@ dotupdate() {
 themeupdate() {
     echo "🎨 Atualizando o tema do Powerlevel10k..."
     
-    # Entrar no diretório do dotfiles
+    # Entrar no diretório do .dotfiles
     cd "$DOTFILES_DIR" || { echo "❌ Diretório $DOTFILES_DIR não encontrado"; return 1; }
 
     # Seleciona o tema do Powerlevel10k

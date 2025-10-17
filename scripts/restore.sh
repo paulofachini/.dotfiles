@@ -1,6 +1,6 @@
 #!/bin/bash
 # =====================================================================================
-# 🔄 restore.sh - Script de restauração dos symlinks dos dotfiles
+# 🔄 restore.sh - Script de restauração dos symlinks dos .dotfiles
 #
 # Cria e restaura os links simbólicos das configurações personalizadas:
 # - Backup automático das configurações existentes
@@ -21,6 +21,14 @@ DOTFILES_DIR="$HOME/.dotfiles"
 ZSH_DIR="$DOTFILES_DIR/zsh"
 CONFIG_FILE="$DOTFILES_DIR/symlinks.conf"
 
+# Quebra linha N vezes
+br() {
+    local count="${1:-1}"
+    for (( i=0; i<count; i++ )); do
+        printf "\n"
+    done
+}
+
 # Função para criar symlinks e fazer backup de arquivos existentes
 create_symlink() {
     local source_file=$1
@@ -28,22 +36,22 @@ create_symlink() {
 
     # Se o alvo existe, não é um symlink e é um arquivo regular, faça backup
     if [ -f "$target_file" ] && [ ! -L "$target_file" ]; then
-        printf "🔹 Encontrado arquivo existente em $target_file. Fazendo backup..."
+        printf "🔹 Encontrado arquivo existente em $target_file. Fazendo backup..."; br
         mkdir -p "$BACKUP_DIR"
         mv "$target_file" "$BACKUP_DIR/"
-        printf "✅ Backup criado em $BACKUP_DIR"
+        printf "✅ Backup criado em $BACKUP_DIR"; br
     fi
 
     # Cria ou substitui o symlink
     ln -sf "$source_file" "$target_file"
-    printf "🔗 Symlink criado: $target_file -> $source_file"
+    printf "🔗 Symlink criado: $target_file -> $source_file"; br
 }
 
-printf "🚀 Executando o script de restauração restore.sh..."
-printf "📦 Instalando os dotfiles no $HOME..."
+printf "🚀 Executando o script de restauração restore.sh..."; br
+printf "📦 Instalando os .dotfiles no $HOME..."; br
 
 if [ ! -f "$CONFIG_FILE" ]; then
-    printf "❌ Arquivo de configuração de symlinks não encontrado em $CONFIG_FILE"
+    printf "❌ Arquivo de configuração de symlinks não encontrado em $CONFIG_FILE"; br
     exit 1
 fi
 
@@ -58,4 +66,4 @@ done < "$CONFIG_FILE"
 # Criar cache do Powerlevel10k
 mkdir -p "${XDG_CACHE_HOME:-$HOME/.cache}"
 
-printf "✅ dotfiles instalado com sucesso!"
+printf "✅ .dotfiles instalado com sucesso!"; br

@@ -1,6 +1,6 @@
-![dotfiles](images/banner-dotfiles.png)
+![dotfiles](images/dotfiles-banner.png)
 
-# 🧰 Repositório de `dotfiles`
+# 🧰 Repositório de `.dotfiles`
 
 **Este repositório contém meus arquivos de configuração (dotfiles) para o ambiente de desenvolvimento `WSL/Ubuntu`, utilizando `zsh`, `Oh My Zsh` e `Powerlevel10k`.**
 
@@ -12,7 +12,7 @@ O objetivo é ter um ambiente produtivo, bonito e facilmente replicável com um 
 - **Tema Powerlevel10k**: Altamente customizável e com excelente performance.
 - **Plugins Essenciais**: `zsh-autosuggestions` e `zsh-syntax-highlighting` instalados automaticamente.
 - **Estrutura Modular**: Configurações separadas para `aliases`, `funções`, `path` e `linguagens`.
-- **Atualizações Fáceis**: Comando `dotupdate` para sincronizar suas configurações com o repositório.
+- **Atualizações Fáceis**: Comando `dotfiles_update` para sincronizar suas configurações com o repositório.
 - **Configurações Locais**: Suporte para um arquivo `.zshrc.local` para suas configurações privadas e não versionadas.
 
 ---
@@ -59,7 +59,7 @@ Ao final, **reinicie seu terminal** para que todas as mudanças tenham efeito.
 Para manter suas configurações atualizadas com as últimas mudanças do repositório, basta executar o comando:
 
 ```bash
-dotupdate
+dotfiles_update
 ```
 
 Este comando (um alias para a função `dotfiles-update`) irá automaticamente baixar as novidades, recriar os symlinks e recarregar seu shell.
@@ -97,7 +97,7 @@ Cada linha no arquivo representa um link simbólico e segue o formato:
 3. **Execute a atualização**:
 
    ```bash
-   dotupdate
+   dotfiles_update
    ```
 
    O script irá criar automaticamente o link simbólico de `~/.gitconfig` para `~/.dotfiles/git/.gitconfig`.
@@ -118,7 +118,7 @@ Para garantir que os scripts de instalação funcionem corretamente em um ambien
 
 **O que é validado:**
 
-- ✅ **Links simbólicos**: Verifica se todos os dotfiles estão corretamente linkados para o diretório `$HOME`
+- ✅ **Links simbólicos**: Verifica se todos os .dotfiles estão corretamente linkados para o diretório `$HOME`
 - ✅ **Carregamento do Zsh**: Testa se o shell Zsh consegue carregar todas as configurações sem erros
 - ✅ **Plugins instalados**: Confirma que os plugins `zsh-autosuggestions` e `zsh-syntax-highlighting` estão presentes
 
@@ -148,7 +148,7 @@ Para garantir que os scripts de instalação funcionem corretamente em um ambien
 ## 📂 Estrutura do Projeto
 
 ```text
-dotfiles/
+.dotfiles/
 ├── git/
 │   └── .gitconfig               → Configurações do Git (ex: nome de usuário, e-mail, aliases).
 ├── scripts
@@ -180,9 +180,21 @@ dotfiles/
 
 ## 🖼️ Imagens
 
-![Windows Terminal](images/windows-terminal.png)
+### Temas (🧼 Clean / 🌑 Darkest / 🌈 Rainbow)
 
-![dotupdate](images/dotupdate-dotfiles.png)
+![dotfiles_theme](images/dotfiles-theme.png)
+
+### Atualização
+
+![dotfiles_update](images/dotfiles-update.png)
+
+### VS Code Terminal
+
+![VS Code Terminal](images/vscode-terminal.png)
+
+### Windows Terminal
+
+![Windows Terminal](images/windows-terminal.png)
 
 ## ©️ Licença
 

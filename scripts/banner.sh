@@ -2,7 +2,7 @@
 # =====================================================================================
 # 🌈 banner.sh - Banner de boas-vindas exibido ao final da execução da instalação
 #
-# Exibe um banner ASCII colorido e mensagens de boas-vindas após a instalação dos dotfiles:
+# Exibe um banner ASCII colorido e mensagens de boas-vindas após a instalação dos .dotfiles:
 # - Gradiente arco-íris em texto e arte ASCII
 # - Mensagens úteis sobre configuração do ambiente
 # - Links para repositório, GitHub e site
@@ -78,33 +78,41 @@ printfrg() {
   apply_rainbow_gradient "$text"
 }
 
+# Imprime texto com gradiente arco-íris e negrito
+printfrg_bold() {
+  local text="$1"
+  printf '%b' "$BOLD"
+  printfrg "$text"
+  printf '%b' "$RESET"
+}
+
 print_rainbow_gradient_ascii() {
   local -n ascii_lines=$1
   for line in "${ascii_lines[@]}"; do
     apply_rainbow_gradient "$line"
-    printf "\n"
+    br
   done
+  br
 }
 
 ascii_art=(
-"                                                                         "
-"        ░██               ░██        ░████ ░██░██                        "
-"        ░██               ░██       ░██       ░██                        "
-"        ░██               ░██       ░██       ░██                        "
-"  ░████████  ░███████  ░████████ ░████████ ░██░██  ░███████   ░███████   "
-" ░██    ░██ ░██    ░██    ░██       ░██    ░██░██ ░██    ░██ ░██         "
-" ░██    ░██ ░██    ░██    ░██       ░██    ░██░██ ░█████████  ░███████   "
-" ░██   ░███ ░██    ░██    ░██       ░██    ░██░██ ░██               ░██  "
-"  ░█████░██  ░███████      ░████    ░██    ░██░██  ░███████   ░███████   "
-"                                                                         "
+"                                                                             "
+"            ░██               ░██        ░████ ░██░██                        "
+"            ░██               ░██       ░██       ░██                        "
+"            ░██               ░██       ░██       ░██                        "
+"      ░████████  ░███████  ░████████ ░████████ ░██░██  ░███████   ░███████   "
+"     ░██    ░██ ░██    ░██    ░██       ░██    ░██░██ ░██    ░██ ░██         "
+"     ░██    ░██ ░██    ░██    ░██       ░██    ░██░██ ░█████████  ░███████   "
+"     ░██   ░███ ░██    ░██    ░██       ░██    ░██░██ ░██               ░██  "
+" ░██  ░█████░██  ░███████      ░████    ░██    ░██░██  ░███████   ░███████   "
+"                                                                             "
 )
 
 print_text() {
-  br
-  printf "${BOLD}${VERDE}...está configurado e pronto para uso!${RESET}"; br 2
-  printf "Antes de começar a programar, dê uma olhada no seu ${AMARELO}.zshrc${RESET}"; br
-  printf "para ajustar aliases, caminhos, plugins e variáveis de ambiente"; br
-  printf "para obter ajuda execute: ${VERDE}dotfiles_help${RESET}"; br 2
+  printfrg_bold "...está configurado e pronto para uso! 🎉"; br 2
+  printf "Antes de começar, dê uma olhada nos diretórios e arquivos ${AMARELO}zsh${RESET}, ${AMARELO}git${RESET} e ${AMARELO}wsl${RESET}"; br
+  printf "neles você pode ajustar aliases, plugins, variáveis de ambiente, entre outros"; br
+  printf "e para obter ajuda sobre os comandos, execute: ${VERDE}dotfiles_help${RESET}"; br 2
   printf "${BOLD}Links úteis:${RESET}"; br
   printf "  • 📚 Repositório: ${AZUL}https://github.com/paulofachini/dotfiles${RESET}"; br
   printf "  • 🐙 GitHub: ${AZUL}https://github.com/paulofachini${RESET}"; br
@@ -112,5 +120,6 @@ print_text() {
   printfrg "🌈✨ Aproveite o seu terminal!"; br 2
 }
 
+br 2
 print_rainbow_gradient_ascii ascii_art
 print_text

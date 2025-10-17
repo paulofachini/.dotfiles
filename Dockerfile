@@ -1,7 +1,7 @@
 # =====================================================================================
-# 🐳 Dockerfile - Ambiente de teste isolado para dotfiles
+# 🐳 Dockerfile - Ambiente de teste isolado para o .dotfiles
 #
-# Container Docker para testar os dotfiles em ambiente isolado:
+# Container Docker para testar os .dotfiles em ambiente isolado:
 # - Base: Ubuntu latest
 # - Dependências: git, curl, bash, locales
 # - Usado pelos scripts de teste para validação
@@ -29,7 +29,7 @@ RUN apt-get update && apt-get install -y sudo git curl bash locales
 RUN useradd -m -s /bin/bash tester && echo "tester:tester" | chpasswd && adduser tester sudo
 RUN echo 'tester ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 
-# Copia seus dotfiles para o diretório home do usuário de teste
+# Copia seus .dotfiles para o diretório home do usuário de teste
 COPY . /home/tester/.dotfiles
 
 # Define o dono dos arquivos
