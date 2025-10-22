@@ -16,7 +16,7 @@
 DOTFILES_DIR="$HOME/.dotfiles"
 
 # =====================================================================================
-# 🧰 Aliases
+# 🧰 .dotfiles aliases para as funções
 # =====================================================================================
 alias dotfiles_help="dothelp"
 alias dotfiles_update="dotupdate"
