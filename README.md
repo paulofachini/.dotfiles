@@ -1,3 +1,5 @@
+> [EN] English version available here: [README.en.md](./README.en.md)
+
 ![dotfiles](images/dotfiles-banner.png)
 
 # 🧰 Repositório de `.dotfiles`
@@ -61,12 +63,12 @@ Ao final, **reinicie seu terminal** para que todas as mudanças tenham efeito.
 
 Após a instalação, você pode utilizar comandos práticos para gerenciar e personalizar seu ambiente:
 
-| Comando           | O que faz                                                                                    | Exemplo de uso    |
-| ----------------- | -------------------------------------------------------------------------------------------- | ----------------- |
-| `dotfiles_help`   | Exibe uma lista de comandos úteis e ajuda dos `.dotfiles`.                                   | `dotfiles_help`   |
-| `dotfiles_update` | Atualiza o repositório dos `.dotfiles`, aplica as últimas configurações e restaura symlinks. | `dotfiles_update` |
-| `dotfiles_theme`  | Abre o seletor interativo de tema Powerlevel10k para personalizar o visual do terminal.      | `dotfiles_theme`  |
-| `dotfiles_reload` | Recarrega o Zsh aplicando imediatamente as alterações feitas nos arquivos de configuração.   | `dotfiles_reload` |
+| Comando           | O que faz                                                                                    |
+| ----------------- | -------------------------------------------------------------------------------------------- |
+| `dotfiles_help`   | Exibe uma lista de comandos úteis e ajuda dos `.dotfiles`.                                   |
+| `dotfiles_update` | Atualiza o repositório dos `.dotfiles`, aplica as últimas configurações e restaura symlinks. |
+| `dotfiles_theme`  | Abre o seletor interativo de tema Powerlevel10k para personalizar o visual do terminal.      |
+| `dotfiles_reload` | Recarrega o Zsh aplicando imediatamente as alterações feitas nos arquivos de configuração.   |
 
 Esses comandos estão disponíveis automaticamente após a instalação e facilitam a manutenção e personalização do seu ambiente.
 
@@ -229,7 +231,8 @@ Para garantir que os scripts de instalação funcionem corretamente em um ambien
 ├── Dockerfile                   → Dockerfile criado para realizar os testes automatizados.
 ├── symlinks.conf                → Define os symlinks a serem criados.
 ├── LICENSE                      → Licença do projeto
-└── README.md                    → Este arquivo
+├── README.en.md                 → Este arquivo em Inglês
+└── README.md                    → Este arquivo em Português
 ```
 
 ## 🖼️ Imagens
