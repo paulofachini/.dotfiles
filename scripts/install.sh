@@ -39,6 +39,7 @@ if [[ "$(uname)" == "Linux" ]]; then
     printf "🐧 Detectado sistema Linux (Ubuntu/Debian)."; br
     sudo apt-get update -y
     sudo apt-get install -y git zsh curl wget unzip tree screenfetch build-essential ca-certificates locales
+    sudo update-ca-certificates
 
     sudo locale-gen pt_BR.UTF-8 
     sudo update-locale LANG=pt_BR.UTF-8 LC_ALL=pt_BR.UTF-8
