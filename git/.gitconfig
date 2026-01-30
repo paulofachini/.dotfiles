@@ -47,7 +47,7 @@
 	ls = !git log --pretty=format:'%C(blue)%h%C(red)%d %C(white)%s %C(cyan)[%cn] %C(green)%cr'
   lg = !git log --all --decorate --oneline --graph
   hist = !git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
-	rmb = !git fetch --prune && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -d
+	rmb = !git fetch --prune && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
 	update = !git fetch origin && git merge origin/main
 	b = !git branch
 	ba = !git branch -a
