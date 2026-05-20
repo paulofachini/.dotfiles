@@ -22,7 +22,7 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$SCRIPT_DIR/utils.sh"
 
 OS=$(detect_os)
-CONFIG_FILE="$DOTFILES_DIR/symlinks.${OS}.conf"
+CONFIG_FILE="$DOTFILES_DIR/os/${OS}/symlinks.conf"
 
 # Função para criar symlinks e fazer backup de arquivos existentes
 create_symlink() {

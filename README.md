@@ -131,7 +131,7 @@ A estrutura modular facilita a personalização. Você pode editar os seguintes 
 - **`zsh/path.zsh`**: Modifique o `$PATH` e outras variáveis de ambiente.
 - **`zsh/languages.zsh`**: Configure as ferramentas para suas linguagens de programação.
 - **`.zshrc.local`**: Crie este arquivo no seu `$HOME` para adicionar configurações **privadas** que não devem ir para o repositório (como chaves de API).
-- **`symlinks.linux.conf`**: Arquivo de manifesto que define quais arquivos do repositório devem ser linkados para o seu `$HOME` no Linux/WSL.
+- **`os/linux/symlinks.conf`**: Arquivo de manifesto que define quais arquivos do repositório devem ser linkados para o seu `$HOME` no Linux/WSL.
 
 ### 🔗 Gerenciando Links Simbólicos com `symlinks.<os>.conf`
 
@@ -222,9 +222,12 @@ Para garantir que os scripts de instalação funcionem corretamente em um ambien
 ├── os/
 │   ├── linux/                   → Configurações específicas do Linux/WSL.
 │   │   ├── .wslconfig_desktop   → Configurações do WSL do Desktop.
-│   │   └── .wslconfig_note      → Configurações do WSL do Notebook.
+│   │   ├── .wslconfig_note      → Configurações do WSL do Notebook.
+│   │   └── symlinks.conf        → Symlinks do Linux/WSL.
 │   ├── windows/                 → Configurações específicas do Windows (Fase 2).
+│   │   └── symlinks.conf        → Symlinks do Windows (Fase 2).
 │   └── macos/                   → Configurações específicas do macOS (Fase 3).
+│       └── symlinks.conf        → Symlinks do macOS (Fase 3).
 ├── scripts/
 │   ├── banner.sh                → Exibe uma mensagem de boas-vindas personalizada.
 │   ├── install.sh               → Script principal de instalação (detecta o OS automaticamente).
@@ -245,9 +248,7 @@ Para garantir que os scripts de instalação funcionem corretamente em um ambien
 │   ├── setup.zsh                → Configurações do Powerlevel10k, histórico e autocompletion.
 │   └── theme.zsh                → Define e carrega o tema Powerlevel10k.
 ├── Dockerfile                   → Dockerfile para testes automatizados em ambiente isolado.
-├── symlinks.linux.conf          → Symlinks do Linux/WSL.
-├── symlinks.windows.conf        → Symlinks do Windows (Fase 2).
-├── symlinks.macos.conf          → Symlinks do macOS (Fase 3).
+
 ├── LICENSE                      → Licença do projeto.
 ├── README.en.md                 → Este arquivo em Inglês.
 └── README.md                    → Este arquivo em Português.
