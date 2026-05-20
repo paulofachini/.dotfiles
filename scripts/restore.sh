@@ -10,24 +10,19 @@
 #
 # Uso: ./restore.sh (chamado automaticamente pelo install.sh e dotupdate)
 # Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
-# Data: Outubro 2025
-# Versão: 1.1.0
+# Data: Outubro 2025 | Atualizado: Maio 2026
+# Versão: 2.0.0
 # Licença: MIT
-# Dependências: zsh
+# Dependências: zsh, scripts/utils.sh
 # =====================================================================================
 
 BACKUP_DIR="$HOME/.backup_dotfiles_$(date +%Y%m%d_%H%M%S)"
 DOTFILES_DIR="$HOME/.dotfiles"
-ZSH_DIR="$DOTFILES_DIR/zsh"
-CONFIG_FILE="$DOTFILES_DIR/symlinks.conf"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh"
 
-# Quebra linha N vezes
-br() {
-    local count="${1:-1}"
-    for (( i=0; i<count; i++ )); do
-        printf "\n"
-    done
-}
+OS=$(detect_os)
+CONFIG_FILE="$DOTFILES_DIR/symlinks.${OS}.conf"
 
 # Função para criar symlinks e fazer backup de arquivos existentes
 create_symlink() {
