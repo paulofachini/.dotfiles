@@ -33,10 +33,3 @@ jobs:
         run: |
           chmod +x "$HOME/.dotfiles/scripts/test.sh"
           "$HOME/.dotfiles/scripts/test.sh"
-
-      - name: Validate symlinks
-        run: |
-          echo "🔗 Validando symlinks..."
-          test -L "$HOME/.zshrc"     && echo "✅ .zshrc ok"     || echo "❌ .zshrc ausente"
-          test -L "$HOME/.gitconfig" && echo "✅ .gitconfig ok" || echo "❌ .gitconfig ausente"
-          echo "✅ Validação concluída"

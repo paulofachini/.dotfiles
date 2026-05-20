@@ -10,24 +10,21 @@
 #
 # Uso: ./test.sh (executado automaticamente pelo Docker)
 # Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
-# Data: Outubro 2025
-# Versão: 1.0.0
+# Data: Outubro 2025 | Atualizado: Maio 2026
+# Versão: 2.0.0
 # Licença: MIT
-# Dependências: zsh, git
+# Dependências: zsh, git, scripts/utils.sh
 # =====================================================================================
 
-# Quebra linha N vezes
-br() {
-    local count="${1:-1}"
-    for (( i=0; i<count; i++ )); do
-        printf "\n"
-    done
-}
+# Carrega funções utilitárias compartilhadas
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh"
 
 set -e
 
 DOTFILES_DIR="$HOME/.dotfiles"
-CONFIG_FILE="$DOTFILES_DIR/symlinks.conf"
+OS=$(detect_os)
+CONFIG_FILE="$DOTFILES_DIR/os/${OS}/symlinks.conf"
 ZSH_CUSTOM="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}"
 
 printf "🧪 Iniciando testes dos .dotfiles..."; br
