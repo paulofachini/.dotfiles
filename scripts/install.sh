@@ -12,42 +12,44 @@
 #
 # Uso: ./install.sh ou bash -c "$(curl -fsSL URL)"
 # Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
-# Data: Outubro 2025
-# Versão: 2.1.0
+# Data: Outubro 2025 | Atualizado: Maio 2026
+# Versão: 3.0.0
 # Licença: MIT
 # Dependências: bash, zsh, curl, git, sudo
+# Plataformas: Linux/WSL (Fase 1) | Windows/Git Bash (Fase 2) | macOS (Fase 3)
 # =====================================================================================
-
-# Quebra linha N vezes
-br() {
-    local count="${1:-1}"
-    for (( i=0; i<count; i++ )); do
-        printf "\n"
-    done
-}
 
 set -e # Encerra o script se um comando falhar
 
-# Função para verificar se um comando existe
-command_exists() {
-    command -v "$1" >/dev/null 2>&1
-}
+# Carrega funções utilitárias compartilhadas
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$SCRIPT_DIR/utils.sh"
+
+OS=$(detect_os)
 
 printf "📦 Verificando e instalando dependências..."; br
 
-if [[ "$(uname)" == "Linux" ]]; then
+case "$OS" in
+  linux)
     printf "🐧 Detectado sistema Linux (Ubuntu/Debian)."; br
     sudo apt-get update -y
     sudo apt-get install -y git zsh curl wget unzip tree screenfetch build-essential ca-certificates locales
     sudo update-ca-certificates
 
-    sudo locale-gen pt_BR.UTF-8 
+    sudo locale-gen pt_BR.UTF-8
     sudo update-locale LANG=pt_BR.UTF-8 LC_ALL=pt_BR.UTF-8
     printf "🌐 Locale para pt_BR.UTF-8 configurado."; br
-else
-    printf "❌ Sistema operacional não suportado: $(uname)"; br
-    exit 1
-fi
+    ;;
+  macos)
+    error "Suporte a macOS ainda não implementado. Em desenvolvimento na Fase 3."
+    ;;
+  windows)
+    error "Suporte a Windows ainda não implementado. Em desenvolvimento na Fase 2."
+    ;;
+  *)
+    error "Sistema operacional não suportado: $(uname -s)"
+    ;;
+esac
 
 # Instalar Oh My Zsh (se não estiver instalado)
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
