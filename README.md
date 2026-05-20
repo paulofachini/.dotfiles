@@ -11,7 +11,7 @@ O objetivo é ter um ambiente produtivo, bonito e facilmente replicável com um 
 | Plataforma | Status | Shell |
 |---|---|---|
 | 🐧 Linux / WSL (Ubuntu) | ✅ Suportado | `zsh` + Oh My Zsh |
-| 🤟 Windows (Git Bash) | 🚧 Em desenvolvimento (Fase 2) | `zsh` + Oh My Zsh |
+| � Windows (Git Bash) | 🚧 Em desenvolvimento (Fase 2) | `zsh` + Oh My Zsh |
 | 🍎 macOS | 🚧 Em desenvolvimento (Fase 3) | `zsh` + Oh My Zsh |
 
 ## ✨ Características
@@ -133,11 +133,11 @@ A estrutura modular facilita a personalização. Você pode editar os seguintes 
 - **`.zshrc.local`**: Crie este arquivo no seu `$HOME` para adicionar configurações **privadas** que não devem ir para o repositório (como chaves de API).
 - **`os/linux/symlinks.conf`**: Arquivo de manifesto que define quais arquivos do repositório devem ser linkados para o seu `$HOME` no Linux/WSL.
 
-### 🔗 Gerenciando Links Simbólicos com `symlinks.<os>.conf`
+### 🔗 Gerenciando Links Simbólicos com `os/<plataforma>/symlinks.conf`
 
 **Formato do arquivo:**
 
-Cada plataforma possui seu próprio arquivo de symlinks (`symlinks.linux.conf`, `symlinks.windows.conf`, `symlinks.macos.conf`). O script `restore.sh` detecta o OS automaticamente e usa o arquivo correto.
+Cada plataforma possui seu próprio arquivo de symlinks dentro da pasta `os/`: `os/linux/symlinks.conf`, `os/windows/symlinks.conf`, `os/macos/symlinks.conf`. O script `restore.sh` detecta o OS automaticamente e usa o arquivo correto.
 
 Cada linha representa um link simbólico e segue o formato:
 
@@ -153,7 +153,7 @@ Você pode adicionar outros arquivos seguindo esse padrão. Comentários (linhas
 **Exemplo Prático: Adicionando seu `.gitconfig`**
 
 1. **Crie o arquivo** dentro do seu repositório. Por exemplo, você pode criar uma pasta `git` e colocar seu arquivo de configuração lá: `~/.dotfiles/git/.gitconfig`.
-2. **Adicione a entrada** no `symlinks.conf`:
+2. **Adicione a entrada** no `os/linux/symlinks.conf`:
 
    ```text
    zsh/.zshrc .zshrc
@@ -216,7 +216,9 @@ Para garantir que os scripts de instalação funcionem corretamente em um ambien
 .dotfiles/
 ├── .github/
 │   └── workflows/
-│       └── test-linux.yml        → CI/CD: testa instalação no Linux (ubuntu-latest)
+│       ├── test-linux-installation.yml   → CI/CD: testa instalação no Linux (ubuntu-latest)
+│       ├── test-windows-installation.yml → CI/CD: placeholder Windows (Fase 2, windows-latest)
+│       └── test-macos-installation.yml   → CI/CD: placeholder macOS (Fase 3, macos-latest)
 ├── git/
 │   └── .gitconfig               → Configurações do Git (ex: nome de usuário, e-mail, aliases).
 ├── os/
@@ -248,7 +250,6 @@ Para garantir que os scripts de instalação funcionem corretamente em um ambien
 │   ├── setup.zsh                → Configurações do Powerlevel10k, histórico e autocompletion.
 │   └── theme.zsh                → Define e carrega o tema Powerlevel10k.
 ├── Dockerfile                   → Dockerfile para testes automatizados em ambiente isolado.
-
 ├── LICENSE                      → Licença do projeto.
 ├── README.en.md                 → Este arquivo em Inglês.
 └── README.md                    → Este arquivo em Português.
