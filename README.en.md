@@ -8,11 +8,11 @@
 
 The goal is to have a productive, beautiful, and easily replicable environment with a single command.
 
-| Platform | Status | Shell |
-|---|---|---|
-| 🐧 Linux / WSL (Ubuntu) | ✅ Supported | `zsh` + Oh My Zsh |
-| 🪟 Windows (Git Bash) | 🚧 In development (Phase 2) | `zsh` + Oh My Zsh |
-| 🍎 macOS | 🚧 In development (Phase 3) | `zsh` + Oh My Zsh |
+| Platform                | Status                      | Shell             |
+| ----------------------- | --------------------------- | ----------------- |
+| 🐧 Linux / WSL (Ubuntu) | ✅ Supported                | `zsh` + Oh My Zsh |
+| 🪟 Windows (Git Bash)   | 🚧 In development (Phase 2) | `zsh` + Oh My Zsh |
+| 🍎 macOS                | 🚧 In development (Phase 3) | `zsh` + Oh My Zsh |
 
 ## ✨ Features
 
