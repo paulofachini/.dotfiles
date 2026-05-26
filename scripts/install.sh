@@ -22,8 +22,25 @@
 set -e # Encerra o script se um comando falhar
 
 # Carrega funções utilitárias compartilhadas
+# Quando executado via curl pipe, BASH_SOURCE[0] fica vazio e utils.sh não
+# está disponível localmente — define as funções mínimas necessárias inline.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-source "$SCRIPT_DIR/utils.sh"
+if [[ -f "$SCRIPT_DIR/utils.sh" ]]; then
+  source "$SCRIPT_DIR/utils.sh"
+else
+  # Fallback inline para execução via curl pipe
+  detect_os() {
+    case "$(uname -s)" in
+      Linux*)           echo "linux"   ;;
+      Darwin*)          echo "macos"   ;;
+      MINGW*|MSYS*|CYGWIN*) echo "windows" ;;
+      *)                echo "unknown" ;;
+    esac
+  }
+  br()             { local n="${1:-1}"; for ((i=0;i<n;i++)); do printf "\n"; done; }
+  error()          { printf "❌ %s" "$1"; br; exit 1; }
+  command_exists() { command -v "$1" >/dev/null 2>&1; }
+fi
 
 OS=$(detect_os)
 
