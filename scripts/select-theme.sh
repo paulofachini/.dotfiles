@@ -75,4 +75,10 @@ br() {
   done
 }
 
-show_theme_selection
+# Se recebeu argumento, aplica diretamente (modo não-interativo: CI, test.sh)
+# Caso contrário, exibe o menu interativo (uso manual)
+if [[ -n "$1" ]]; then
+  set_theme "$1"
+else
+  show_theme_selection
+fi
