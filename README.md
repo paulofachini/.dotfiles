@@ -4,9 +4,15 @@
 
 # 🧰 Repositório de `.dotfiles`
 
-**Este repositório contém meus arquivos de configuração (dotfiles) para o ambiente de desenvolvimento `WSL/Ubuntu`, utilizando `zsh`, `Oh My Zsh` e `Powerlevel10k`.**
+**Este repositório contém meus arquivos de configuração (dotfiles) para o ambiente de desenvolvimento, utilizando `zsh`, `Oh My Zsh` e `Powerlevel10k`.**
 
 O objetivo é ter um ambiente produtivo, bonito e facilmente replicável com um único comando.
+
+| Plataforma              | Status                         | Shell             |
+| ----------------------- | ------------------------------ | ----------------- |
+| 🐧 Linux / WSL (Ubuntu) | ✅ Suportado                   | `zsh` + Oh My Zsh |
+| � Windows (Git Bash)    | 🚧 Em desenvolvimento (Fase 2) | `zsh` + Oh My Zsh |
+| 🍎 macOS                | 🚧 Em desenvolvimento (Fase 3) | `zsh` + Oh My Zsh |
 
 ## ✨ Características
 
@@ -18,7 +24,8 @@ O objetivo é ter um ambiente produtivo, bonito e facilmente replicável com um 
 - **Configurações Locais**: Suporte para um arquivo `.zshrc.local` para suas configurações privadas e não versionadas.
 - **Comandos Principais**: Funções como `dotfiles_help`, `dotfiles_update`, `dotfiles_theme` e `dotfiles_reload` para facilitar manutenção e personalização.
 - **Testes Automatizados via Docker**: Validação do ambiente em container para garantir funcionamento em ambiente limpo.
-- **Compatibilidade Total**: Otimizado para WSL/Ubuntu e Windows Terminal.
+- **CI/CD com GitHub Actions**: Testes automatizados de instalação a cada push.
+- **Compatibilidade Total**: Otimizado para WSL/Ubuntu e Windows Terminal. Suporte a Windows nativo e macOS em desenvolvimento.
 
 ---
 
@@ -124,11 +131,13 @@ A estrutura modular facilita a personalização. Você pode editar os seguintes 
 - **`zsh/path.zsh`**: Modifique o `$PATH` e outras variáveis de ambiente.
 - **`zsh/languages.zsh`**: Configure as ferramentas para suas linguagens de programação.
 - **`.zshrc.local`**: Crie este arquivo no seu `$HOME` para adicionar configurações **privadas** que não devem ir para o repositório (como chaves de API).
-- **`symlinks.conf`**: Arquivo de manifesto que define quais arquivos do repositório devem ser linkados para o seu `$HOME`.
+- **`os/linux/symlinks.conf`**: Arquivo de manifesto que define quais arquivos do repositório devem ser linkados para o seu `$HOME` no Linux/WSL.
 
-### 🔗 Gerenciando Links Simbólicos com `symlinks.conf`
+### 🔗 Gerenciando Links Simbólicos com `os/<plataforma>/symlinks.conf`
 
 **Formato do arquivo:**
+
+Cada plataforma possui seu próprio arquivo de symlinks dentro da pasta `os/`: `os/linux/symlinks.conf`, `os/windows/symlinks.conf`, `os/macos/symlinks.conf`. O script `restore.sh` detecta o OS automaticamente e usa o arquivo correto.
 
 Cada linha representa um link simbólico e segue o formato:
 
@@ -144,7 +153,7 @@ Você pode adicionar outros arquivos seguindo esse padrão. Comentários (linhas
 **Exemplo Prático: Adicionando seu `.gitconfig`**
 
 1. **Crie o arquivo** dentro do seu repositório. Por exemplo, você pode criar uma pasta `git` e colocar seu arquivo de configuração lá: `~/.dotfiles/git/.gitconfig`.
-2. **Adicione a entrada** no `symlinks.conf`:
+2. **Adicione a entrada** no `os/linux/symlinks.conf`:
 
    ```text
    zsh/.zshrc .zshrc
@@ -205,21 +214,33 @@ Para garantir que os scripts de instalação funcionem corretamente em um ambien
 
 ```text
 .dotfiles/
+├── .github/
+│   └── workflows/
+│       ├── test-linux-installation.yml   → CI/CD: testa instalação no Linux (ubuntu-latest)
+│       ├── test-windows-installation.yml → CI/CD: placeholder Windows (Fase 2, windows-latest)
+│       └── test-macos-installation.yml   → CI/CD: placeholder macOS (Fase 3, macos-latest)
 ├── git/
 │   └── .gitconfig               → Configurações do Git (ex: nome de usuário, e-mail, aliases).
-├── scripts
+├── os/
+│   ├── linux/                   → Configurações específicas do Linux/WSL.
+│   │   ├── .wslconfig_desktop   → Configurações do WSL do Desktop.
+│   │   ├── .wslconfig_note      → Configurações do WSL do Notebook.
+│   │   └── symlinks.conf        → Symlinks do Linux/WSL.
+│   ├── windows/                 → Configurações específicas do Windows (Fase 2).
+│   │   └── symlinks.conf        → Symlinks do Windows (Fase 2).
+│   └── macos/                   → Configurações específicas do macOS (Fase 3).
+│       └── symlinks.conf        → Symlinks do macOS (Fase 3).
+├── scripts/
 │   ├── banner.sh                → Exibe uma mensagem de boas-vindas personalizada.
-│   ├── install.sh               → Script principal de instalação.
+│   ├── install.sh               → Script principal de instalação (detecta o OS automaticamente).
 │   ├── restore.sh               → Script para restaurar e criar os symlinks no diretório `$HOME`.
 │   ├── select-theme.sh          → Script para selecionar o tema do Powerlevel10k.
-│   └── test.sh                  → Testes automatizados para validar a instalação.
-├── wsl/
-│   ├── .wslconfig_desktop       → Configurações do WSL do Desktop (ex: distribuição padrão, recursos).
-│   └── .wslconfig_note          → Configurações do WSL do Notebook (ex: distribuição padrão, recursos).
-├── zsh
-│   ├── .p10k-clean.zsh          → Configuração do tema Powerlevel10k (visual limpo).    # Usado pelo `select-theme.sh` para criar o arquivo `.p10k.zsh`
-│   ├── .p10k-darkest.zsh        → Configuração do tema Powerlevel10k (visual escuro).   # Usado pelo `select-theme.sh` para criar o arquivo `.p10k.zsh`
-│   ├── .p10k-rainbow.zsh        → Configuração do tema Powerlevel10k (visual colorido). # Usado pelo `select-theme.sh` para criar o arquivo `.p10k.zsh`
+│   ├── test.sh                  → Testes automatizados para validar a instalação.
+│   └── utils.sh                 → Funções utilitárias compartilhadas (detect_os, is_wsl, etc.).
+├── zsh/
+│   ├── .p10k-clean.zsh          → Tema Powerlevel10k (visual limpo).
+│   ├── .p10k-darkest.zsh        → Tema Powerlevel10k (visual escuro).
+│   ├── .p10k-rainbow.zsh        → Tema Powerlevel10k (visual colorido).
 │   ├── .zshrc                   → Ponto de entrada que carrega todos os outros módulos.
 │   ├── aliases.zsh              → Aliases para Git, Docker, Node/NPM.
 │   ├── functions.zsh            → Funções customizadas (como `dotupdate`).
@@ -227,12 +248,11 @@ Para garantir que os scripts de instalação funcionem corretamente em um ambien
 │   ├── path.zsh                 → Variáveis de ambiente e PATH.
 │   ├── plugins.zsh              → Oh My Zsh + plugins externos.
 │   ├── setup.zsh                → Configurações do Powerlevel10k, histórico e autocompletion.
-│   └── theme.zsh                → Defini e carrega o tema Powerlevel10k.
-├── Dockerfile                   → Dockerfile criado para realizar os testes automatizados.
-├── symlinks.conf                → Define os symlinks a serem criados.
-├── LICENSE                      → Licença do projeto
-├── README.en.md                 → Este arquivo em Inglês
-└── README.md                    → Este arquivo em Português
+│   └── theme.zsh                → Define e carrega o tema Powerlevel10k.
+├── Dockerfile                   → Dockerfile para testes automatizados em ambiente isolado.
+├── LICENSE                      → Licença do projeto.
+├── README.en.md                 → Este arquivo em Inglês.
+└── README.md                    → Este arquivo em Português.
 ```
 
 ## 🖼️ Imagens
