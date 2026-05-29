@@ -14,30 +14,37 @@
 # Licença: MIT
 # =====================================================================================
 
-# ======================================================================
-# 🟩 NVM (Node Version Manager)
-# ======================================================================
-export NVM_DIR="$HOME/.nvm"
-if [ -s "$NVM_DIR/nvm.sh" ]; then
-  source "$NVM_DIR/nvm.sh"
-fi
-if [ -s "$NVM_DIR/bash_completion" ]; then
-  source "$NVM_DIR/bash_completion"
-fi
+# Linguagens de programação configuradas apenas no Linux (Fase 2: Windows não as utiliza)
+case "$(uname -s)" in
+  Linux*)
 
-# ======================================================================
-# 🐍 Pyenv
-# ======================================================================
-export PYENV_ROOT="$HOME/.pyenv"
-if command -v pyenv >/dev/null; then
-  export PATH="$PYENV_ROOT/bin:$PATH"
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-fi
+    # ======================================================================
+    # 🟩 NVM (Node Version Manager)
+    # ======================================================================
+    export NVM_DIR="$HOME/.nvm"
+    if [ -s "$NVM_DIR/nvm.sh" ]; then
+      source "$NVM_DIR/nvm.sh"
+    fi
+    if [ -s "$NVM_DIR/bash_completion" ]; then
+      source "$NVM_DIR/bash_completion"
+    fi
 
-# ======================================================================
-# 🐹 Go Lang
-# ======================================================================
-export GOROOT=/usr/local/go
-export GOPATH=$HOME/go
-export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+    # ======================================================================
+    # 🐍 Pyenv
+    # ======================================================================
+    export PYENV_ROOT="$HOME/.pyenv"
+    if command -v pyenv >/dev/null; then
+      export PATH="$PYENV_ROOT/bin:$PATH"
+      eval "$(pyenv init -)"
+      eval "$(pyenv virtualenv-init -)"
+    fi
+
+    # ======================================================================
+    # 🐹 Go Lang
+    # ======================================================================
+    export GOROOT=/usr/local/go
+    export GOPATH=$HOME/go
+    export PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
+    ;;
+esac

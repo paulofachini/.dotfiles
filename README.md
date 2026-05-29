@@ -11,7 +11,7 @@ O objetivo é ter um ambiente produtivo, bonito e facilmente replicável com um 
 | Plataforma              | Status                         | Shell             |
 | ----------------------- | ------------------------------ | ----------------- |
 | 🐧 Linux / WSL (Ubuntu) | ✅ Suportado                   | `zsh` + Oh My Zsh |
-| � Windows (Git Bash)    | 🚧 Em desenvolvimento (Fase 2) | `zsh` + Oh My Zsh |
+| 🪟 Windows (Git Bash)   | ✅ Suportado                   | `zsh` + Oh My Zsh |
 | 🍎 macOS                | 🚧 Em desenvolvimento (Fase 3) | `zsh` + Oh My Zsh |
 
 ## ✨ Características
@@ -24,8 +24,7 @@ O objetivo é ter um ambiente produtivo, bonito e facilmente replicável com um 
 - **Configurações Locais**: Suporte para um arquivo `.zshrc.local` para suas configurações privadas e não versionadas.
 - **Comandos Principais**: Funções como `dotfiles_help`, `dotfiles_update`, `dotfiles_theme` e `dotfiles_reload` para facilitar manutenção e personalização.
 - **Testes Automatizados via Docker**: Validação do ambiente em container para garantir funcionamento em ambiente limpo.
-- **CI/CD com GitHub Actions**: Testes automatizados de instalação a cada push.
-- **Compatibilidade Total**: Otimizado para WSL/Ubuntu e Windows Terminal. Suporte a Windows nativo e macOS em desenvolvimento.
+- **Compatibilidade Total**: Otimizado para WSL/Ubuntu e Windows (Git Bash). Suporte a macOS em desenvolvimento (Fase 3).
 
 ---
 
@@ -35,19 +34,12 @@ O objetivo é ter um ambiente produtivo, bonito e facilmente replicável com um 
 
 Antes de começar, garanta que você tenha:
 
-- **Windows Terminal**: Recomendado para a melhor experiência, acesse [Guia de Instalação](https://github.com/microsoft/terminal).
-  Ou execute o comando abaixo no PowerShell ou Prompt de Comando:
-
-  ```shell
-  winget install --id Microsoft.WindowsTerminal -e
-  ```
-
-- **Fonte Nerd Font**: Instale a fonte **[MesloLGS NF](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#meslo-nerd-font-patched-for-powerlevel10k)** e **configure-a como padrão** no seu Windows Terminal.
-- **Windows Subsystem for Linux (WSL)**: [Guia de Instalação](https://learn.microsoft.com/pt-br/windows/wsl/install).
+- **Linux / WSL**: execute o instalador no terminal Bash.
+- **Windows**: execute o instalador no Git Bash (não no PowerShell).
 
 ### ⚡️ Instalação com Um Comando
 
-Para configurar um novo ambiente, cole o comando abaixo no seu terminal Ubuntu no WSL. Ele cuidará de tudo para você.
+Para configurar um novo ambiente, cole o comando abaixo no terminal correto da sua plataforma (Bash no Linux/WSL ou Git Bash no Windows). Ele cuidará de tudo para você.
 
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulofachini/.dotfiles/main/scripts/install.sh)"
@@ -55,12 +47,12 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulofachini/.dotfiles/m
 
 O script de instalação fará o seguinte:
 
-- Instalará dependências essenciais (`git`, `zsh`, `curl`, etc.).
-- Configurará o `locale` para `pt_BR.UTF-8`.
-- Instalará o Oh My Zsh e o definirá como seu shell padrão.
-- Clonará os plugins `zsh-autosuggestions` e `zsh-syntax-highlighting`.
-- Clonará este repositório para `~/.dotfiles`.
-- Criará os links simbólicos (`symlinks`) necessários para as configurações.
+- **Linux / WSL (Ubuntu)**:
+  instala dependências com `apt`, configura `locale` `pt_BR.UTF-8` e define o `zsh` como shell padrão.
+- **Windows (Git Bash)**:
+  instala `zsh` automaticamente (global com Admin ou local sem Admin).
+- **Ambos**:
+  instala Oh My Zsh, plugins, tema Powerlevel10k, clona/atualiza `~/.dotfiles` e cria os symlinks de configuração.
 
 Ao final, **reinicie seu terminal** para que todas as mudanças tenham efeito.
 
@@ -210,15 +202,22 @@ Para garantir que os scripts de instalação funcionem corretamente em um ambien
 
 ---
 
+## 🧪 Testando Instalação com Um Comando
+
+Para testes em branch (antes de mergear na `main`), use a mesma branch na URL e na variável `DOTFILES_REF`:
+
+```bash
+DOTFILES_REF=feature/sua-branch bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulofachini/.dotfiles/feature/sua-branch/scripts/install.sh)"
+```
+
+Isso evita ambiguidade e garante que o instalador baixe os scripts auxiliares da mesma branch.
+
+---
+
 ## 📂 Estrutura do Projeto
 
 ```text
 .dotfiles/
-├── .github/
-│   └── workflows/
-│       ├── test-linux-installation.yml   → CI/CD: testa instalação no Linux (ubuntu-latest)
-│       ├── test-windows-installation.yml → CI/CD: placeholder Windows (Fase 2, windows-latest)
-│       └── test-macos-installation.yml   → CI/CD: placeholder macOS (Fase 3, macos-latest)
 ├── git/
 │   └── .gitconfig               → Configurações do Git (ex: nome de usuário, e-mail, aliases).
 ├── os/
@@ -226,13 +225,15 @@ Para garantir que os scripts de instalação funcionem corretamente em um ambien
 │   │   ├── .wslconfig_desktop   → Configurações do WSL do Desktop.
 │   │   ├── .wslconfig_note      → Configurações do WSL do Notebook.
 │   │   └── symlinks.conf        → Symlinks do Linux/WSL.
-│   ├── windows/                 → Configurações específicas do Windows (Fase 2).
-│   │   └── symlinks.conf        → Symlinks do Windows (Fase 2).
+│   ├── windows/                 → Configurações específicas do Windows (Git Bash).
+│   │   └── symlinks.conf        → Symlinks do Windows.
 │   └── macos/                   → Configurações específicas do macOS (Fase 3).
 │       └── symlinks.conf        → Symlinks do macOS (Fase 3).
 ├── scripts/
 │   ├── banner.sh                → Exibe uma mensagem de boas-vindas personalizada.
 │   ├── install.sh               → Script principal de instalação (detecta o OS automaticamente).
+│   ├── install-zsh-gitbash.sh   → Instala zsh via pacotes MSYS2 no Git Bash (Windows).
+│   ├── messages.sh              → Mensagens auxiliares exibidas ao final da instalação.
 │   ├── restore.sh               → Script para restaurar e criar os symlinks no diretório `$HOME`.
 │   ├── select-theme.sh          → Script para selecionar o tema do Powerlevel10k.
 │   ├── test.sh                  → Testes automatizados para validar a instalação.

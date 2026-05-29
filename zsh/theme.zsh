@@ -23,3 +23,15 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Para manter a personalização utilize o `p10k configure`
 # =====================================================================================
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# Windows MSYS2: sobrescreve parâmetros após source de ~/.p10k.zsh e antes de
+# oh-my-zsh carregar o p10k. Usa opções válidas do p10k para desabilitar
+# gitstatus (daemon/fifos) e evita worker assíncrono no prompt direito.
+case "$OSTYPE" in
+  cygwin*|msys*)
+    typeset -g POWERLEVEL9K_VCS_BACKENDS=(git)
+    typeset -g POWERLEVEL9K_DISABLE_GITSTATUS=true
+    typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+    typeset -g POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=()
+    ;;
+esac

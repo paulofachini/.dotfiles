@@ -8,8 +8,8 @@
 # - Aliases avançados para produtividade
 #
 # Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
-# Data: Outubro 2025
-# Versão: 1.1.0
+# Data: Outubro 2025 | Atualizado: Maio 2026
+# Versão: 1.2.0
 # Licença: MIT
 # =====================================================================================
 
@@ -20,6 +20,9 @@
 	defaultBranch = main
 [core]
 	editor = code --wait
+	autocrlf = false
+	eol = lf
+	safecrlf = warn
 [column]
 	ui = auto
 [branch]

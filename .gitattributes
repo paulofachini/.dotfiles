@@ -1,0 +1,23 @@
+# Default: let Git detect text files and normalize line endings in the repo.
+* text=auto
+
+# Shell and config files must stay LF on all platforms.
+*.sh text eol=lf
+*.zsh text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+Dockerfile text eol=lf
+*.conf text eol=lf
+
+# Common binary assets: never modify line endings.
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.webp binary
+*.ico binary
+*.zip binary
+*.tar binary
+*.gz binary
+*.zst binary

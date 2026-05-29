@@ -52,6 +52,10 @@ fi
 
 # Ler o arquivo de configuração e criar os links
 while read -r source_path target_path; do
+    # Normaliza CRLF quando o arquivo foi salvo com final de linha Windows.
+    source_path="${source_path%$'\r'}"
+    target_path="${target_path%$'\r'}"
+
     # Ignorar linhas em branco ou comentários
     [[ -z "$source_path" || "$source_path" == \#* ]] && continue
 
