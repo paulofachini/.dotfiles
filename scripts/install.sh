@@ -89,13 +89,13 @@ case "$OS" in
     printf "📦 Verificando e instalando dependências..."; br
     brew install git zsh curl wget unzip tree
 
-    # 3. Definir Zsh como shell padrão
+    # 3. Definir Zsh como shell padrão (usa versão nativa do macOS)
     printf "🐚 Configurando Zsh como shell padrão..."; br
-    if chsh -s "$(which zsh)" 2>/dev/null; then
+    if chsh -s /bin/zsh 2>/dev/null; then
       printf "✅ Zsh definido como shell padrão."; br
     else
-      printf "⚠️ Não foi possível definir Zsh automaticamente. Execute manualmente:"; br
-      printf "   chsh -s /opt/homebrew/bin/zsh"; br
+      printf "⚠️ Não foi possível definir Zsh como padrão. Tente manualmente:"; br
+      printf "   chsh -s /bin/zsh"; br
     fi
 
     printf "✅ Configuração do macOS concluída."; br
