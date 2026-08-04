@@ -72,7 +72,34 @@ case "$OS" in
     printf "🌐 Locale para pt_BR.UTF-8 configurado."; br
     ;;
   macos)
-    error "Suporte a macOS ainda não implementado. Em desenvolvimento na Fase 3."
+    printf "🍎 Detectado macOS."; br
+
+    # 1. Verificar/Instalar Homebrew
+    if command -v brew &>/dev/null; then
+      printf "✅ Homebrew já instalado."; br
+      printf "🔄 Atualizando Homebrew..."; br
+      brew update
+    else
+      printf "🚀 Instalando Homebrew..."; br
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      br
+    fi
+
+    # 2. Instalar pacotes necessários (se não existirem)
+    printf "📦 Verificando e instalando dependências..."; br
+    brew install git zsh curl wget unzip tree
+
+    # 3. Definir Zsh como shell padrão
+    printf "🐚 Configurando Zsh como shell padrão..."; br
+    if chsh -s "$(which zsh)" 2>/dev/null; then
+      printf "✅ Zsh definido como shell padrão."; br
+    else
+      printf "⚠️ Não foi possível definir Zsh automaticamente. Execute manualmente:"; br
+      printf "   chsh -s /opt/homebrew/bin/zsh"; br
+    fi
+
+    printf "✅ Configuração do macOS concluída."; br
+    printf "🔄 Abra um novo terminal para que as mudanças tenham efeito."; br
     ;;
   windows)
     printf "🪟 Detectado Git Bash (Windows)."; br

@@ -30,6 +30,14 @@
   # Zsh >= 5.1 is required.
   [[ $ZSH_VERSION == (5.<1->*|<6->.*) ]] || return
 
+  # macOS-specific optimizations
+  if [[ "$OSTYPE" == darwin* ]]; then
+    # Disable instant prompt in non-iTerm2 terminals for stability
+    if [[ ! "$TERM_PROGRAM" =~ "iTerm" ]]; then
+      typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+    fi
+  fi
+
   # The list of segments shown on the left. Fill it with the most important segments.
   typeset -g POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(
     # =========================[ Line #1 ]=========================

@@ -12,7 +12,7 @@ The goal is to have a productive, beautiful, and easily replicable environment w
 | ----------------------- | --------------------------- | ----------------- |
 | 🐧 Linux / WSL (Ubuntu) | ✅ Supported                | `zsh` + Oh My Zsh |
 | 🪟 Windows (Git Bash)   | ✅ Supported                | `zsh` + Oh My Zsh |
-| 🍎 macOS                | 🚧 In development (Phase 3) | `zsh` + Oh My Zsh |
+| 🍎 macOS                | ✅ Supported                | `zsh` + Oh My Zsh |
 
 ## ✨ Features
 
@@ -24,7 +24,7 @@ The goal is to have a productive, beautiful, and easily replicable environment w
 - **Local Configurations**: Support for a `.zshrc.local` file for your private, unversioned settings.
 - **Main Commands**: Functions like `dotfiles_help`, `dotfiles_update`, `dotfiles_theme`, and `dotfiles_reload` to make maintenance and customization easier.
 - **Automated Testing via Docker**: Environment validation in a container to ensure everything works in a clean setup.
-- **Full Compatibility**: Optimized for WSL/Ubuntu and Windows (Git Bash). macOS support in development (Phase 3).
+- **Full Compatibility**: Optimized for WSL/Ubuntu, Windows (Git Bash), and macOS.
 
 ---
 
@@ -40,6 +40,7 @@ Before you start, make sure you have:
   manually install Git for Windows with `winget install --id Git.Git -e --source winget`.
 - **Windows**:
   run the installer in Git Bash started as Administrator, not in PowerShell.
+- **macOS**: run the installer in Terminal.app or iTerm2.
 
 ### ⚡️ One-Command Installation
 
@@ -55,7 +56,9 @@ The installation script will:
   installs dependencies using `apt`, configures `pt_BR.UTF-8` locale, and sets `zsh` as default shell.
 - **Windows (Git Bash)**:
   installs `zsh` globally into Git for Windows.
-- **Both**:
+- **macOS**:
+  installs and configures Homebrew (if needed), installs essential dependencies, and sets `zsh` as default shell.
+- **All Platforms**:
   installs Oh My Zsh, plugins, Powerlevel10k theme, clones/updates `~/.dotfiles`, and creates configuration symlinks.
 
 At the end, **restart your terminal** so all changes take effect.

@@ -12,7 +12,7 @@ O objetivo é ter um ambiente produtivo, bonito e facilmente replicável com um 
 | ----------------------- | ------------------------------ | ----------------- |
 | 🐧 Linux / WSL (Ubuntu) | ✅ Suportado                   | `zsh` + Oh My Zsh |
 | 🪟 Windows (Git Bash)   | ✅ Suportado                   | `zsh` + Oh My Zsh |
-| 🍎 macOS                | 🚧 Em desenvolvimento (Fase 3) | `zsh` + Oh My Zsh |
+| 🍎 macOS                | ✅ Suportado                   | `zsh` + Oh My Zsh |
 
 ## ✨ Características
 
@@ -24,7 +24,7 @@ O objetivo é ter um ambiente produtivo, bonito e facilmente replicável com um 
 - **Configurações Locais**: Suporte para um arquivo `.zshrc.local` para suas configurações privadas e não versionadas.
 - **Comandos Principais**: Funções como `dotfiles_help`, `dotfiles_update`, `dotfiles_theme` e `dotfiles_reload` para facilitar manutenção e personalização.
 - **Testes Automatizados via Docker**: Validação do ambiente em container para garantir funcionamento em ambiente limpo.
-- **Compatibilidade Total**: Otimizado para WSL/Ubuntu e Windows (Git Bash). Suporte a macOS em desenvolvimento (Fase 3).
+- **Compatibilidade Total**: Otimizado para WSL/Ubuntu, Windows (Git Bash) e macOS.
 
 ---
 
@@ -40,6 +40,7 @@ Antes de começar, garanta que você tenha:
   instale o Git for Windows manualmente com `winget install --id Git.Git -e --source winget`.
 - **Windows**:
   execute o instalador no Git Bash aberto como Administrador, não no PowerShell.
+- **macOS**: execute o instalador no Terminal.app ou iTerm2.
 
 ### ⚡️ Instalação com Um Comando
 
@@ -55,7 +56,9 @@ O script de instalação fará o seguinte:
   instala dependências com `apt`, configura `locale` `pt_BR.UTF-8` e define o `zsh` como shell padrão.
 - **Windows (Git Bash)**:
   instala `zsh` globalmente no Git for Windows.
-- **Ambos**:
+- **macOS**:
+  instala e configura Homebrew (se necessário), instala dependências essenciais e define `zsh` como shell padrão.
+- **Todas as Plataformas**:
   instala Oh My Zsh, plugins, tema Powerlevel10k, clona/atualiza `~/.dotfiles` e cria os symlinks de configuração.
 
 Ao final, **reinicie seu terminal** para que todas as mudanças tenham efeito.
