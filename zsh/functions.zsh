@@ -187,18 +187,19 @@ ghtoken() {
     echo ""
 
     # Pergunta se tem o token
-    read -p "👉 Você já tem um token GitHub? (s/n): " -n 1 -r
+    local resposta
+    read -k 1 "?👉 Você já tem um token GitHub? (s/n): " resposta
     echo ""
     echo ""
 
-    if [[ ! "$REPLY" =~ ^[Ss]$ ]]; then
+    if [[ ! "$resposta" =~ ^[Ss]$ ]]; then
         echo "ℹ️ Tudo bem! Você pode gerar um token depois e executar esta função novamente."
         echo ""
         return 0
     fi
 
     local token
-    read -sp "🔑 Cole seu token GitHub (será ocultado): " token
+    read -s "?🔑 Cole seu token GitHub (será ocultado): " token
     echo ""
     echo ""
 
