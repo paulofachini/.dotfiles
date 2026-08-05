@@ -87,15 +87,29 @@ case "$OS" in
 
     # 2. Instalar pacotes necessários (se não existirem)
     printf "📦 Verificando e instalando dependências..."; br
-    brew install git zsh curl wget unzip tree
+    PKGS_TO_INSTALL=()
+    for pkg in git curl wget unzip tree; do
+      if ! brew list "$pkg" &>/dev/null; then
+        PKGS_TO_INSTALL+=("$pkg")
+      fi
+    done
+    if [ ${#PKGS_TO_INSTALL[@]} -gt 0 ]; then
+      brew install "${PKGS_TO_INSTALL[@]}"
+    else
+      printf "✅ Todas as dependências já estão instaladas."; br
+    fi
 
     # 3. Definir Zsh como shell padrão (usa versão nativa do macOS)
-    printf "🐚 Configurando Zsh como shell padrão..."; br
-    if chsh -s /bin/zsh 2>/dev/null; then
-      printf "✅ Zsh definido como shell padrão."; br
+    if [ "$SHELL" = "/bin/zsh" ]; then
+      printf "✅ Zsh já é o shell padrão."; br
     else
-      printf "⚠️ Não foi possível definir Zsh como padrão. Tente manualmente:"; br
-      printf "   chsh -s /bin/zsh"; br
+      printf "🐚 Configurando Zsh como shell padrão..."; br
+      if chsh -s /bin/zsh 2>/dev/null; then
+        printf "✅ Zsh definido como shell padrão."; br
+      else
+        printf "⚠️ Não foi possível definir Zsh como padrão. Tente manualmente:"; br
+        printf "   chsh -s /bin/zsh"; br
+      fi
     fi
 
     printf "✅ Configuração do macOS concluída."; br
