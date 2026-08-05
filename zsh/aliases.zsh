@@ -37,6 +37,15 @@ alias pull="git pull origin main"
 alias push="git push origin main"
 
 # =====================================================================================
+# 🐙 GitHub CLI Helpers
+# =====================================================================================
+alias ghauth="gh auth status"
+alias ghpr="gh pr create"
+alias ghprl="gh pr list"
+alias ghprview="gh pr view"
+alias ghrepo="gh repo view"
+
+# =====================================================================================
 # 🐳 Docker Helpers
 # =====================================================================================
 alias dps="docker ps --format 'table {{.Names}}\t{{.Status}}\t{{.Ports}}'"

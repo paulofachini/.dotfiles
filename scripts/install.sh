@@ -67,6 +67,15 @@ case "$OS" in
     sudo apt-get install -y git zsh curl wget unzip tree screenfetch build-essential ca-certificates locales
     sudo update-ca-certificates
 
+    # Instalar GitHub CLI
+    if ! command_exists gh; then
+      printf "🐙 Instalando GitHub CLI..."; br
+      sudo apt-get install -y gh
+      printf "✅ GitHub CLI instalado com sucesso."; br
+    else
+      printf "✅ GitHub CLI já está instalado."; br
+    fi
+
     sudo locale-gen pt_BR.UTF-8
     sudo update-locale LANG=pt_BR.UTF-8 LC_ALL=pt_BR.UTF-8
     printf "🌐 Locale para pt_BR.UTF-8 configurado."; br
@@ -88,7 +97,7 @@ case "$OS" in
     # 2. Instalar pacotes necessários (se não existirem)
     printf "📦 Verificando e instalando dependências..."; br
     PKGS_TO_INSTALL=()
-    for pkg in git curl wget unzip tree; do
+    for pkg in git curl wget unzip tree gh; do
       if ! brew list "$pkg" &>/dev/null; then
         PKGS_TO_INSTALL+=("$pkg")
       fi
@@ -167,6 +176,19 @@ case "$OS" in
     fi
 
     bash "$INSTALL_ZSH_SCRIPT"
+
+    # Instalar GitHub CLI no Windows
+    if ! command_exists gh; then
+      printf "🐙 Instalando GitHub CLI no Windows..."; br
+      if winget install --id GitHub.cli >/dev/null 2>&1; then
+        printf "✅ GitHub CLI instalado com sucesso."; br
+      else
+        printf "⚠️ GitHub CLI não pode ser instalado automaticamente."; br
+        printf "   Instale manualmente: https://github.com/cli/cli/releases"; br
+      fi
+    else
+      printf "✅ GitHub CLI já está instalado."; br
+    fi
     ;;
   *)
     error "Sistema operacional não suportado: $(uname -s)"

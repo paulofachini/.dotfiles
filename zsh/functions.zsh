@@ -22,6 +22,7 @@ alias dotfiles_help="dothelp"
 alias dotfiles_update="dotupdate"
 alias dotfiles_theme="themeupdate"
 alias dotfiles_reload='source ~/.zshrc'
+alias dotfiles_ghtoken="ghtoken"
 
 # =====================================================================================
 # ℹ️ Função para exibir ajuda dos .dotfiles
@@ -43,6 +44,7 @@ dothelp() {
     printf "  • ${VERDE}dotfiles_help${RESET}: Mostra esta ajuda\n"
     printf "  • ${VERDE}dotfiles_update${RESET}: Atualiza os dotfiles\n"
     printf "  • ${VERDE}dotfiles_theme${RESET}: Altera o tema do Powerlevel10k\n"
+    printf "  • ${VERDE}dotfiles_ghtoken${RESET}: Configura GitHub CLI token\n"
     printf "  • ${VERDE}dotfiles_reload${RESET}: Recarrega o Zsh (${AMARELO}source ~/.zshrc${RESET})\n\n"
 }
 
@@ -159,5 +161,112 @@ extract() {
         esac
     else
         echo "'$1' is not a valid file"
+    fi
+}
+
+# =====================================================================================
+# 🐙 Função para configurar GitHub CLI token
+# Uso: ghtoken
+# Alias: dotfiles_ghtoken
+# Descrição: Configura o GH_TOKEN no arquivo ~/.zshrc.local de forma interativa.
+# O token é salvo de forma segura com permissões restritas (600).
+# O arquivo .zshrc.local persiste mesmo quando atualiza os dotfiles.
+# Dependências: gh (GitHub CLI)
+# =====================================================================================
+ghtoken() {
+    echo ""
+    echo "🐙 Configuração do GitHub CLI"
+    echo ""
+    echo "Para usar comandos como 'gh pr create', você precisa de um token GitHub."
+    echo ""
+    echo "📚 Como gerar um token:"
+    echo "   1. Acesse: https://github.com/settings/personal-access-tokens"
+    echo "   2. Clique em 'Generate new token'"
+    echo "   3. Selecione as permissões: repo, read:org"
+    echo "   4. Copie o token (aparece só uma vez!)"
+    echo ""
+
+    # Pergunta se tem o token
+    read -p "👉 Você já tem um token GitHub? (s/n): " -n 1 -r
+    echo ""
+    echo ""
+
+    if [[ ! "$REPLY" =~ ^[Ss]$ ]]; then
+        echo "ℹ️ Tudo bem! Você pode gerar um token depois e executar esta função novamente."
+        echo ""
+        return 0
+    fi
+
+    local token
+    read -sp "🔑 Cole seu token GitHub (será ocultado): " token
+    echo ""
+    echo ""
+
+    if [[ -z "$token" ]]; then
+        echo "❌ Token vazio. Operação cancelada."
+        echo ""
+        return 1
+    fi
+
+    local zshrc_local="$HOME/.zshrc.local"
+
+    # Criar .zshrc.local se não existir
+    if [[ ! -f "$zshrc_local" ]]; then
+        cat > "$zshrc_local" << 'EOF'
+# =====================================================================================
+# 🔐 .zshrc.local - Configurações locais (não versionado)
+#
+# Este arquivo é carregado automaticamente ao final do .zshrc
+# e persiste mesmo quando você atualiza os dotfiles.
+# Use-o para variáveis de ambiente, tokens e configurações pessoais.
+#
+# =====================================================================================
+
+EOF
+        chmod 600 "$zshrc_local"
+    fi
+
+    # Validar que o arquivo existe
+    if [[ ! -f "$zshrc_local" ]]; then
+        echo "❌ Não foi possível criar $zshrc_local"
+        echo ""
+        return 1
+    fi
+
+    # Atualizar ou adicionar o token
+    if grep -q "export GH_TOKEN=" "$zshrc_local"; then
+        # Token já existe, atualizar
+        sed -i.bak "s|export GH_TOKEN=.*|export GH_TOKEN=\"$token\"|g" "$zshrc_local"
+        rm -f "$zshrc_local.bak"
+    else
+        # Token não existe, adicionar
+        echo "" >> "$zshrc_local"
+        echo "# GitHub CLI Token" >> "$zshrc_local"
+        echo "export GH_TOKEN=\"$token\"" >> "$zshrc_local"
+    fi
+
+    # Validar token
+    echo "🔍 Validando token GitHub..."
+    if GH_TOKEN="$token" gh auth status >/dev/null 2>&1; then
+        echo "✅ Token validado com sucesso!"
+        echo ""
+
+        # Carregar na sessão atual
+        export GH_TOKEN="$token"
+
+        echo "🐙 GitHub CLI configurado!"
+        echo "   Arquivo: $zshrc_local"
+        echo "   Você já pode usar: gh pr create, gh issue list, etc."
+        echo ""
+        return 0
+    else
+        echo "❌ Token inválido ou expirado"
+        echo ""
+        echo "Verifique se o token:"
+        echo "  • Está correto (copie novamente da página de tokens)"
+        echo "  • Não expirou"
+        echo "  • Tem as permissões corretas (repo, read:org)"
+        echo ""
+        return 1
     fi
 }
