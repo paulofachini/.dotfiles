@@ -97,18 +97,32 @@ case "$OS" in
     # 2. Instalar pacotes necessários (se não existirem)
     printf "📦 Verificando e instalando dependências..."; br
     PKGS_TO_INSTALL=()
-    for pkg in git curl wget unzip tree gh; do
+    for pkg in git curl wget unzip tree gh scrcpy; do
       if ! brew list "$pkg" &>/dev/null; then
         PKGS_TO_INSTALL+=("$pkg")
       fi
     done
     if [ ${#PKGS_TO_INSTALL[@]} -gt 0 ]; then
-      brew install "${PKGS_TO_INSTALL[@]}"
+      yes | brew install "${PKGS_TO_INSTALL[@]}"
     else
       printf "✅ Todas as dependências já estão instaladas."; br
     fi
 
-    # 3. Definir Zsh como shell padrão (usa versão nativa do macOS)
+    # 3. Instalar pacotes cask (se não existirem)
+    printf "📦 Verificando e instalando ferramentas adicionais..."; br
+    CASKS_TO_INSTALL=()
+    for cask in android-platform-tools; do
+      if ! brew list --cask "$cask" &>/dev/null; then
+        CASKS_TO_INSTALL+=("$cask")
+      fi
+    done
+    if [ ${#CASKS_TO_INSTALL[@]} -gt 0 ]; then
+      yes | brew install --cask "${CASKS_TO_INSTALL[@]}"
+    else
+      printf "✅ Todas as ferramentas adicionais já estão instaladas."; br
+    fi
+
+    # 4. Definir Zsh como shell padrão (usa versão nativa do macOS)
     if [ "$SHELL" = "/bin/zsh" ]; then
       printf "✅ Zsh já é o shell padrão."; br
     else
