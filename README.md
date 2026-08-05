@@ -22,9 +22,10 @@ O objetivo é ter um ambiente produtivo, bonito e facilmente replicável com um 
 - **Estrutura Modular**: Configurações separadas para `aliases`, `funções`, `path` e `linguagens`.
 - **Atualizações Fáceis**: Comando `dotfiles_update` para sincronizar suas configurações com o repositório.
 - **Configurações Locais**: Suporte para um arquivo `.zshrc.local` para suas configurações privadas e não versionadas.
-- **Comandos Principais**: Funções como `dotfiles_help`, `dotfiles_update`, `dotfiles_theme` e `dotfiles_reload` para facilitar manutenção e personalização.
+- **Comandos Principais**: Funções como `dotfiles_help`, `dotfiles_update`, `dotfiles_theme`, `dotfiles_ghtoken` e `dotfiles_reload` para facilitar manutenção e personalização.
+- **Integração GitHub CLI**: Função interativa `dotfiles_ghtoken` para configurar e validar tokens do GitHub.
 - **Testes Automatizados via Docker**: Validação do ambiente em container para garantir funcionamento em ambiente limpo.
-- **Compatibilidade Total**: Otimizado para WSL/Ubuntu, Windows (Git Bash) e macOS.
+- **Compatibilidade Total**: Otimizado para WSL/Ubuntu, Windows (Git Bash) e macOS (com zsh nativo).
 
 ---
 
@@ -53,11 +54,11 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulofachini/.dotfiles/m
 O script de instalação fará o seguinte:
 
 - **Linux / WSL (Ubuntu)**:
-  instala dependências com `apt`, configura `locale` `pt_BR.UTF-8` e define o `zsh` como shell padrão.
+  instala dependências com `apt`, configura `locale` `pt_BR.UTF-8`, instala GitHub CLI e define o `zsh` como shell padrão.
 - **Windows (Git Bash)**:
-  instala `zsh` globalmente no Git for Windows.
+  instala `zsh` automaticamente (global com Admin ou local sem Admin) e instala GitHub CLI.
 - **macOS**:
-  instala e configura Homebrew (se necessário), instala dependências essenciais e define `zsh` como shell padrão.
+  instala e configura Homebrew (se necessário), instala dependências essenciais (incluindo GitHub CLI), usa o `zsh` nativo do macOS e define como shell padrão.
 - **Todas as Plataformas**:
   instala Oh My Zsh, plugins, tema Powerlevel10k, clona/atualiza `~/.dotfiles` e cria os symlinks de configuração.
 
@@ -89,12 +90,13 @@ Após finalizar a instalação com um comando, adicione o novo perfil manualment
 
 Após a instalação, você pode utilizar comandos práticos para gerenciar e personalizar seu ambiente:
 
-| Comando           | O que faz                                                                                    |
-| ----------------- | -------------------------------------------------------------------------------------------- |
-| `dotfiles_help`   | Exibe uma lista de comandos úteis e ajuda dos `.dotfiles`.                                   |
-| `dotfiles_update` | Atualiza o repositório dos `.dotfiles`, aplica as últimas configurações e restaura symlinks. |
-| `dotfiles_theme`  | Abre o seletor interativo de tema Powerlevel10k para personalizar o visual do terminal.      |
-| `dotfiles_reload` | Recarrega o Zsh aplicando imediatamente as alterações feitas nos arquivos de configuração.   |
+| Comando              | O que faz                                                                                    |
+| -------------------- | -------------------------------------------------------------------------------------------- |
+| `dotfiles_help`      | Exibe uma lista de comandos úteis e ajuda dos `.dotfiles`.                                   |
+| `dotfiles_update`    | Atualiza o repositório dos `.dotfiles`, aplica as últimas configurações e restaura symlinks. |
+| `dotfiles_theme`     | Abre o seletor interativo de tema Powerlevel10k para personalizar o visual do terminal.      |
+| `dotfiles_ghtoken`   | Configura o token do GitHub CLI de forma interativa e segura no arquivo `.zshrc.local`.      |
+| `dotfiles_reload`    | Recarrega o Zsh aplicando imediatamente as alterações feitas nos arquivos de configuração.   |
 
 Esses comandos estão disponíveis automaticamente após a instalação e facilitam a manutenção e personalização do seu ambiente.
 
@@ -138,6 +140,29 @@ Para isso utilize o comando do próprio Powerlevel10k, executando no terminal:
 ```shell
 p10k configure
 ```
+
+---
+
+## 🐙 Configurando GitHub CLI
+
+Para usar comandos como `gh pr create`, `gh issue list`, você precisa configurar um token do GitHub.
+
+### 🔑 Configurar Token do GitHub
+
+Execute o comando interativo:
+
+```shell
+dotfiles_ghtoken
+```
+
+Este comando irá:
+
+1. Orientar você a gerar um novo token em [github.com/settings/personal-access-tokens](https://github.com/settings/personal-access-tokens)
+2. Pedir para você colar o token (entrada oculta por segurança)
+3. Validar o token com o GitHub
+4. Salvar o token no arquivo `~/.zshrc.local` com permissões restritas (600)
+
+O token persiste em `~/.zshrc.local`, que não é versionado, portanto é seguro e não será perdido ao atualizar os `.dotfiles`.
 
 ---
 
