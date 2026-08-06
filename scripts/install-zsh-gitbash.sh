@@ -20,8 +20,9 @@
 #   https://packages.msys2.org/search?r=msys&q=libpcre
 #
 # Uso: bash scripts/install-zsh-gitbash.sh
+# Dependências: bash, curl, tar, powershell.exe
 # Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
-# Data: Maio 2026
+# Data: Maio 2026 | Atualizado: Agosto 2026
 # Versão: 1.2.0
 # Licença: MIT
 # =====================================================================================

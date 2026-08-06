@@ -1,3 +1,15 @@
+# =====================================================================================
+# 📄 .gitattributes - Regras de atributos e finais de linha do repositório
+#
+# Define normalização de line endings para arquivos de texto e marca binários
+# para evitar alterações indevidas de conteúdo entre plataformas.
+#
+# Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
+# Data: Agosto 2026 | Atualizado: Agosto 2026
+# Versão: 1.0.0
+# Licença: MIT
+# =====================================================================================
+
 # Default: let Git detect text files and normalize line endings in the repo.
 * text=auto
 

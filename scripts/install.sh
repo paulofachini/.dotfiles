@@ -12,7 +12,7 @@
 #
 # Uso: ./install.sh ou bash -c "$(curl -fsSL URL)"
 # Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
-# Data: Outubro 2025 | Atualizado: Maio 2026
+# Data: Outubro 2025 | Atualizado: Agosto 2026
 # Versão: 3.2.0
 # Licença: MIT
 # Dependências: bash, zsh, curl, git, sudo

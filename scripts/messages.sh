@@ -12,7 +12,7 @@
 #   perfil ZSH com Git Bash no Windows Terminal após a instalação.
 #
 # Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
-# Data: Maio 2026
+# Data: Maio 2026 | Atualizado: Agosto 2026
 # Versão: 1.1.0
 # Licença: MIT
 # Dependências: bash

@@ -11,15 +11,15 @@ Use the following header standard when creating or updating files covered by `ap
 - Title line: `# <icon> <file-name> - <short description>`
 - `# Autor: Paulo Luiz Fachini <paulofachini@gmail.com>`
 - `# Data: <Mes Ano>` or `# Data: <Mes Ano> | Atualizado: <Mes Ano>`
-- `# Versao: <x.y.z>`
-- `# Licenca: MIT`
+- `# Versão: <x.y.z>`
+- `# Licença: MIT`
 
 ## Optional fields by file type
 
-- Scripts (`scripts/*.sh`): include `# Uso:` and usually `# Dependencias:`.
+- Scripts (`scripts/*.sh`): include `# Uso:` and usually `# Dependências:`.
 - Main installer (`scripts/install.sh`): include `# Plataformas:`.
 - Manifest/config files (`os/*/symlinks.conf`, `.wslconfig_*`): include format/note lines when useful.
-- Zsh modules: `# Dependencias:` is optional and recommended when external tools are expected.
+- Zsh modules: `# Dependências:` is optional and recommended when external tools are expected.
 
 ## Header template
 
@@ -35,15 +35,15 @@ For shell scripts, keep shebang on line 1 and place header next:
 # - <optional bullet>
 #
 # Uso: <how to run/use>                          # optional depending on file type
-# Dependencias: <list>                           # optional depending on file type
+# Dependências: <list>                           # optional depending on file type
 # Plataformas: <list>                            # optional depending on file type
 # Formato: <specification>                       # optional depending on file type
 # Nota: <important note>                         # optional depending on file type
 #
 # Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
 # Data: <Mes Ano> | Atualizado: <Mes Ano>
-# Versao: <x.y.z>
-# Licenca: MIT
+# Versão: <x.y.z>
+# Licença: MIT
 # =====================================================================================
 ```
 
@@ -54,4 +54,4 @@ For non-shell files that already use `#` comments, use the same block without sh
 - Preserve existing meaningful summary text.
 - Add only missing required fields.
 - Do not change generated headers in Powerlevel10k files (`zsh/.p10k-*.zsh`).
-- Keep ASCII whenever possible.
+- Preserve emojis and correct Portuguese accentuation in headers.

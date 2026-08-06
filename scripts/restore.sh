@@ -10,7 +10,7 @@
 #
 # Uso: ./restore.sh (chamado automaticamente pelo install.sh e dotupdate)
 # Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
-# Data: Outubro 2025 | Atualizado: Maio 2026
+# Data: Outubro 2025 | Atualizado: Agosto 2026
 # Versão: 2.0.0
 # Licença: MIT
 # Dependências: zsh, scripts/utils.sh

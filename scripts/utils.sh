@@ -9,7 +9,7 @@
 #
 # Uso: source scripts/utils.sh (chamado pelos outros scripts)
 # Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
-# Data: Maio 2026
+# Data: Maio 2026 | Atualizado: Agosto 2026
 # Versão: 1.1.0
 # Licença: MIT
 # =====================================================================================

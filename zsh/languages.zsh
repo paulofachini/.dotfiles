@@ -9,7 +9,7 @@
 # Dependências: nvm, pyenv, go
 #
 # Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
-# Data: Outubro 2025
+# Data: Outubro 2025 | Atualizado: Agosto 2026
 # Versão: 1.1.0
 # Licença: MIT
 # =====================================================================================
