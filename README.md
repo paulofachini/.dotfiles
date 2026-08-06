@@ -34,6 +34,7 @@ O objetivo é ter um ambiente produtivo, bonito e facilmente replicável com um 
 
 Antes de começar, garanta que você tenha:
 
+- **Fonte Nerd Font**: Instale a fonte **[MesloLGS NF](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#meslo-nerd-font-patched-for-powerlevel10k)** e **configure-a como padrão** no seu terminal.
 - **Linux / WSL**: execute o instalador no terminal Bash.
 - **Windows**:
   instale o Git for Windows manualmente com `winget install --id Git.Git -e --source winget`.
