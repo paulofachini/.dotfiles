@@ -239,7 +239,7 @@ chmod +x "$DOTFILES_DIR/scripts/"*.sh
 # Banner de boas-vindas e instalação concluída!
 "$DOTFILES_DIR/scripts/banner.sh"
 
-# Orientação final única para Windows Terminal
+# Orientação final para criar perfil ZSH com Git Bash no Windows Terminal
 if [[ "$OS" == "windows" ]]; then
     br
     source "$DOTFILES_DIR/scripts/messages.sh"

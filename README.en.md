@@ -39,13 +39,11 @@ Before you start, make sure you have:
 - **Windows**:
   manually install Git for Windows with `winget install --id Git.Git -e --source winget`.
 - **Windows**:
-  create a `Git Bash` profile in Windows Terminal pointing to `C:\Program Files\Git\bin\bash.exe`, with starting directory `%USERPROFILE%`, icon `C:\Program Files\Git\mingw64\share\git\git-for-windows.ico`, and the run-as-Administrator option enabled.
-- **Windows**:
-  run the installer from that Git Bash profile in Windows Terminal, not from PowerShell.
+  run the installer in Git Bash started as Administrator, not in PowerShell.
 
 ### ⚡️ One-Command Installation
 
-To set up a new environment, paste the command below into the correct terminal for your platform (Bash on Linux/WSL or Git Bash on Windows). It will take care of everything for you.
+To set up a new environment, paste the command below into the correct terminal for your platform (Bash on Linux/WSL or Git Bash on Windows). On Windows, start Git Bash as Administrator before running it.
 
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulofachini/.dotfiles/main/scripts/install.sh)"
@@ -56,15 +54,15 @@ The installation script will:
 - **Linux / WSL (Ubuntu)**:
   installs dependencies using `apt`, configures `pt_BR.UTF-8` locale, and sets `zsh` as default shell.
 - **Windows (Git Bash)**:
-  installs `zsh` globally into Git for Windows by using the elevated Git Bash profile.
+  installs `zsh` globally into Git for Windows.
 - **Both**:
   installs Oh My Zsh, plugins, Powerlevel10k theme, clones/updates `~/.dotfiles`, and creates configuration symlinks.
 
 At the end, **restart your terminal** so all changes take effect.
 
-### 🪟 Setting Up the Git Bash Profile in Windows Terminal
+### 🪟 Setting Up the ZSH with Git Bash Profile in Windows Terminal
 
-If the profile does not exist yet, add it manually in Windows Terminal:
+After the one-command installation is complete, add the new profile manually in Windows Terminal:
 
 - Open Windows Terminal.
 - Click the dropdown arrow on the top bar and open Settings, or press `Ctrl + ,`.
@@ -74,10 +72,10 @@ If the profile does not exist yet, add it manually in Windows Terminal:
 
 ```json
 {
-  "commandline": "C:\\Program Files\\Git\\bin\\bash.exe",
+  "commandline": "C:\\Program Files\\Git\\usr\\bin\\zsh.exe -l",
   "elevate": true,
   "icon": "C:\\Program Files\\Git\\mingw64\\share\\git\\git-for-windows.ico",
-  "name": "Git Bash",
+  "name": "ZSH with Git Bash",
   "startingDirectory": "%USERPROFILE%"
 }
 ```

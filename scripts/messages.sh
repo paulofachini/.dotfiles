@@ -9,7 +9,7 @@
 #
 # Funções expostas:
 # - show_windows_terminal_guidance: exibe orientação final para configurar o
-#   perfil Git Bash no Windows Terminal com zsh (modo local ou global).
+#   perfil ZSH com Git Bash no Windows Terminal após a instalação.
 #
 # Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
 # Data: Maio 2026
@@ -30,10 +30,11 @@ fi
 
 show_windows_terminal_guidance() {
   printf "⚠️ Passo adicional importante"; br
-  printf "Para usar o Zsh e temas como padrão no perfil 'Git Bash' do Windows Terminal:"; br
-  printf "Atualize a Linha de comando para a opção abaixo:"; br
-
-  if [[ -x "/usr/bin/zsh.exe" ]]; then
-    printf '%s\n' "  • Instalação global (com admin): C:\Program Files\Git\usr\bin\zsh.exe -l"
-  fi
+  printf "Para usar o ZSH e temas como padrão no Windows Terminal:"; br
+  printf "Crie um novo perfil com os dados abaixo:"; br
+  printf '%s\n' "  • Nome: ZSH com Git Bash"
+  printf '%s\n' "  • Diretório inicial: %USERPROFILE%"
+  printf '%s\n' "  • Ícone: C:\Program Files\Git\mingw64\share\git\git-for-windows.ico"
+  printf '%s\n' "  • Executar como Administrador: Ativado"
+  printf '%s\n' "  • Linha de comando: C:\Program Files\Git\usr\bin\zsh.exe -l"
 }
