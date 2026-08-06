@@ -5,6 +5,7 @@ These instructions apply to all AI-assisted edits in this repository.
 ## Source of truth
 
 - Follow the header standard in `.github/instructions/header-style.instructions.md`.
+- Keep README language versions synchronized per `.github/instructions/readme-sync.instructions.md`.
 
 ## Mandatory behavior
 
@@ -13,6 +14,7 @@ These instructions apply to all AI-assisted edits in this repository.
   - Keep the existing header block.
   - If missing required fields, add only the missing fields.
   - Do not remove meaningful summary lines.
+- When changing `README.md` or `README.en.md`, mirror behavioral/instructional changes in the counterpart file within the same commit.
 - Keep changes minimal and focused; avoid unrelated reformatting.
 
 ## Exceptions
