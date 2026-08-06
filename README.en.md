@@ -8,11 +8,11 @@
 
 The goal is to have a productive, beautiful, and easily replicable environment with a single command.
 
-| Platform                | Status                      | Shell             |
-| ----------------------- | --------------------------- | ----------------- |
-| 🐧 Linux / WSL (Ubuntu) | ✅ Supported                | `zsh` + Oh My Zsh |
-| 🪟 Windows (Git Bash)   | ✅ Supported                | `zsh` + Oh My Zsh |
-| 🍎 macOS                | 🚧 In development (Phase 3) | `zsh` + Oh My Zsh |
+| Platform                | Status       | Shell             |
+| ----------------------- | ------------ | ----------------- |
+| 🐧 Linux / WSL (Ubuntu) | ✅ Supported | `zsh` + Oh My Zsh |
+| 🪟 Windows (Git Bash)   | ✅ Supported | `zsh` + Oh My Zsh |
+| 🍎 macOS                | ✅ Supported | `zsh` + Oh My Zsh |
 
 ## ✨ Features
 
@@ -22,9 +22,10 @@ The goal is to have a productive, beautiful, and easily replicable environment w
 - **Modular Structure**: Separate configurations for `aliases`, `functions`, `path`, and `languages`.
 - **Easy Updates**: `dotfiles_update` command to sync your settings with the repository.
 - **Local Configurations**: Support for a `.zshrc.local` file for your private, unversioned settings.
-- **Main Commands**: Functions like `dotfiles_help`, `dotfiles_update`, `dotfiles_theme`, and `dotfiles_reload` to make maintenance and customization easier.
+- **Main Commands**: Functions like `dotfiles_help`, `dotfiles_update`, `dotfiles_theme`, `dotfiles_ghtoken`, and `dotfiles_reload` to make maintenance and customization easier.
+- **GitHub CLI Integration**: Interactive `dotfiles_ghtoken` function to configure and validate GitHub tokens.
 - **Automated Testing via Docker**: Environment validation in a container to ensure everything works in a clean setup.
-- **Full Compatibility**: Optimized for WSL/Ubuntu and Windows (Git Bash). macOS support in development (Phase 3).
+- **Full Compatibility**: Optimized for WSL/Ubuntu, Windows (Git Bash), and macOS (with native zsh).
 
 ---
 
@@ -40,6 +41,7 @@ Before you start, make sure you have:
   manually install Git for Windows with `winget install --id Git.Git -e --source winget`.
 - **Windows**:
   run the installer in Git Bash started as Administrator, not in PowerShell.
+- **macOS**: run the installer in Terminal.app or iTerm2.
 
 ### ⚡️ One-Command Installation
 
@@ -52,10 +54,12 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulofachini/.dotfiles/m
 The installation script will:
 
 - **Linux / WSL (Ubuntu)**:
-  installs dependencies using `apt`, configures `pt_BR.UTF-8` locale, and sets `zsh` as default shell.
+  installs dependencies using `apt`, configures `pt_BR.UTF-8` locale, installs GitHub CLI, and sets `zsh` as default shell.
 - **Windows (Git Bash)**:
-  installs `zsh` globally into Git for Windows.
-- **Both**:
+  installs `zsh` automatically (global with Admin or local without Admin) and installs GitHub CLI.
+- **macOS**:
+  installs and configures Homebrew (if needed), installs essential dependencies (including GitHub CLI), uses native macOS `zsh`, and sets as default shell.
+- **All Platforms**:
   installs Oh My Zsh, plugins, Powerlevel10k theme, clones/updates `~/.dotfiles`, and creates configuration symlinks.
 
 At the end, **restart your terminal** so all changes take effect.
@@ -86,12 +90,13 @@ After the one-command installation is complete, add the new profile manually in 
 
 After installation, you can use handy commands to manage and customize your environment:
 
-| Command           | What it does                                                                           |
-| ----------------- | -------------------------------------------------------------------------------------- |
-| `dotfiles_help`   | Shows a list of useful commands and help for the `.dotfiles`.                          |
-| `dotfiles_update` | Updates the `.dotfiles` repository, applies the latest configs, and restores symlinks. |
-| `dotfiles_theme`  | Opens the interactive Powerlevel10k theme selector to customize your terminal's look.  |
-| `dotfiles_reload` | Reloads Zsh, applying changes made to config files immediately.                        |
+| Command            | What it does                                                                           |
+| ------------------ | -------------------------------------------------------------------------------------- |
+| `dotfiles_help`    | Shows a list of useful commands and help for the `.dotfiles`.                          |
+| `dotfiles_update`  | Updates the `.dotfiles` repository, applies the latest configs, and restores symlinks. |
+| `dotfiles_theme`   | Opens the interactive Powerlevel10k theme selector to customize your terminal's look.  |
+| `dotfiles_ghtoken` | Configures the GitHub CLI token interactively and securely in the `.zshrc.local` file. |
+| `dotfiles_reload`  | Reloads Zsh, applying changes made to config files immediately.                        |
 
 These commands are available automatically after installation and make it easy to maintain and personalize your environment.
 
@@ -135,6 +140,29 @@ To do this, use the Powerlevel10k command by running in the terminal:
 ```shell
 p10k configure
 ```
+
+---
+
+## 🐙 Configuring GitHub CLI
+
+To use commands like `gh pr create`, `gh issue list`, you need to configure a GitHub token.
+
+### 🔑 Setting Up Your GitHub Token
+
+Run the interactive setup command:
+
+```shell
+dotfiles_ghtoken
+```
+
+This command will:
+
+1. Guide you to generate a new token at [github.com/settings/personal-access-tokens](https://github.com/settings/personal-access-tokens)
+2. Ask you to paste your token (input is hidden for security)
+3. Validate the token with GitHub
+4. Save the token in the `~/.zshrc.local` file with restricted permissions (600)
+
+The token persists in `~/.zshrc.local`, which is unversioned, so it's safe and won't be lost when you update the `.dotfiles`.
 
 ---
 

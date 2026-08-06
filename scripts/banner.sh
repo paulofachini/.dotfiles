@@ -87,11 +87,11 @@ printfrg_bold() {
 }
 
 print_rainbow_gradient_ascii() {
-  local -n ascii_lines=$1
-  for line in "${ascii_lines[@]}"; do
-    apply_rainbow_gradient "$line"
+  local array_name="$1"
+  eval "for line in \"\${${array_name}[@]}\"; do
+    apply_rainbow_gradient \"\$line\"
     br
-  done
+  done"
   br
 }
 

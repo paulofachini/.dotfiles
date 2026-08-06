@@ -67,12 +67,76 @@ case "$OS" in
     sudo apt-get install -y git zsh curl wget unzip tree screenfetch build-essential ca-certificates locales
     sudo update-ca-certificates
 
+    # Instalar GitHub CLI
+    if ! command_exists gh; then
+      printf "🐙 Instalando GitHub CLI..."; br
+      sudo apt-get install -y gh
+      printf "✅ GitHub CLI instalado com sucesso."; br
+    else
+      printf "✅ GitHub CLI já está instalado."; br
+    fi
+
     sudo locale-gen pt_BR.UTF-8
     sudo update-locale LANG=pt_BR.UTF-8 LC_ALL=pt_BR.UTF-8
     printf "🌐 Locale para pt_BR.UTF-8 configurado."; br
     ;;
   macos)
-    error "Suporte a macOS ainda não implementado. Em desenvolvimento na Fase 3."
+    printf "🍎 Detectado macOS."; br
+
+    # 1. Verificar/Instalar Homebrew
+    if command -v brew &>/dev/null; then
+      printf "✅ Homebrew já instalado."; br
+      printf "🔄 Atualizando Homebrew..."; br
+      brew update
+    else
+      printf "🚀 Instalando Homebrew..."; br
+      /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+      br
+    fi
+
+    # 2. Instalar pacotes necessários (se não existirem)
+    printf "📦 Verificando e instalando dependências..."; br
+    PKGS_TO_INSTALL=()
+    for pkg in git curl wget unzip tree gh scrcpy; do
+      if ! brew list "$pkg" &>/dev/null; then
+        PKGS_TO_INSTALL+=("$pkg")
+      fi
+    done
+    if [ ${#PKGS_TO_INSTALL[@]} -gt 0 ]; then
+      yes | brew install "${PKGS_TO_INSTALL[@]}"
+    else
+      printf "✅ Todas as dependências já estão instaladas."; br
+    fi
+
+    # 3. Instalar pacotes cask (se não existirem)
+    printf "📦 Verificando e instalando ferramentas adicionais..."; br
+    CASKS_TO_INSTALL=()
+    for cask in android-platform-tools; do
+      if ! brew list --cask "$cask" &>/dev/null; then
+        CASKS_TO_INSTALL+=("$cask")
+      fi
+    done
+    if [ ${#CASKS_TO_INSTALL[@]} -gt 0 ]; then
+      yes | brew install --cask "${CASKS_TO_INSTALL[@]}"
+    else
+      printf "✅ Todas as ferramentas adicionais já estão instaladas."; br
+    fi
+
+    # 4. Definir Zsh como shell padrão (usa versão nativa do macOS)
+    if [ "$SHELL" = "/bin/zsh" ]; then
+      printf "✅ Zsh já é o shell padrão."; br
+    else
+      printf "🐚 Configurando Zsh como shell padrão..."; br
+      if chsh -s /bin/zsh 2>/dev/null; then
+        printf "✅ Zsh definido como shell padrão."; br
+      else
+        printf "⚠️ Não foi possível definir Zsh como padrão. Tente manualmente:"; br
+        printf "   chsh -s /bin/zsh"; br
+      fi
+    fi
+
+    printf "✅ Configuração do macOS concluída."; br
+    printf "🔄 Abra um novo terminal para que as mudanças tenham efeito."; br
     ;;
   windows)
     printf "🪟 Detectado Git Bash (Windows)."; br
@@ -126,6 +190,19 @@ case "$OS" in
     fi
 
     bash "$INSTALL_ZSH_SCRIPT"
+
+    # Instalar GitHub CLI no Windows
+    if ! command_exists gh; then
+      printf "🐙 Instalando GitHub CLI no Windows..."; br
+      if winget install --id GitHub.cli >/dev/null 2>&1; then
+        printf "✅ GitHub CLI instalado com sucesso."; br
+      else
+        printf "⚠️ GitHub CLI não pode ser instalado automaticamente."; br
+        printf "   Instale manualmente: https://github.com/cli/cli/releases"; br
+      fi
+    else
+      printf "✅ GitHub CLI já está instalado."; br
+    fi
     ;;
   *)
     error "Sistema operacional não suportado: $(uname -s)"
