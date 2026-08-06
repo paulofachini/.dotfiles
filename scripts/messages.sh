@@ -31,11 +31,7 @@ fi
 show_windows_terminal_guidance() {
   printf "⚠️ Passo adicional importante"; br
   printf "Para usar o Zsh e temas como padrão no perfil 'Git Bash' do Windows Terminal:"; br
-  printf "Atualize a Linha de comando para uma das opções abaixo:"; br
-
-  if [[ -x "$HOME/.local/bin/zsh" ]]; then
-    printf '%s\n' "  • Instalação local (sem admin): C:\Program Files\Git\bin\bash.exe -lc \"$HOME/.local/bin/zsh -l\""
-  fi
+  printf "Atualize a Linha de comando para a opção abaixo:"; br
 
   if [[ -x "/usr/bin/zsh.exe" ]]; then
     printf '%s\n' "  • Instalação global (com admin): C:\Program Files\Git\usr\bin\zsh.exe -l"

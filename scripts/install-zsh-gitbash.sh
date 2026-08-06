@@ -10,11 +10,9 @@
 #   Extraindo os pacotes MSYS2 em "/" os binários ficam em /usr/bin/zsh,
 #   e as DLLs (.dll) ficam em /usr/bin/, que já está no PATH do Git Bash.
 #
-# Estratégia de instalação:
-#   1) Se houver permissão de escrita em /usr/bin, instala no Git for Windows
-#      (equivalente a C:\Program Files\Git\usr\bin).
-#   2) Sem permissão, faz fallback automático para instalação local em:
-#      $HOME/.local/opt/msys2-zsh + wrapper em $HOME/.local/bin/zsh.
+# Pré-condição:
+#   Execute o Git Bash como Administrador no Windows Terminal para permitir a
+#   instalação em C:\Program Files\Git\usr\bin.
 #
 # Para atualizar as versões dos pacotes, consulte:
 #   https://packages.msys2.org/search?r=msys&q=zsh
@@ -49,22 +47,14 @@ MSYS2_MIRROR="https://mirror.msys2.org/msys/x86_64"
 ZSH_PKG=""
 NCURSES_PKG=""
 LIBPCRE_PKG=""
-RUNTIME_PKG=""
 ZSTD_HELPER_URL="https://github.com/facebook/zstd/releases/download/v1.5.7/zstd-v1.5.7-win64.zip"
 
 # ─────────────────────────────────────────────────────────────────────────────
 
-# Força fallback local (útil para CI validar cenário sem admin)
-FORCE_LOCAL_ZSH="${DOTFILES_FORCE_LOCAL_ZSH:-0}"
-
 # Verificação: já instalado?
-if [[ "$FORCE_LOCAL_ZSH" != "1" ]] && command -v zsh &>/dev/null; then
+if command -v zsh &>/dev/null; then
   success "zsh já está instalado: $(zsh --version)"
   exit 0
-fi
-
-if [[ "$FORCE_LOCAL_ZSH" == "1" ]]; then
-  warn "DOTFILES_FORCE_LOCAL_ZSH=1 detectado. Forçando instalação local no usuário."
 fi
 
 # Pré-requisitos básicos
@@ -140,16 +130,14 @@ download_packages() {
   ZSH_PKG="$(find_latest_pkg "zsh")"
   NCURSES_PKG="$(find_latest_pkg "ncurses")"
   LIBPCRE_PKG="$(find_latest_pkg "libpcre")"
-  RUNTIME_PKG="$(find_latest_pkg "msys2-runtime")"
 
   [[ -n "$ZSH_PKG" ]] || error "Pacote zsh não encontrado no mirror MSYS2."
   [[ -n "$NCURSES_PKG" ]] || error "Pacote ncurses não encontrado no mirror MSYS2."
   [[ -n "$LIBPCRE_PKG" ]] || error "Pacote libpcre não encontrado no mirror MSYS2."
-  [[ -n "$RUNTIME_PKG" ]] || error "Pacote msys2-runtime não encontrado no mirror MSYS2."
 
   info "Baixando as versões resolvidas:"
 
-  for pkg in "$ZSH_PKG" "$NCURSES_PKG" "$LIBPCRE_PKG" "$RUNTIME_PKG"; do
+  for pkg in "$ZSH_PKG" "$NCURSES_PKG" "$LIBPCRE_PKG"; do
     info "- $pkg..."
     curl -fsSL "$MSYS2_MIRROR/$pkg" -o "$TMP_DIR/$pkg" || error "Falha ao baixar: $MSYS2_MIRROR/$pkg"
   done
@@ -169,86 +157,18 @@ install_global() {
   done
 }
 
-install_local_user_space() {
-  local local_base="$HOME/.local/opt/msys2-zsh"
-  local local_bin="$HOME/.local/bin"
-  local zsh_wrapper="$local_bin/zsh"
-
-  printf "🧩 Sem permissão em /usr/bin. Usando instalação local no usuário..."; br
-
-  mkdir -p "$local_base" "$local_bin"
-
-  # Ordem importa: runtime primeiro para garantir msys-2.0.dll compatível.
-  for pkg in "$RUNTIME_PKG" "$ZSH_PKG" "$NCURSES_PKG" "$LIBPCRE_PKG"; do
-    info "Extraindo $pkg em $local_base..."
-    if ! extract_pkg_to "$TMP_DIR/$pkg" "$local_base"; then
-      error "Falha ao extrair $pkg para instalação local."
-    fi
-    success "$pkg instalado (local)."
-  done
-
-  # Pós-extração: configura o ambiente mínimo do MSYS2 local.
-  mkdir -p "$local_base/etc"
-
-  # nsswitch.conf: usa HOME do Windows registry (db_home: windows) → /c/Users/<user>
-  # sem esse arquivo o runtime usa Cygwin-style /home/<user> (inexistente neste install).
-  cat > "$local_base/etc/nsswitch.conf" <<'NSSWITCH'
-passwd: files db
-group: files db
-db_home: windows
-db_shell: /usr/bin/zsh
-db_gecos: %f
-NSSWITCH
-
-  # fstab: cygdrive prefix vazio → drives acessíveis como /c/, /d/ (MSYS2-style)
-  # em vez de /cygdrive/c/ (Cygwin-style). Alinha com o Git Bash e evita erros de
-  # "mkdir: cannot create directory '/cygdrive': Permission denied" no compinit.
-  cat > "$local_base/etc/fstab" <<'FSTAB'
-none / cygdrive binary,posix=0,user 0 0
-FSTAB
-
-  # /etc/profile vazio: /etc/zsh/zprofile tenta sourceá-lo; sem ele aparece aviso.
-  touch "$local_base/etc/profile"
-
-  # /tmp: necessário para gitstatus (Powerlevel10k) e fifos do p10k worker.
-  mkdir -p "$local_base/tmp"
-
-  cat > "$zsh_wrapper" <<'EOF'
-#!/bin/bash
-BASE="$HOME/.local/opt/msys2-zsh"
-export PATH="$BASE/usr/bin:$PATH"
-# ZDOTDIR garante que o zsh encontre .zshrc no $HOME do Git Bash,
-# caso o MSYS2 ainda reporte um home diferente.
-export ZDOTDIR="$HOME"
-exec "$BASE/usr/bin/zsh.exe" "$@"
-EOF
-
-  chmod +x "$zsh_wrapper"
-
-  if "$zsh_wrapper" --version >/dev/null 2>&1; then
-    :
-  else
-    error "Instalação local concluída, mas o wrapper $zsh_wrapper não executou corretamente."
-  fi
-}
-
 download_packages
 
-if [[ "$FORCE_LOCAL_ZSH" == "1" ]]; then
-  install_local_user_space
-elif touch "/usr/bin/.zsh_install_test" 2>/dev/null; then
+if touch "/usr/bin/.zsh_install_test" 2>/dev/null; then
   rm -f "/usr/bin/.zsh_install_test"
   install_global
 else
-  install_local_user_space
+  error "Sem permissão para escrever em /usr/bin. Abra o Windows Terminal com o perfil Git Bash configurado para executar como Administrador e tente novamente."
 fi
 
 # Verificação final
 if command -v zsh &>/dev/null; then
   success "zsh instalado com sucesso: $(zsh --version)"
-elif [[ -x "$HOME/.local/bin/zsh" ]] && "$HOME/.local/bin/zsh" --version >/dev/null 2>&1; then
-  success "zsh instalado com sucesso (modo local): $($HOME/.local/bin/zsh --version)"
 else
-  printf "⚠️  Instalação concluída, mas zsh não está acessível no PATH."; br
-  printf "   Se modo local, execute: ~/.local/bin/zsh --version"; br
+  error "Instalação concluída, mas o zsh não ficou acessível no PATH do Git Bash."
 fi

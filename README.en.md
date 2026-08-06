@@ -35,7 +35,12 @@ The goal is to have a productive, beautiful, and easily replicable environment w
 Before you start, make sure you have:
 
 - **Linux / WSL**: run the installer in a Bash terminal.
-- **Windows**: run the installer in Git Bash (not PowerShell).
+- **Windows**:
+  manually install Git for Windows with `winget install --id Git.Git -e --source winget`.
+- **Windows**:
+  create a `Git Bash` profile in Windows Terminal pointing to `C:\Program Files\Git\bin\bash.exe`, with starting directory `%USERPROFILE%`, icon `C:\Program Files\Git\mingw64\share\git\git-for-windows.ico`, and the run-as-Administrator option enabled.
+- **Windows**:
+  run the installer from that Git Bash profile in Windows Terminal, not from PowerShell.
 
 ### ⚡️ One-Command Installation
 
@@ -50,11 +55,31 @@ The installation script will:
 - **Linux / WSL (Ubuntu)**:
   installs dependencies using `apt`, configures `pt_BR.UTF-8` locale, and sets `zsh` as default shell.
 - **Windows (Git Bash)**:
-  installs `zsh` automatically (global with Admin or local without Admin).
+  installs `zsh` globally into Git for Windows by using the elevated Git Bash profile.
 - **Both**:
   installs Oh My Zsh, plugins, Powerlevel10k theme, clones/updates `~/.dotfiles`, and creates configuration symlinks.
 
 At the end, **restart your terminal** so all changes take effect.
+
+### 🪟 Setting Up the Git Bash Profile in Windows Terminal
+
+If the profile does not exist yet, add it manually in Windows Terminal:
+
+- Open Windows Terminal.
+- Click the dropdown arrow on the top bar and open Settings, or press `Ctrl + ,`.
+- In the left sidebar, click add a new profile.
+- Create an empty profile.
+- Fill in the fields below and save.
+
+```json
+{
+  "commandline": "C:\\Program Files\\Git\\bin\\bash.exe",
+  "elevate": true,
+  "icon": "C:\\Program Files\\Git\\mingw64\\share\\git\\git-for-windows.ico",
+  "name": "Git Bash",
+  "startingDirectory": "%USERPROFILE%"
+}
+```
 
 ---
 

@@ -132,12 +132,6 @@ case "$OS" in
     ;;
 esac
 
-# No Windows sem admin, o zsh pode ser instalado localmente em ~/.local/bin.
-# Garante que o comando esteja disponível para o instalador do Oh My Zsh.
-if [[ "$OS" == "windows" && -x "$HOME/.local/bin/zsh" ]]; then
-  export PATH="$HOME/.local/bin:$PATH"
-fi
-
 if ! command_exists zsh; then
   error "zsh não encontrado após a etapa de instalação. Verifique os logs acima e tente novamente."
 fi
@@ -146,8 +140,7 @@ fi
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
     printf "🎨 Instalando Oh My Zsh..."; br
   if [[ "$OS" == "windows" ]]; then
-    # No Git Bash, o instalador oficial pode não reconhecer o zsh local em ~/.local/bin.
-    # Faz clone direto para manter o fluxo robusto no modo sem admin.
+    # No Git Bash, mantém clone direto para evitar dependência do instalador oficial.
     git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git "$HOME/.oh-my-zsh" >/dev/null 2>&1
   else
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
