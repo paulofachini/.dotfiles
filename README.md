@@ -8,11 +8,11 @@
 
 O objetivo é ter um ambiente produtivo, bonito e facilmente replicável com um único comando.
 
-| Plataforma              | Status                         | Shell             |
-| ----------------------- | ------------------------------ | ----------------- |
-| 🐧 Linux / WSL (Ubuntu) | ✅ Suportado                   | `zsh` + Oh My Zsh |
-| 🪟 Windows (Git Bash)   | ✅ Suportado                   | `zsh` + Oh My Zsh |
-| 🍎 macOS                | ✅ Suportado                   | `zsh` + Oh My Zsh |
+| Plataforma              | Status       | Shell             |
+| ----------------------- | ------------ | ----------------- |
+| 🐧 Linux / WSL (Ubuntu) | ✅ Suportado | `zsh` + Oh My Zsh |
+| 🪟 Windows (Git Bash)   | ✅ Suportado | `zsh` + Oh My Zsh |
+| 🍎 macOS                | ✅ Suportado | `zsh` + Oh My Zsh |
 
 ## ✨ Características
 
@@ -90,13 +90,13 @@ Após finalizar a instalação com um comando, adicione o novo perfil manualment
 
 Após a instalação, você pode utilizar comandos práticos para gerenciar e personalizar seu ambiente:
 
-| Comando              | O que faz                                                                                    |
-| -------------------- | -------------------------------------------------------------------------------------------- |
-| `dotfiles_help`      | Exibe uma lista de comandos úteis e ajuda dos `.dotfiles`.                                   |
-| `dotfiles_update`    | Atualiza o repositório dos `.dotfiles`, aplica as últimas configurações e restaura symlinks. |
-| `dotfiles_theme`     | Abre o seletor interativo de tema Powerlevel10k para personalizar o visual do terminal.      |
-| `dotfiles_ghtoken`   | Configura o token do GitHub CLI de forma interativa e segura no arquivo `.zshrc.local`.      |
-| `dotfiles_reload`    | Recarrega o Zsh aplicando imediatamente as alterações feitas nos arquivos de configuração.   |
+| Comando            | O que faz                                                                                    |
+| ------------------ | -------------------------------------------------------------------------------------------- |
+| `dotfiles_help`    | Exibe uma lista de comandos úteis e ajuda dos `.dotfiles`.                                   |
+| `dotfiles_update`  | Atualiza o repositório dos `.dotfiles`, aplica as últimas configurações e restaura symlinks. |
+| `dotfiles_theme`   | Abre o seletor interativo de tema Powerlevel10k para personalizar o visual do terminal.      |
+| `dotfiles_ghtoken` | Configura o token do GitHub CLI de forma interativa e segura no arquivo `.zshrc.local`.      |
+| `dotfiles_reload`  | Recarrega o Zsh aplicando imediatamente as alterações feitas nos arquivos de configuração.   |
 
 Esses comandos estão disponíveis automaticamente após a instalação e facilitam a manutenção e personalização do seu ambiente.
 
