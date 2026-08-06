@@ -11,7 +11,7 @@ The goal is to have a productive, beautiful, and easily replicable environment w
 | Platform                | Status                      | Shell             |
 | ----------------------- | --------------------------- | ----------------- |
 | 🐧 Linux / WSL (Ubuntu) | ✅ Supported                | `zsh` + Oh My Zsh |
-| 🪟 Windows (Git Bash)   | 🚧 In development (Phase 2) | `zsh` + Oh My Zsh |
+| 🪟 Windows (Git Bash)   | ✅ Supported                | `zsh` + Oh My Zsh |
 | 🍎 macOS                | 🚧 In development (Phase 3) | `zsh` + Oh My Zsh |
 
 ## ✨ Features
@@ -24,8 +24,7 @@ The goal is to have a productive, beautiful, and easily replicable environment w
 - **Local Configurations**: Support for a `.zshrc.local` file for your private, unversioned settings.
 - **Main Commands**: Functions like `dotfiles_help`, `dotfiles_update`, `dotfiles_theme`, and `dotfiles_reload` to make maintenance and customization easier.
 - **Automated Testing via Docker**: Environment validation in a container to ensure everything works in a clean setup.
-- **CI/CD with GitHub Actions**: Automated installation tests on every push.
-- **Full Compatibility**: Optimized for WSL/Ubuntu and Windows Terminal. Native Windows and macOS support in development.
+- **Full Compatibility**: Optimized for WSL/Ubuntu and Windows (Git Bash). macOS support in development (Phase 3).
 
 ---
 
@@ -35,19 +34,16 @@ The goal is to have a productive, beautiful, and easily replicable environment w
 
 Before you start, make sure you have:
 
-- **Windows Terminal**: Recommended for the best experience, see the [Installation Guide](https://github.com/microsoft/terminal).
-  Or run the command below in PowerShell or Command Prompt:
-
-  ```shell
-  winget install --id Microsoft.WindowsTerminal -e
-  ```
-
-- **Nerd Font**: Install the **[MesloLGS NF](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#meslo-nerd-font-patched-for-powerlevel10k)** font and **set it as default** in your Windows Terminal.
-- **Windows Subsystem for Linux (WSL)**: [Installation Guide](https://learn.microsoft.com/en-us/windows/wsl/install).
+- **Nerd Font**: Install **[MesloLGS NF](https://github.com/romkatv/powerlevel10k?tab=readme-ov-file#meslo-nerd-font-patched-for-powerlevel10k)** and **set it as the default font** in your terminal.
+- **Linux / WSL**: run the installer in a Bash terminal.
+- **Windows**:
+  manually install Git for Windows with `winget install --id Git.Git -e --source winget`.
+- **Windows**:
+  run the installer in Git Bash started as Administrator, not in PowerShell.
 
 ### ⚡️ One-Command Installation
 
-To set up a new environment, paste the command below into your Ubuntu terminal in WSL. It will take care of everything for you.
+To set up a new environment, paste the command below into the correct terminal for your platform (Bash on Linux/WSL or Git Bash on Windows). On Windows, start Git Bash as Administrator before running it.
 
 ```bash
 bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulofachini/.dotfiles/main/scripts/install.sh)"
@@ -55,14 +51,34 @@ bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulofachini/.dotfiles/m
 
 The installation script will:
 
-- Install essential dependencies (`git`, `zsh`, `curl`, etc.).
-- Set the `locale` to `pt_BR.UTF-8`.
-- Install Oh My Zsh and set it as your default shell.
-- Clone the `zsh-autosuggestions` and `zsh-syntax-highlighting` plugins.
-- Clone this repository to `~/.dotfiles`.
-- Create the necessary symbolic links (symlinks) for the configurations.
+- **Linux / WSL (Ubuntu)**:
+  installs dependencies using `apt`, configures `pt_BR.UTF-8` locale, and sets `zsh` as default shell.
+- **Windows (Git Bash)**:
+  installs `zsh` globally into Git for Windows.
+- **Both**:
+  installs Oh My Zsh, plugins, Powerlevel10k theme, clones/updates `~/.dotfiles`, and creates configuration symlinks.
 
 At the end, **restart your terminal** so all changes take effect.
+
+### 🪟 Setting Up the ZSH with Git Bash Profile in Windows Terminal
+
+After the one-command installation is complete, add the new profile manually in Windows Terminal:
+
+- Open Windows Terminal.
+- Click the dropdown arrow on the top bar and open Settings, or press `Ctrl + ,`.
+- In the left sidebar, click add a new profile.
+- Create an empty profile.
+- Fill in the fields below and save.
+
+```json
+{
+  "commandline": "C:\\Program Files\\Git\\usr\\bin\\zsh.exe -l",
+  "elevate": true,
+  "icon": "C:\\Program Files\\Git\\mingw64\\share\\git\\git-for-windows.ico",
+  "name": "ZSH with Git Bash",
+  "startingDirectory": "%USERPROFILE%"
+}
+```
 
 ---
 
@@ -210,15 +226,22 @@ To ensure the installation scripts work correctly in a clean, isolated environme
 
 ---
 
+## 🧪 Testing One-Command Installation
+
+For branch testing (before merging into `main`), use the same branch in both the URL and the `DOTFILES_REF` variable:
+
+```bash
+DOTFILES_REF=feature/your-branch bash -c "$(curl -fsSL https://raw.githubusercontent.com/paulofachini/.dotfiles/feature/your-branch/scripts/install.sh)"
+```
+
+This avoids ambiguity and ensures the installer fetches helper scripts from the same branch.
+
+---
+
 ## 📂 Project Structure
 
 ```text
 .dotfiles/
-├── .github/
-│   └── workflows/
-│       ├── test-linux-installation.yml   → CI/CD: tests installation on Linux (ubuntu-latest)
-│       ├── test-windows-installation.yml → CI/CD: placeholder Windows (Phase 2, windows-latest)
-│       └── test-macos-installation.yml   → CI/CD: placeholder macOS (Phase 3, macos-latest)
 ├── git/
 │   └── .gitconfig               → Git settings (e.g., username, email, aliases).
 ├── os/
@@ -226,13 +249,15 @@ To ensure the installation scripts work correctly in a clean, isolated environme
 │   │   ├── .wslconfig_desktop   → WSL Desktop settings.
 │   │   ├── .wslconfig_note      → WSL Notebook settings.
 │   │   └── symlinks.conf        → Symlinks for Linux/WSL.
-│   ├── windows/                 → Windows-specific configurations (Phase 2).
-│   │   └── symlinks.conf        → Symlinks for Windows (Phase 2).
+│   ├── windows/                 → Windows-specific configurations (Git Bash).
+│   │   └── symlinks.conf        → Symlinks for Windows.
 │   └── macos/                   → macOS-specific configurations (Phase 3).
 │       └── symlinks.conf        → Symlinks for macOS (Phase 3).
 ├── scripts/
 │   ├── banner.sh                → Shows a custom welcome message.
 │   ├── install.sh               → Main installation script (auto-detects OS).
+│   ├── install-zsh-gitbash.sh   → Installs zsh via MSYS2 packages in Git Bash (Windows).
+│   ├── messages.sh              → Helper messages displayed at the end of installation.
 │   ├── restore.sh               → Script to restore and create symlinks in `$HOME`.
 │   ├── select-theme.sh          → Script to select the Powerlevel10k theme.
 │   ├── test.sh                  → Automated tests to validate installation.

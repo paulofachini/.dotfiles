@@ -1629,6 +1629,13 @@
   # really need it.
   typeset -g POWERLEVEL9K_DISABLE_HOT_RELOAD=true
 
+  # Windows MSYS2: usa flags oficiais para evitar daemon gitstatus/fifos.
+  if [[ "$OSTYPE" == (cygwin|msys)* ]]; then
+    typeset -g POWERLEVEL9K_VCS_BACKENDS=(git)
+    typeset -g POWERLEVEL9K_DISABLE_GITSTATUS=true
+    typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+  fi
+
   # If p10k is already loaded, reload configuration.
   # This works even with POWERLEVEL9K_DISABLE_HOT_RELOAD=true.
   (( ! $+functions[p10k] )) || p10k reload

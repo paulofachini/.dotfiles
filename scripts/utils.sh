@@ -9,8 +9,8 @@
 #
 # Uso: source scripts/utils.sh (chamado pelos outros scripts)
 # Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
-# Data: Maio 2026
-# Versão: 1.0.0
+# Data: Maio 2026 | Atualizado: Agosto 2026
+# Versão: 1.1.0
 # Licença: MIT
 # =====================================================================================
 
@@ -57,7 +57,7 @@ br() {
 
 # Exibe mensagem de informação
 info() {
-    printf "ℹ️  %s" "$1"; br
+    printf "ℹ️ %s" "$1"; br
 }
 
 # Exibe mensagem de sucesso
@@ -67,7 +67,7 @@ success() {
 
 # Exibe mensagem de aviso
 warn() {
-    printf "⚠️  %s" "$1"; br
+    printf "⚠️ %s" "$1"; br
 }
 
 # Exibe mensagem de erro e encerra (exit 1)

@@ -10,7 +10,7 @@
 #
 # Uso: ./restore.sh (chamado automaticamente pelo install.sh e dotupdate)
 # Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
-# Data: Outubro 2025 | Atualizado: Maio 2026
+# Data: Outubro 2025 | Atualizado: Agosto 2026
 # Versão: 2.0.0
 # Licença: MIT
 # Dependências: zsh, scripts/utils.sh
@@ -52,6 +52,10 @@ fi
 
 # Ler o arquivo de configuração e criar os links
 while read -r source_path target_path; do
+    # Normaliza CRLF quando o arquivo foi salvo com final de linha Windows.
+    source_path="${source_path%$'\r'}"
+    target_path="${target_path%$'\r'}"
+
     # Ignorar linhas em branco ou comentários
     [[ -z "$source_path" || "$source_path" == \#* ]] && continue
 

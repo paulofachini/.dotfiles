@@ -10,7 +10,7 @@
 # Dependências: Oh My Zsh, Powerlevel10k
 #
 # Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
-# Data: Outubro 2025
+# Data: Outubro 2025 | Atualizado: Agosto 2026
 # Versão: 1.1.0
 # Licença: MIT
 # =====================================================================================
@@ -18,9 +18,23 @@
 # =====================================================================================
 # ⚡ Powerlevel10k Instant Prompt (mantenha no topo)
 # =====================================================================================
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# Windows MSYS2: gitstatusd usa runtime/dll diferente do zsh local no Git Bash,
+# o que pode quebrar comunicação via FIFO. Desabilita gitstatus de forma oficial
+# e mantém fallback síncrono sem erro.
+# ATENÇÃO: usa 'case' em vez de [[ == (x|y)* ]] porque EXTENDED_GLOB ainda não
+# está ativo neste ponto — o padrão (cygwin|msys)* falharia silenciosamente.
+case "$OSTYPE" in
+  cygwin*|msys*)
+    typeset -g POWERLEVEL9K_INSTANT_PROMPT=off
+    typeset -g POWERLEVEL9K_VCS_BACKENDS=(git)
+    typeset -g POWERLEVEL9K_DISABLE_GITSTATUS=true
+    ;;
+  *)
+    if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+      source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+    fi
+    ;;
+esac
 
 # =====================================================================================
 # ⚙️ Opções de shell (qualidade de vida)
