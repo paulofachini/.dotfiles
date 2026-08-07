@@ -50,9 +50,10 @@ dothelp() {
 
 # =====================================================================================
 # 🔄 Função para atualizar os .dotfiles
-# Uso: dotupdate
+# Uso: dotupdate [branch]
 # Alias: dotfiles_update
-# Exemplo: dotupdate (atualiza o repositório dos .dotfiles)
+# Exemplo: dotupdate (atualiza usando a branch main)
+# Exemplo: dotupdate develop (atualiza usando a branch develop)
 # Descrição: Atualiza o repositório dos .dotfiles, aplica as alterações
 # e restaura as configurações personalizadas.
 # Esta função também atualiza o tema do Powerlevel10k e executa o script de
@@ -62,16 +63,35 @@ dothelp() {
 # Dependências: select-theme.sh, restore.sh, banner.sh
 # =====================================================================================
 dotupdate() {
+    local target_branch="${1:-main}"
+
     echo "📦 Atualizando o repositório dos .dotfiles..."
+    echo "🌿 Branch alvo: $target_branch"
     
     # Entrar no diretório do .dotfiles
     cd "$DOTFILES_DIR" || { echo "❌ Diretório $DOTFILES_DIR não encontrado"; return 1; }
 
-    # Buscar alterações do remoto e aplicar
-    git fetch origin
-    git reset --hard origin/main
-    git clean -fdx
-    cd $HOME
+    # Buscar alterações do remoto
+    git fetch origin || { echo "❌ Falha ao buscar alterações do remoto"; cd "$HOME"; return 1; }
+
+    # Validar que a branch existe no remoto
+    if ! git show-ref --verify --quiet "refs/remotes/origin/$target_branch"; then
+        echo "❌ Branch origin/$target_branch não encontrada no remoto"
+        cd "$HOME"
+        return 1
+    fi
+
+    # Garantir que a branch local alvo exista e esteja ativa
+    if git show-ref --verify --quiet "refs/heads/$target_branch"; then
+        git switch "$target_branch" || { echo "❌ Falha ao trocar para a branch $target_branch"; cd "$HOME"; return 1; }
+    else
+        git switch -c "$target_branch" --track "origin/$target_branch" || { echo "❌ Falha ao criar branch $target_branch rastreando origin/$target_branch"; cd "$HOME"; return 1; }
+    fi
+
+    # Sincronizar branch local com a branch remota
+    git reset --hard "origin/$target_branch" || { echo "❌ Falha ao sincronizar $target_branch com origin/$target_branch"; cd "$HOME"; return 1; }
+    git clean -fdx || { echo "❌ Falha ao limpar arquivos não rastreados"; cd "$HOME"; return 1; }
+    cd "$HOME"
 
     themeupdate
 

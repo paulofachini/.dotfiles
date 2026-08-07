@@ -291,12 +291,21 @@ else
     # Pular atualização se estiver em container (evita conflitos com arquivos copiados)
     if [ -z "$DOCKER_CONTAINER" ]; then
         git fetch -q origin
-      if git show-ref --verify --quiet "refs/remotes/origin/$DOTFILES_REF_EFFECTIVE"; then
-        git reset --hard "origin/$DOTFILES_REF_EFFECTIVE" >/dev/null 2>&1
-      else
-        printf "⚠️ Ref '%s' não encontrada no remoto. Usando 'main'." "$DOTFILES_REF_EFFECTIVE"; br
-        git reset --hard origin/main >/dev/null 2>&1
+
+      TARGET_REF="$DOTFILES_REF_EFFECTIVE"
+      if ! git show-ref --verify --quiet "refs/remotes/origin/$TARGET_REF"; then
+        printf "⚠️ Ref '%s' não encontrada no remoto. Usando 'main'." "$TARGET_REF"; br
+        TARGET_REF="main"
       fi
+
+      # Garante que a branch local alvo exista e esteja ativa antes de sincronizar.
+      if git show-ref --verify --quiet "refs/heads/$TARGET_REF"; then
+        git switch "$TARGET_REF" >/dev/null 2>&1
+      else
+        git switch -c "$TARGET_REF" --track "origin/$TARGET_REF" >/dev/null 2>&1
+      fi
+
+      git reset --hard "origin/$TARGET_REF" >/dev/null 2>&1
         git clean -fdx -q
         printf "✅ Repositório .dotfiles atualizado com sucesso."; br
     else
