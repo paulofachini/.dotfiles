@@ -231,16 +231,22 @@ ghtoken() {
 
     local zshrc_local="$HOME/.zshrc.local"
 
-    # Criar .zshrc.local se não existir
+    # Criar .zshrc.local se não existir (baseado no template)
     if [[ ! -f "$zshrc_local" ]]; then
         cat > "$zshrc_local" << 'EOF'
 # =====================================================================================
-# 🔐 .zshrc.local - Configurações locais (não versionado)
+# 🐚 .zshrc.local - Configurações locais do Zsh
 #
-# Este arquivo é carregado automaticamente ao final do .zshrc
-# e persiste mesmo quando você atualiza os dotfiles.
-# Use-o para variáveis de ambiente, tokens e configurações pessoais.
+# Copie este arquivo para ~/.zshrc.local e adapte conforme necessário.
+# O arquivo .zshrc.local é incluído automaticamente pelo .zshrc e NÃO é versionado.
 #
+# Exemplos de uso:
+# - Variáveis de ambiente sensíveis (tokens, chaves de API)
+# - Aliases e funções pessoais
+# - Configurações específicas da máquina
+# - Paths customizados
+#
+# Autor: Paulo Luiz Fachini <paulo.fachini@pagar.me>
 # =====================================================================================
 
 EOF

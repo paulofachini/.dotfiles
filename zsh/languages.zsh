@@ -14,9 +14,28 @@
 # Licença: MIT
 # =====================================================================================
 
-# Linguagens de programação configuradas apenas no Linux (Fase 2: Windows não as utiliza)
-case "$(uname -s)" in
-  Linux*)
+# Detectar Sistema Operacional
+_detect_os() {
+  case "$(uname -s)" in
+    Linux*)   echo "linux"   ;;
+    Darwin*)  echo "macos"   ;;
+    *)        echo "unknown" ;;
+  esac
+}
+
+# Configurações específicas por Sistema Operacional
+case "$(_detect_os)" in
+  macos)
+
+    # ======================================================================
+    # 🍎 macOS - Python 3.10 (Homebrew)
+    # ======================================================================
+    if [ -d "/opt/homebrew/opt/python@3.10/libexec/bin" ]; then
+      export PATH="/opt/homebrew/opt/python@3.10/libexec/bin:$PATH"
+    fi
+
+    ;;
+  linux)
 
     # ======================================================================
     # 🟩 NVM (Node Version Manager)

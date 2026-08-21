@@ -1,0 +1,22 @@
+# =====================================================================================
+# 🐙 .gitconfig.local.example - Exemplo de configurações locais do Git
+#
+# Copie este arquivo para ~/.gitconfig.local e adapte conforme necessário.
+# O arquivo .gitconfig.local é incluído automaticamente pelo .gitconfig e NÃO é versionado.
+#
+# Exemplos de uso:
+# - Configurações específicas de trabalho (email corporativo, certificados)
+# - Credenciais (token, SSH keys)
+# - Proxy e configurações de rede corporativas
+#
+# Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
+# =====================================================================================
+
+[user]
+	email = <e-mail>
+
+[credential]
+	helper = <helper>
+
+[http]
+	sslCAInfo = <caminho>
