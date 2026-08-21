@@ -1,0 +1,25 @@
+# =====================================================================================
+# 🐚 .zshrc.local.example - Exemplo de configurações locais do Zsh
+#
+# Copie este arquivo para ~/.zshrc.local e adapte conforme necessário.
+# O arquivo .zshrc.local é incluído automaticamente pelo .zshrc e NÃO é versionado.
+#
+# Exemplos de uso:
+# - Variáveis de ambiente sensíveis (tokens, chaves de API)
+# - Aliases e funções pessoais
+# - Configurações específicas da máquina
+# - Paths customizados
+#
+# Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
+# =====================================================================================
+
+# GitHub CLI Token
+export GH_TOKEN="<TOKEN>"
+
+# Netskope
+export GIT_SSL_CAPATH="<CERTIFICADO>"
+export SSL_CERT_FILE="<CERTIFICADO>"
+export REQUESTS_CA_BUNDLE="<CERTIFICADO>"
+export AWS_CA_BUNDLE="<CERTIFICADO>"
+export NODE_EXTRA_CA_CERTS="<CERTIFICADO>"
+export HOMEBREW_CURL_SSL_CA_BUNDLE="<CERTIFICADO>"

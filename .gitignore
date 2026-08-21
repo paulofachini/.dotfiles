@@ -1,2 +1,3 @@
 # Configurações locais (não versionadas)
 .zshrc.local
+.gitconfig.local

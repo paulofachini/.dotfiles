@@ -31,10 +31,10 @@ else
   # Fallback inline para execução via curl pipe
   detect_os() {
     case "$(uname -s)" in
-      Linux*)           echo "linux"   ;;
-      Darwin*)          echo "macos"   ;;
+      Linux*)               echo "linux"   ;;
+      Darwin*)              echo "macos"   ;;
       MINGW*|MSYS*|CYGWIN*) echo "windows" ;;
-      *)                echo "unknown" ;;
+      *)                    echo "unknown" ;;
     esac
   }
   is_git_bash()    { [[ "$MSYSTEM" == MINGW* || "$MSYSTEM" == "MSYS" ]]; }
@@ -97,7 +97,7 @@ case "$OS" in
     # 2. Instalar pacotes necessários (se não existirem)
     printf "📦 Verificando e instalando dependências..."; br
     PKGS_TO_INSTALL=()
-    for pkg in git curl wget unzip tree gh scrcpy; do
+    for pkg in git curl wget unzip tree gh scrcpy python@3.10 colima docker docker-compose; do
       if ! brew list "$pkg" &>/dev/null; then
         PKGS_TO_INSTALL+=("$pkg")
       fi
@@ -108,7 +108,27 @@ case "$OS" in
       printf "✅ Todas as dependências já estão instaladas."; br
     fi
 
-    # 3. Instalar pacotes cask (se não existirem)
+    # 3. Iniciar Colima e Docker
+    printf "🐳 Configurando Docker com Colima..."; br
+    if command -v colima &>/dev/null; then
+      if ! colima list 2>/dev/null | grep -q "default"; then
+        printf "   Iniciando Colima..."; br
+        colima start >/dev/null 2>&1 || true
+        printf "✅ Colima iniciado."; br
+      else
+        printf "✅ Colima já está rodando."; br
+      fi
+
+      if ! brew services list | grep -q "colima.*started"; then
+        printf "   Configurando Colima como serviço..."; br
+        brew services start colima >/dev/null 2>&1 || true
+        printf "✅ Colima configurado como serviço."; br
+      else
+        printf "✅ Colima já está configurado como serviço."; br
+      fi
+    fi
+
+    # 4. Instalar pacotes cask (se não existirem)
     printf "📦 Verificando e instalando ferramentas adicionais..."; br
     CASKS_TO_INSTALL=()
     for cask in android-platform-tools; do
@@ -122,7 +142,7 @@ case "$OS" in
       printf "✅ Todas as ferramentas adicionais já estão instaladas."; br
     fi
 
-    # 4. Definir Zsh como shell padrão (usa versão nativa do macOS)
+    # 5. Definir Zsh como shell padrão (usa versão nativa do macOS)
     if [ "$SHELL" = "/bin/zsh" ]; then
       printf "✅ Zsh já é o shell padrão."; br
     else

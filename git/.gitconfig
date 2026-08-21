@@ -9,7 +9,7 @@
 #
 # Autor: Paulo Luiz Fachini <paulofachini@gmail.com>
 # Data: Outubro 2025 | Atualizado: Agosto 2026
-# Versão: 1.2.0
+# Versão: 1.3.0
 # Licença: MIT
 # =====================================================================================
 
@@ -18,6 +18,10 @@
 	name = Paulo Luiz Fachini
 [init]
 	defaultBranch = main
+
+# Inclusão de configurações locais (não versionadas)
+[include]
+	path = ~/.gitconfig.local
 [core]
 	editor = code --wait
 	autocrlf = false
@@ -40,16 +44,16 @@
 	c = !git commit -m
 	co = !git checkout
 	cm = !git checkout main
-  s = !git status -s
+    s = !git status -s
 	st = !git status
 	ac = !git add . && git commit -m
 	ca = !git commit --amend --no-edit
-	amend = !git add . && git commit --amend --no-edit
+	amend = !git commit --amend --no-edit
 	fp = !git push --force-with-lease
 	fpm = !git push --force-with-lease origin main
 	ls = !git log --pretty=format:'%C(blue)%h%C(red)%d %C(white)%s %C(cyan)[%cn] %C(green)%cr'
-  lg = !git log --all --decorate --oneline --graph
-  hist = !git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
+    lg = !git log --all --decorate --oneline --graph
+    hist = !git log --pretty=format:\"%h %ad | %s%d [%an]\" --graph --date=short
 	rmb = !git fetch --prune && git branch -vv | grep ': gone]' | awk '{print $1}' | xargs git branch -D
 	update = !git fetch origin && git merge origin/main
 	b = !git branch
