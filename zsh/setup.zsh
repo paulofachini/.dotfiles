@@ -40,7 +40,7 @@ esac
 # ⚙️ Opções de shell (qualidade de vida)
 # =====================================================================================
 setopt AUTO_CD              # Entrar em diretórios sem precisar usar 'cd'
-setopt CORRECT              # Corrige pequenos erros de digitação em comandos
+# setopt CORRECT            # Corrige pequenos erros de digitação em comandos
 setopt SHARE_HISTORY        # Compartilha histórico entre múltiplos terminais
 setopt HIST_IGNORE_DUPS     # Evita duplicar comandos no histórico
 setopt HIST_IGNORE_SPACE    # Ignora comandos iniciados com espaço
